@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
-import '/src/style.css'
-import App from '/src/App.vue'
+import '@/style.css'
+import App from '@/App.vue'
 
 //引入router
-import router from '/src/router'
+import router from '@/router'
 
 //引入Element-Plus
 import ElementPlus from 'element-plus'

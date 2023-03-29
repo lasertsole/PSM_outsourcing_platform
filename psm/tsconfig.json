@@ -19,7 +19,8 @@
 		"@/*": ["./src/*"]
 	},
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/global/index.js", "src/global/index.js", "src/router/index.js", "src/router/index.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.js"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "allowJs": true,  /* 允许编译器编译 JS、JSX 文件 */
 }
 

@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-    import carousel from "/src/components/indexPage/carousel.vue"
+    import carousel from "@/components/indexPage/carousel.vue"
 </script>
 
 <style lang="scss" scoped>
@@ -26,6 +26,7 @@
     .indexPage{
         @include fullContain;
         position: relative;
+        z-index: 1;
         .top{
             @include fullContain;
             position: absolute;
@@ -34,7 +35,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             .info{
+                max-width: 700px;
+                margin-top: 100px;
                 height: 370px;
                 display: flex;
                 flex-direction: column;
@@ -44,14 +48,16 @@
                     font-size: 34px;
                     color: white;
                     font-weight: bold;
+                    padding: 0px 20px;
                 }
                 .select{
                     display: flex;
                     flex-direction: row;
+                    justify-content: space-between;
                     font-size: 20px;
+                    width: 100%;
                     .button{
                         box-sizing: border-box;
-                        margin: 0px 50px;
                         width: 260px;
                         padding: 15px 80px;
                         border-radius: 37px;
@@ -66,14 +72,14 @@
                 }
             }
             .help{
-                position: absolute;
-                left: 30px;
-                bottom: 40px;
                 font-size: 16px;
                 background-color: #00a8e9;
                 color: white;
                 padding: 5px 20px;
                 border-radius: 37px;
+                align-self: flex-start;
+                margin-top: 80px;
+                margin-left: 15px;
             }
         }
         .bottom{

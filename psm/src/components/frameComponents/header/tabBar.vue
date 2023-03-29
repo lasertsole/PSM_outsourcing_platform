@@ -1,6 +1,6 @@
 <template>
     <ul class="tabBarArr">
-        <li v-for="(item, index) in tabBarArr">
+        <li v-for="item in tabBarArr">
             <router-link class="tabbarChildItem" active-class="active" :to="item.linkTo">{{item.text}}</router-link>
         </li>
     </ul>

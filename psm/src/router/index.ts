@@ -1,8 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 /*一级路由*/
-import indexPage from "/src/pages/indexPage.vue"
+import indexPage from "@/pages/indexPage.vue"
 
-const routes = [
+const routes:RouteRecordRaw[] = [
     //首页
     {
         path: "/",
