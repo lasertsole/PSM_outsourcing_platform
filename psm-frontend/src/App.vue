@@ -1,14 +1,16 @@
 <template>
     <div class="main">
-    <HeaderComponent></HeaderComponent>
-    <div class="wrapper">
-        <router-view></router-view>
+        <HeaderComponent></HeaderComponent>
+        <div class="wrapper">
+            <router-view></router-view>
+            <session></session>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
     import HeaderComponent from "@/components/HeaderComponent.vue"
+    import session from "@/components/session.vue";
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
     <div class="header">
         <div class="left">
             <!-- 左侧logo -->
-            <router-link :to="'/index'" class="logo">
+            <router-link :to="'index'" class="logo">
                 <div class="logo-image"></div>
                 <div class="logo-info">
                     <h2>喵字幕</h2>
@@ -24,6 +24,9 @@
     </div>
     <div :class="{selectList:true, show:drawer}">
         <router-link v-for="item in tabBarArr" active-class="active" :to="<RouteLocationRaw>item.linkTo">{{item.text}}</router-link>
+        <hr>
+        <a href="#">登录</a>
+        <a href="#">注册</a>
     </div>
 </template>
 
@@ -153,7 +156,7 @@
         overflow: hidden;
         padding: 0px 15px;
         &.show{
-            height: 275px;
+            height: 388px;
         }
 
         a{
@@ -166,6 +169,10 @@
             &:hover{
                 background-color: #cccccc;
             }
+        }
+        hr{
+            height: 1px;
+            margin: 5px 0px;
         }
     }
     @media screen and (max-width: 800px) and (min-width: 600px) {
@@ -218,6 +225,4 @@
             animation: selectListMove .3s linear;
         }
     }
-</style>
-<style lang="scss">
 </style>

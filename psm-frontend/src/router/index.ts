@@ -12,8 +12,8 @@ const routes:RouteRecordRaw[] = [
     {
         path: '/index',
         name: 'index',
-        component: indexPage
-    },
+        component: indexPage,
+    }
 ]
 
 const router = createRouter({
