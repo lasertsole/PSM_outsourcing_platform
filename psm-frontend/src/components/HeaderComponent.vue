@@ -16,8 +16,8 @@
         </div>
         <div class="right">
             <div class="loginOrRegister">
-                <div class="login">登录</div>
-                <div class="register">注册</div>
+                <router-link to="loginAndRegister" class="login">登录</router-link>
+                <router-link to="loginAndRegister" class="register">注册</router-link>
             </div>
             <div @click="drawer=!drawer" class="menu"></div>
         </div>
@@ -25,8 +25,8 @@
     <div :class="{selectList:true, show:drawer}">
         <router-link v-for="item in tabBarArr" active-class="active" :to="<RouteLocationRaw>item.linkTo">{{item.text}}</router-link>
         <hr>
-        <a href="#">登录</a>
-        <a href="#">注册</a>
+        <router-link to="loginAndRegister" href="#">登录</router-link>
+        <router-link to="loginAndRegister" href="#">注册</router-link>
     </div>
 </template>
 
@@ -97,8 +97,8 @@
                 align-items: center;
                 margin-right: 10px;
                 .logo-image{
-                    @include square(35px);
-                    background-image: url(icons/vite.svg);
+                    @include square(60px);
+                    background-image: url(images/psmlogo.png);
                     background-repeat: no-repeat;
                     background-position: center;
                     background-size: 100%;
@@ -107,10 +107,12 @@
                 .logo-info{
                     h2{
                         font-size: 24px;
+                        color: #fb7299;
                     }
 
                     h5{
                         font-size: 13.5px;
+                        color: #fb7299;
                     }
                 }
             }
@@ -125,10 +127,12 @@
                 display: flex;
                 flex-direction: row;
                 .login{
+                    display: block;
                     background-color: #fb7299;
                     @include button;
                 }
                 .register{
+                    display: block;
                     background-color: #00a8e9;
                     @include button;
                 }

@@ -107,7 +107,7 @@
         height: 400px;
         width: 264px;
         box-sizing: border-box;
-        padding: 10px 0px 10px 10px;
+        border-bottom: 2px ;
         background-color: white;
         border-radius: 5px 5px 0px 0px;
         transition: all .3s linear;
@@ -125,9 +125,11 @@
             justify-content: space-between;
             cursor: pointer;
             height: 24px;
-            padding-bottom: 10px;
+            padding: 10px 0px 10px 10px;
+            border-bottom: 1px white solid;
+            background-color: #00aeec;
+            color: white;
             .left{
-                color: #707070;
                 font-weight: bold;
             }
             .right{
@@ -152,6 +154,7 @@
                 max-width: 250px;
                 min-width: 250px;
                 overflow-y: auto;
+                padding: 10px;
                 li{
                     margin-right: 10px;
                     display: flex;
