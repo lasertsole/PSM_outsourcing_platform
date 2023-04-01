@@ -29,19 +29,26 @@
                     </div>
                 </li>
             </ul>
-            <ul :class="{content:true,show:fullPage}">
-                <li>
-                    
-                </li>
-                <li>112233</li>
-                <li>112233</li>
-            </ul>
+            <div class="communication">
+                <ul :class="{content:true,show:fullPage}">
+                    <sessionBox v-for="item in chatArr"
+                        :isMe="item.isMe"
+                        :name="item.name"
+                        :profile="item.profile"
+                        :time="item.time"
+                        :content="item.content"
+                    ></sessionBox>
+                </ul>
+                <textarea class="input" maxlength="200"></textarea>
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
     import { ref } from 'vue';
+    import { sessionInfo } from "@/types/pageType/session"
+    import sessionBox from '@/components/frameComponents/session/sessionBox.vue';
 
     const hideContacts = ref<Boolean>(true);//控制隐藏和显示联系人
     function clickShowContacts():void{//点击私聊栏顶部时向上显示联系人
@@ -55,12 +62,39 @@
     function changeFullPage():void{//点击某个联系人时全屏
         fullPage.value=true;
     }
+    const chatArr:sessionInfo[] =[
+        {
+            isMe:false,
+            name:"汉偶武1",
+            profile:"images/MOYA.jpg",
+            time:"2021/9/3/23:30",
+            content:"你能不能超越计划啊?你能不能超越计划啊?你能不能超越计划啊?你能不能超越计划啊?你能不能超越计划啊?你能不能超越计划啊?你能不能超越计划啊?"
+        },
+        {
+            isMe:true,
+            name:"汉偶武2",
+            profile:"images/MOYE.jpg",
+            time:"2021/9/3/23:31",
+            content:"哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!哼，也许吧!"
+        },
+        {
+            isMe:false,
+            name:"汉偶武1",
+            profile:"images/MOYA.jpg",
+            time:"2021/9/3/23:31",
+            content:"你不要忘记了！期末考试的时候！你不要忘记了！期末考试的时候！你不要忘记了！期末考试的时候！你不要忘记了！期末考试的时候！你不要忘记了！期末考试的时候！"
+        },
+    ] 
 </script>
 
 <style lang="scss" scoped>
-    @mixin square($edgeSize){
-        width: $edgeSize;
-        height: $edgeSize;
+    @mixin square($Size){
+        width: $Size;
+        height: $Size;
+    }
+    @mixin fixedHeight($Size){
+        min-height: $Size;
+        max-height: $Size;
     }
     .session{
         display: flex;
@@ -77,6 +111,7 @@
         background-color: white;
         border-radius: 5px 5px 0px 0px;
         transition: all .3s linear;
+        overflow: hidden;
         &.hide{
             transform: translateY(calc(100% - 44px));
         }
@@ -114,7 +149,8 @@
             flex-direction: row;
             justify-content: flex-start;
             .contacts{
-                width: 250px;
+                max-width: 250px;
+                min-width: 250px;
                 overflow-y: auto;
                 li{
                     margin-right: 10px;
@@ -157,14 +193,34 @@
                     }
                 }
             }
-            .content{
-                flex-grow: 1;
-                overflow-y: auto;
-                background-color: #707070;
-                max-width: 0px;
-                transition: max-width .3s linear;
-                &.show{
-                    max-width: 100%;
+            .communication{
+                @include fixedHeight(440px);
+                display: flex;
+                flex-direction: column;
+                border-left: 2px #d4d4d4 solid;
+                .content{
+                    @include fixedHeight(250px);
+                    flex-grow: 1;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    max-width: 0px;
+                    transition: max-width .3s linear;
+                    padding: 5px;
+                    flex-direction: column;
+                    &.show{
+                        max-width: 100%;
+                        display: block;
+                    }
+                }
+                .input{
+                    @include fixedHeight(190px);
+                    box-sizing: border-box;
+                    resize:none;
+                    outline: none;
+                    overflow-y: auto;
+                    border: none;
+                    border-top: 2px #d4d4d4 solid;
+                    background-color: transparent;
                 }
             }
         }
