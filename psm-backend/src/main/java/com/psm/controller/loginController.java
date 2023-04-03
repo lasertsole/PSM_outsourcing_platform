@@ -11,7 +11,7 @@ public class loginController {
     @Autowired
     private Environment env;
     @RequestMapping(value = "/version", method = RequestMethod.GET)
-    public String hello(String name){
+    public String version(){
         return "喵剪辑后端"+env.getProperty("version");
     }
 }
