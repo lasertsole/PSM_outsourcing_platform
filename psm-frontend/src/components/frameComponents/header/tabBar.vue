@@ -1,13 +1,13 @@
 <template>
     <ul class="tabBarArr">
         <li v-for="item in tabBarArr">
-            <router-link class="tabbarChildItem" active-class="active" :to="item.linkTo">{{item.text}}</router-link>
+            <router-link active-class="selected" class="tabbarChildItem" :to="item.linkTo">{{item.text}}</router-link>
         </li>
     </ul>
 </template>
 
 <script lang="ts" setup>
-    import { defineProps} from 'vue';
+    import { defineProps } from 'vue';
     const props = defineProps({tabBarArr:Object});
 </script>
 
@@ -24,6 +24,9 @@
             align-items: center;
             a{
                 color: #707070;
+                &.selected{
+                    color: #f87299;
+                }
             }
         }
     }

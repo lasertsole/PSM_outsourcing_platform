@@ -24,9 +24,9 @@
                         <div :class="{show:!roleController}" @click="changeRole(false)">我是创作者</div>
                     </div>
                     <div class="lineContainer"><div :class="{line:true, move:!roleController}"></div></div>
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称" clearable/>
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" clearable/>
-                    <el-button type="primary">注册</el-button>
+                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称" v-model="registerAccount" clearable/>
+                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="registerPassword" clearable/>
+                    <el-button type="primary" @click="registerSend">注册</el-button>
                     <div class="backLogin" @click="changePage">已有账号,去登录</div>
                 </div>
             </transition>
@@ -36,6 +36,15 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
+    import axios from "axios"
+    
+    const registerAccount = ref<string>("");//注册账号
+    const registerPassword = ref<string>("")//注册密码
+    function registerSend():void{
+        let result = axios.post("frp-age.top:54530");
+        console.log(result);
+    }
+
 
     const pageController = ref<boolean>(true);
     function changePage():void{
@@ -166,6 +175,7 @@
                     color: #00a8e9;
                     display: flex;
                     justify-content: center;
+                    cursor: pointer;
                     >span{
                         cursor: pointer;
                     }
