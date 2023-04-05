@@ -1,13 +1,18 @@
 <template>
     <div class="classify">
-        <ul>
-            <li @click="changeTabIndex(index)" v-for="item,index in tabList">
-                <router-link :class="{selected:tabIndex == index}" :to="item.linkTo">{{item.tabName}}</router-link>
-            </li>
-        </ul>
-        <div class="lineBar">
-            <div class="line" :style="`width:${1/tabList.length*100}%; transform: translateX(${tabIndex*100}%);`"></div>
+        <div class="full-contain">
+            <div class="tabBox">
+                <ul>
+                    <li @click="changeTabIndex(index)" v-for="item,index in tabList">
+                        <router-link :class="{selected:tabIndex == index}" :to="item.linkTo">{{item.tabName}}</router-link>
+                    </li>
+                </ul>
+                <div class="lineBar">
+                    <div class="line" :style="`width:${1/tabList.length*100}%; transform: translateX(${tabIndex*100}%);`"></div>
+                </div>
+            </div>
         </div>
+        <div class="full-line"></div>
     </div>
 </template>
 
@@ -26,29 +31,43 @@
 
 <style lang="scss" scoped>
     .classify{
-        display: flex;
-        flex-direction: column;
-        ul{
+        .full-contain{
             display: flex;
-            li{
+            flex-direction: row;
+            position: relative;
+            z-index: 2;
+            .tabBox{
                 display: flex;
-                justify-content: center;
-                padding: 10px;
-                a{
-                    color: #707070;
-                    &.selected{
-                        color: #00a8e9;
+                flex-direction: column;
+                ul{
+                    display: flex;
+                    li{
+                        display: flex;
+                        justify-content: center;
+                        padding: 10px;
+                        a{
+                            color: #707070;
+                            &.selected{
+                                color: #00a8e9;
+                            }
+                        }
+                    }
+                }
+                .lineBar{
+                    height: 2px;
+                    .line{
+                        height: 100%;
+                        background-color: #00a8e9;
+                        transition: transform .3s ease;
                     }
                 }
             }
         }
-        .lineBar{
+        .full-line{
             height: 2px;
-            .line{
-                height: 100%;
-                background-color: #00a8e9;
-                transition: transform .3s ease;
-            }
+            background-color: #a5a5a55b;
+            position: relative;
+            z-index: 1;
         }
     }
 </style>
