@@ -1,5 +1,5 @@
 <template>
-    <router-link to="index" class="logo">
+    <router-link to="/index" class="logo">
         <div class="logo-image"></div>
         <div class="logo-text">
             <h2>喵字幕</h2>

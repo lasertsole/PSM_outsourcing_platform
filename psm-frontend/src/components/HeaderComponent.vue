@@ -27,9 +27,9 @@
     
     const drawer = ref<boolean>(false);//控制菜单下拉框显示与否
     const tabBarArr = ref<routerInfo[]>([
-        {text:"橱窗", linkTo:"showcase"},
-        {text:"企划", linkTo:"planning"},
-        {text:"作品", linkTo:"works"},
+        {text:"橱窗", linkTo:"/showcase"},
+        {text:"企划", linkTo:"/planning"},
+        {text:"作品", linkTo:"/works"},
     ])
 </script>
 
@@ -54,6 +54,7 @@
         padding: 0px 30px;
         white-space: nowrap;
         box-sizing: border-box;
+        border-bottom: 1px solid rgba(165, 165, 165, 0.3568627451);;
         .left{
             display: flex;
             flex-direction: row;

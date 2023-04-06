@@ -64,10 +64,11 @@
             }
         }
         .full-line{
-            height: 2px;
+            height: 1.5px;
             background-color: #a5a5a55b;
             position: relative;
             z-index: 1;
+            transform: translateY(-1.75px);
         }
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="loginOrRegister">
-        <router-link to="loginAndRegister" class="login">登录</router-link>
-        <router-link to="loginAndRegister" class="register">注册</router-link>
+        <router-link to="/loginAndRegister" class="login">登录</router-link>
+        <router-link to="/loginAndRegister" class="register">注册</router-link>
     </div>
 </template>
 

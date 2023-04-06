@@ -2,8 +2,8 @@
     <div :class="{selectList:true, show:drawer}">
         <router-link v-for="item in tabBarArr" active-class="active" :to="<RouteLocationRaw>item.linkTo">{{item.text}}</router-link>
         <hr>
-        <router-link to="loginAndRegister" href="#">登录</router-link>
-        <router-link to="loginAndRegister" href="#">注册</router-link>
+        <router-link to="/loginAndRegister" href="#">登录</router-link>
+        <router-link to="/loginAndRegister" href="#">注册</router-link>
     </div>
 </template>
 
