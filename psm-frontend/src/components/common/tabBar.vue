@@ -3,9 +3,17 @@
         <div class="full-contain">
             <div class="tabBox">
                 <ul>
-                    <li @click="changeTabIndex(index)" v-for="item,index in tabList">
-                        <router-link :class="{selected:tabIndex == index}" :to="item.linkTo">{{item.tabName}}</router-link>
-                    </li>
+                    <template v-for="item,index in tabList">
+                        <li
+                            :style="`
+                                ${paddingLeft?'padding-left:'+paddingLeft+'px;':''}
+                                ${paddingRight?'padding-right:'+paddingRight+'px;':''}
+                            `"
+                            @click="changeTabIndex(index)"
+                            >
+                            <router-link :class="{selected:tabIndex == index}" :to="item.linkTo">{{item.tabName}}</router-link>
+                        </li>
+                    </template>
                 </ul>
                 <div class="lineBar">
                     <div class="line" :style="`width:${1/tabList.length*100}%; transform: translateX(${tabIndex*100}%);`"></div>
@@ -17,16 +25,19 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
-    import {tabBarItem} from "@/types/common/tabBarType"
-    import { defineProps, PropType } from "vue";
+    import { ref, defineProps, PropType } from "vue";
+    import { tabBarItem } from "@/types/common/tabBarType"
 
     const tabIndex = ref<number>(0);
     function changeTabIndex(index:number):void{
         tabIndex.value=index;
     }
 
-   const props = defineProps({tabList:{type:Array as PropType<tabBarItem[]>, default:[], required: false}});
+    const props = defineProps({
+        tabList:{type:Array as PropType<tabBarItem[]>, required: true},
+        paddingLeft:{type:Number, required: false},
+        paddingRight:{type:Number, required: false},
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -44,6 +55,7 @@
                     li{
                         display: flex;
                         justify-content: center;
+                        align-items: center;
                         padding: 10px;
                         a{
                             color: #707070;

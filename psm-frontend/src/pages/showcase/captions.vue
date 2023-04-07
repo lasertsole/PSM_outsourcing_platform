@@ -1,69 +1,49 @@
 <template>
-    <div class="captions">
-        <div class="filter-bar">
-            <el-select v-model="typeValue" class="m-2" placeholder="直播封面" size="small">
-                <el-option
-                v-for="item in typeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                />
-            </el-select>
-
-            <el-select v-model="sortValue" class="m-2" placeholder="筛选类型" size="small">
-                <el-option
-                v-for="item in sortOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                />
-            </el-select>
-
-            <el-switch
-                v-model="isIdle"
-                active-text="档期空闲"
-            />
-
-            <el-switch
-                v-model="canQuicky"
-                active-text="能否加急"
-            />
+    <div class="baseNode">
+        <filterBar
+            :bigClass="bigClass"
+            :smallClass="smallClass"
+        ></filterBar>
+        <div class="itemBoxContainer">
+            <template v-for="item in infoArr">
+                <itemBox
+                    :name = "item.name"
+                    :profile = "item.profile"
+                    :commentNum = "item.commentNum"
+                    :certificate = "item.certificate"
+                    :recomment = "item.recomment"
+                    :works = "item.works"
+                >
+                </itemBox>
+            </template>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
-    import { optionInfo} from "@/types/pageType/showcase"
-    import { tabBarItem } from "@/types/common/tabBarType"
+    import {ref} from "vue";
+    import { optionInfo } from "@/types/pageType/showcase";
+    import itemBox from "@/components/indexPage/itemBox.vue";
+    import filterBar from "@/components/indexPage/filterBar.vue";
+    import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
 
-    const tabList = ref<tabBarItem[]>([
-        {tabName:"剪辑类",linkTo:""},
-        {tabName:"美工类",linkTo:""},
-        {tabName:"翻译类",linkTo:""},
-        {tabName:"字幕类",linkTo:""},
-    ]);
-
-    //大类分类
-    const typeValue = ref<string>('')
-    const typeOptions:optionInfo[] = [
+    //过滤器选项
+    const bigClass:optionInfo[] = [
         {
-            value: '直播切片',
-            label: '直播切片',
+            value: '普通轴',
+            label: '普通轴',
         },
         {
-            value: '歌曲相关',
-            label: '歌曲相关',
+            value: '外语轴',
+            label: '外语轴',
         },
         {
-            value: '视频后期',
-            label: '视频后期',
+            value: '特效轴',
+            label: '特效轴',
         },
     ]
 
-    //小类分类
-    const sortValue = ref<string>('')
-    const sortOptions:optionInfo[] = [
+    const smallClass:optionInfo[] = [
         {
             value: '按综合',
             label: '按综合',
@@ -78,32 +58,34 @@
         },
     ]
 
-    //档期空闲？
-    const isIdle = ref<boolean>(false);
-
-    //能否加急
-    const canQuicky = ref<boolean>(false);
-
+    const infoArr = ref<itemBoxInfo[]>([
+        {
+            name: "帕斯猫",
+            profile: "images/psmProfile.jpg",
+            commentNum: 114,
+            certificate: "日语N1认证",
+            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
+            works:[
+                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-1.jpg"},
+                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-2.jpg"}
+            ]
+        },
+        {
+            name: "筱曌汐",
+            profile: "images/xiProfile.jpg",
+            commentNum: 114,
+            certificate: "日语N1认证",
+            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
+            works:[
+                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-3.jpg"},
+                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-1.jpg"}
+            ]
+        },
+    ])
 </script>
 
 <style lang="scss" scoped>
-</style>
-<style lang="scss">
-    .captions{
+    .baseNode{
         padding: 10px;
-        .el-select{
-            box-sizing: border-box;
-            width: 108px;
-            ::placeholder{
-                color: black;
-            }
-            margin-right: 15px;
-        }
-        .el-popper{
-            box-sizing: border-box;
-        }
-        .el-switch{
-            margin-right: 15px;
-        }
     }
 </style>

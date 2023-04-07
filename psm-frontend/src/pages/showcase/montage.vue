@@ -1,6 +1,9 @@
 <template>
-    <div class="montage">
-        <filterBar></filterBar>
+    <div class="baseNode">
+        <filterBar
+            :bigClass="bigClass"
+            :smallClass="smallClass"
+        ></filterBar>
         <div class="itemBoxContainer">
             <template v-for="item in infoArr">
                 <itemBox
@@ -18,10 +21,42 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
-    import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
-    import filterBar from "@/components/indexPage/filterBar.vue"
+    import {ref} from "vue";
+    import { optionInfo } from "@/types/pageType/showcase";
     import itemBox from "@/components/indexPage/itemBox.vue";
+    import filterBar from "@/components/indexPage/filterBar.vue";
+    import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
+
+    //过滤器选项
+    const bigClass:optionInfo[] = [
+        {
+            value: '直播切片',
+            label: '直播切片',
+        },
+        {
+            value: '歌曲相关',
+            label: '歌曲相关',
+        },
+        {
+            value: '视频后期',
+            label: '视频后期',
+        },
+    ]
+
+    const smallClass:optionInfo[] = [
+        {
+            value: '按综合',
+            label: '按综合',
+        },
+        {
+            value: '按活跃',
+            label: '按活跃',
+        },
+        {
+            value: '按评论',
+            label: '按评论',
+        },
+    ]
 
     const infoArr = ref<itemBoxInfo[]>([
         {
@@ -50,7 +85,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .montage{
+    .baseNode{
         padding: 10px;
     }
 </style>

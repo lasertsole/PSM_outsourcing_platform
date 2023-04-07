@@ -1,13 +1,13 @@
 <template>
     <div class="loginAndResigter">
         <div class="box">
-            <div class="logo">
+            <router-link to="/index" class="logo">
                 <div class="logo-image"></div>
                 <div class="logo-text">
                     <h2>喵字幕</h2>
                     <h5>miaozimu.com</h5>
                 </div>
-            </div>
+            </router-link>
             <transition mode="out-in">
                 <div v-if="pageController" class="login">
                     <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称/邮箱/手机号" clearable/>

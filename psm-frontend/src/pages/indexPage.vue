@@ -62,6 +62,7 @@
                         padding: 15px 80px;
                         border-radius: 37px;
                         color: white;
+                        cursor: pointer;
                     }
                     .require{
                         background-color: #fb7299
@@ -80,6 +81,7 @@
                 align-self: flex-start;
                 margin-top: 80px;
                 margin-left: 15px;
+                cursor: pointer;
             }
         }
         .bottom{

@@ -13,15 +13,16 @@
 <script setup lang="ts">
     import {defineProps} from "vue"
     const props = defineProps({abstract:String, price:String, imgPath:String});
-    
-    console.log(props);
 </script>
 
 <style lang="scss" scoped>
+    @mixin fixedWidth($size){
+        min-width: $size;
+        max-width: $size;
+    }
     .workBox{
         box-sizing: border-box;
-        min-width: 200px;
-        max-width: 200px;
+        @include fixedWidth(200px);
         height: 150px;
         display: flex;
         flex-direction: column;
@@ -37,10 +38,17 @@
             justify-content: space-between;
             font-size: 14px;
             align-items: center;
+            >*{
+                text-overflow: ellipsis; /* 文本溢出时显示省略号来代表被修剪的文本 */
+                overflow: hidden; /* 溢出部分隐藏 */
+                white-space: nowrap; /* 段落中的文本不进行换行 */
+            }
             .abstract{
+                @include fixedWidth(100px);
                 font-family: 仓耳舒圆体W03;
             }
             .price{
+                @include fixedWidth(73px);
                 font-family: 仓耳舒圆体W04;
                 color: #fb7299;
             }

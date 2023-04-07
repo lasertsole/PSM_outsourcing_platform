@@ -58,6 +58,7 @@
             max-width: 150px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             .base{
                 height: 50px;
                 display: flex;
@@ -66,6 +67,7 @@
                     @include fixedSquare(50px);
                     border-radius: 50%;
                     overflow: hidden;
+                    cursor: pointer;
                     img{
                         width: 100%;
                         height: 100%;
@@ -73,21 +75,24 @@
                 }
                 .honour{
                     margin-left: 10px;
+                    overflow: hidden; /* 溢出部分隐藏 */
+                    >*{
+                        text-overflow: ellipsis; /* 文本溢出时显示省略号来代表被修剪的文本 */
+                        overflow: hidden; /* 溢出部分隐藏 */
+                        white-space: nowrap; /* 段落中的文本不进行换行 */
+                    }
                     .name{
                         font-family: 仓耳舒圆体W04;
                         font-size: 14px;
                         font-weight: bold;
-                        white-space: nowrap; /* 段落中的文本不进行换行 */
                     }
                     .commentNum{
                         color: #707070;
                         font-size: 10px;
-                        white-space: nowrap; /* 段落中的文本不进行换行 */
                     }
                     .certificate{
                         color: #707070;
                         font-size: 12px;
-                        white-space: nowrap; /* 段落中的文本不进行换行 */
                     }
                 }
             }
@@ -101,7 +106,14 @@
                     min-width: 35px;
                 }
                 .right{
-
+                    overflow: hidden; /* 溢出部分隐藏 */
+                    >*{
+                        text-overflow: ellipsis; /* 文本溢出时显示省略号来代表被修剪的文本 */
+                        overflow: hidden; /* 溢出部分隐藏 */
+                        word-break: break-all;
+                        table-layout: fixed; word-break:break-all;
+                        word-wrap:break-word;
+                    }
                 }
             }
             .interesting{
