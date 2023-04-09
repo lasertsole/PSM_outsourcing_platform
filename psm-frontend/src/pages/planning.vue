@@ -27,5 +27,7 @@
         box-sizing: border-box;
         overflow-y: auto;
         padding: 30px;
+        display: flex;
+        flex-direction: column;
     }
 </style>

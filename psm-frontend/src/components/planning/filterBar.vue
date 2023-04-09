@@ -18,14 +18,18 @@
             />
         </el-select>
 
-        <el-switch
-            v-model="isIdle"
-            active-text="档期空闲"
-        />
+        <el-select v-model="timeValue" class="m-2" :placeholder="timeClass&&timeClass[0].label" size="small">
+            <el-option
+                v-for="item in timeClass"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+        </el-select>
 
         <el-switch
-            v-model="canQuicky"
-            active-text="能否加急"
+            v-model="Enterprise"
+            active-text="企业企划"
         />
     </div>
 </template>
@@ -34,7 +38,9 @@
     import { optionInfo } from "@/types/pageType/showcase"
     import { ref, defineProps, PropType } from "vue"
 
-    const props = defineProps({bigClass:{type:Array as PropType<optionInfo[]>}, smallClass:{type:Array as PropType<optionInfo[]>}});
+    const props = defineProps({bigClass:{type:Array as PropType<optionInfo[]>}, 
+                smallClass:{type:Array as PropType<optionInfo[]>},
+                timeClass:{type:Array as PropType<optionInfo[]>}});
 
     //大类选项
     const typeValue = ref<string>('')
@@ -42,11 +48,11 @@
     //小类选项
     const sortValue = ref<string>('')
 
-    //档期空闲？
-    const isIdle = ref<boolean>(false);
+    //时间类选项
+    const timeValue = ref<string>('')
 
-    //能否加急
-    const canQuicky = ref<boolean>(false);
+    //企业企划？
+    const Enterprise = ref<boolean>(false);
 </script>
 
 <style lang="scss" scoped>
