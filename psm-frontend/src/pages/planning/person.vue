@@ -58,20 +58,20 @@
 
     const timeClass:optionInfo[] = [
         {
-            value: '30天以下',
-            label: '30天以下',
+            value: '30天以内',
+            label: '30天以内',
         },
         {
-            value: '15天以下',
-            label: '15天以下',
+            value: '15天以内',
+            label: '15天以内',
         },
         {
-            value: '7天以下',
-            label: '7天以下',
+            value: '7天以内',
+            label: '7天以内',
         },
         {
-            value: '3天以下',
-            label: '3天以下',
+            value: '3天以内',
+            label: '3天以内',
         },
     ]
 </script>

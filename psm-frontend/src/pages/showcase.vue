@@ -24,6 +24,8 @@
         height: 100%;
         box-sizing: border-box;
         overflow-y: auto;
-        padding: 30px;
+        padding: 30px 80px;
+        display: flex;
+        flex-direction: column;
     }
 </style>

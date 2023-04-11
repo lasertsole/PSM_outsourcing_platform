@@ -1,36 +1,25 @@
 <template>
     <div class="filter-bar">
-        <el-select v-model="typeValue" class="m-2" :placeholder="bigClass&&bigClass[0].label" size="small">
-            <el-option
-                v-for="item in bigClass"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-        </el-select>
-
-        <el-select v-model="sortValue" class="m-2" :placeholder="smallClass&&smallClass[0].label" size="small">
-            <el-option
-                v-for="item in smallClass"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-        </el-select>
-
-        <el-select v-model="timeValue" class="m-2" :placeholder="timeClass&&timeClass[0].label" size="small">
-            <el-option
-                v-for="item in timeClass"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-        </el-select>
-
-        <el-switch
-            v-model="Enterprise"
-            active-text="企业企划"
-        />
+        <ul>
+            <li>
+                <ul class="detailArr">
+                    <div>最新发布:</div>
+                    <li v-for="item in bigClass">{{item.value}}</li>
+                </ul>
+            </li>
+            <li>
+                <ul class="detailArr">
+                    <div>稿件类型:</div>
+                    <li v-for="item in smallClass">{{item.value}}</li>
+                </ul>
+            </li>
+            <li>
+                <ul class="detailArr">
+                    <div>截稿时间:</div>
+                    <li v-for="item in timeClass">{{item.value}}</li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -41,35 +30,40 @@
     const props = defineProps({bigClass:{type:Array as PropType<optionInfo[]>}, 
                 smallClass:{type:Array as PropType<optionInfo[]>},
                 timeClass:{type:Array as PropType<optionInfo[]>}});
-
-    //大类选项
-    const typeValue = ref<string>('')
-
-    //小类选项
-    const sortValue = ref<string>('')
-
-    //时间类选项
-    const timeValue = ref<string>('')
-
-    //企业企划？
-    const Enterprise = ref<boolean>(false);
 </script>
 
 <style lang="scss" scoped>
     .filter-bar{
-        .el-select{
-            box-sizing: border-box;
-            width: 108px;
-            ::placeholder{
-                color: #707070;
+        font-size: 14px;
+        >ul>li{
+            border-bottom: 1px solid #DDD;
+            &:first-of-type{
+                border-top: 1px solid #DDD;
             }
-            margin-right: 15px;
-        }
-        .el-popper{
-            box-sizing: border-box;
-        }
-        .el-switch{
-            margin-right: 15px;
+            .detailArr{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                div{
+                    display: flex;
+                    box-sizing: border-box;
+                    align-items: center;
+                    text-indent: 10px;
+                    background-color: #f3f3f3;
+                    max-width: 110px;
+                    min-width: 110px;
+                    height: 34px;
+                    color: #666;
+                    font-family: 仓耳舒圆体W03;
+                }
+                li{
+                    padding-left: 10px;
+                    width: 100px;
+                    flex-shrink: 1;
+                    color: #005aa0;
+                    font-size: 12px;
+                }
+            }
         }
     }
 </style>

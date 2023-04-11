@@ -56,6 +56,7 @@
         box-sizing: border-box;
         border-bottom: 1px solid rgba(165, 165, 165, 0.3568627451);;
         .left{
+            height: 100%;
             display: flex;
             flex-direction: row;
             align-items: center;

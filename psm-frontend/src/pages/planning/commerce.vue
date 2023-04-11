@@ -3,19 +3,13 @@
         <filterBar
             :bigClass="bigClass"
             :smallClass="smallClass"
-        ></filterBar>
+            :timeClass="timeClass"
+        >
+        </filterBar>
         <div class="itemBoxContainer">
-            <template v-for="item in infoArr">
-                <itemBox
-                    :name = "item.name"
-                    :profile = "item.profile"
-                    :commentNum = "item.commentNum"
-                    :certificate = "item.certificate"
-                    :recomment = "item.recomment"
-                    :works = "item.works"
-                >
-                </itemBox>
-            </template>
+            <itemBox></itemBox>
+            <itemBox></itemBox>
+            <itemBox></itemBox>
         </div>
     </div>
 </template>
@@ -23,69 +17,83 @@
 <script setup lang="ts">
     import {ref} from "vue";
     import { optionInfo } from "@/types/pageType/showcase";
-    import itemBox from "@/components/indexPage/itemBox.vue";
-    import filterBar from "@/components/indexPage/filterBar.vue";
+    import itemBox from "@/components/planning/itemBox.vue";
+    import filterBar from "@/components/planning/filterBar.vue";
     import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
 
     //过滤器选项
     const bigClass:optionInfo[] = [
         {
-            value: '直播封面',
-            label: '直播封面',
+            value: '报酬由高到低',
+            label: '报酬由高到低',
         },
         {
-            value: '视频封面',
-            label: '视频封面',
+            value: '最新发布',
+            label: '最新发布',
         },
         {
-            value: '其他美术',
-            label: '其他美术',
+            value: '应征人数',
+            label: '应征人数',
         },
     ]
 
     const smallClass:optionInfo[] = [
         {
-            value: '按综合',
-            label: '按综合',
+            value: '美工类',
+            label: '美工类',
         },
         {
-            value: '按活跃',
-            label: '按活跃',
+            value: '字幕类',
+            label: '字幕类',
         },
         {
-            value: '按评论',
-            label: '按评论',
+            value: '翻译类',
+            label: '翻译类',
+        },
+        {
+            value: '剪辑类',
+            label: '剪辑类',
         },
     ]
 
-    const infoArr = ref<itemBoxInfo[]>([
+    const timeClass:optionInfo[] = [
         {
-            name: "帕斯猫",
-            profile: "images/psmProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-1.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-2.jpg"}
-            ]
+            value: '30天以内',
+            label: '30天以内',
         },
         {
-            name: "筱曌汐",
-            profile: "images/xiProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-3.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-1.jpg"}
-            ]
+            value: '15天以内',
+            label: '15天以内',
         },
-    ])
+        {
+            value: '7天以内',
+            label: '7天以内',
+        },
+        {
+            value: '3天以内',
+            label: '3天以内',
+        },
+    ]
 </script>
 
 <style lang="scss" scoped>
     .baseNode{
         padding: 10px;
+        flex-direction: column;
+        flex-grow: 1;
+        box-sizing: border-box;
+        display: flex;
+        .itemBoxContainer{
+            min-width: 100%;
+            max-width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            overflow-y: auto;
+        }
     }
 </style>

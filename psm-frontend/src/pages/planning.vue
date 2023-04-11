@@ -16,7 +16,7 @@
 
     const tabList = ref<tabBarItem[]>([
         {tabName:"个人",linkTo:"/planning/person"},
-        {tabName:"商业",linkTo:"/planning/commerce"},
+        {tabName:"企业",linkTo:"/planning/commerce"},
     ]);
 </script>
 
@@ -26,7 +26,7 @@
         height: 100%;
         box-sizing: border-box;
         overflow-y: auto;
-        padding: 30px;
+        padding: 30px 80px;
         display: flex;
         flex-direction: column;
     }

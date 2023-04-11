@@ -3,7 +3,7 @@
         <div class="logo-image"></div>
         <div class="logo-text">
             <h2>喵字幕</h2>
-            <h5>miaozimu.com</h5>
+            <h5>MIAOZIMU.COM</h5>
         </div>
     </router-link>
 </template>
@@ -18,6 +18,7 @@
         height: $edgeSize;
     }
     .logo{
+        height: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -28,20 +29,33 @@
             color: #fb7299
         }
         .logo-image{
-            @include square(60px);
+            @include square(80px);
             background-image: url(images/psmlogo.png);
             background-repeat: no-repeat;
-            background-position: center;
-            background-size: 100%;
+            background-position: center 5px;
+            background-size: 90px;
             margin-right: 5px;
         }
-        .logo-info{
+        .logo-text{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            >*{
+                display: flex;
+                justify-content: center;
+            }
             h2{
-                font-size: 24px;
+                margin-top: 10px;
+                font-size: 28px;
+                line-height: 26px;
+                letter-spacing:8px;
+                text-indent: 8px;
             }
 
             h5{
                 font-size: 13.5px;
+                letter-spacing:1px;
             }
         }
     }
@@ -53,15 +67,21 @@
     @media screen and (max-width: 600px) {
         .logo{
             .logo-image{
-                @include square(25px);
+                @include square(50px);
+                background-size: 56px;
+                background-position: center 4px;
             }
             .logo-text{
                 h2{
                     font-size: 17px;
+                    letter-spacing:2.5px;
+                    text-indent: 0px;
+                    line-height: 20px;
                 }
 
                 h5{
                     font-size: 7.5px;
+                    letter-spacing:0.5px;
                 }
             }
         }

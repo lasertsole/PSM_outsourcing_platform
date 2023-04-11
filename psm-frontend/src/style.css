@@ -1,7 +1,7 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: 仓耳舒圆体W02;
+  font-family: SourceSans3-It;
 }
 ul{
   list-style: none;
@@ -137,4 +137,8 @@ button:focus-visible {
 @font-face{
   font-family: '仓耳舒圆体W05'; 
   src:url('/src/assets/font/仓耳舒圆体W05.ttf') format('truetype');
+}
+@font-face{
+  font-family: 'SourceSans3-It'; 
+  src:url('/src/assets/font/SourceSans3-Medium.ttf') format('truetype');
 }

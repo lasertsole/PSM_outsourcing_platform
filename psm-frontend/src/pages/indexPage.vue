@@ -2,13 +2,12 @@
     <div class="indexPage">
         <div class="top">
             <div class="info">
-                <div class="title">找好切片man，完成需求，一举两得</div>
+                <div class="title">找好切片MAN，完成需求，一举两得</div>
                 <div class="select">
                     <div class="button require">我是需求方</div>
                     <div class="button create">我是创作者</div>
                 </div>
             </div>
-            <div class="help">联系在线客服</div>
         </div>
         <div class="bottom"><carousel></carousel></div>
     </div>
@@ -71,17 +70,6 @@
                         background-color: #00a8e9;
                     }
                 }
-            }
-            .help{
-                font-size: 16px;
-                background-color: #00a8e9;
-                color: white;
-                padding: 5px 20px;
-                border-radius: 37px;
-                align-self: flex-start;
-                margin-top: 80px;
-                margin-left: 15px;
-                cursor: pointer;
             }
         }
         .bottom{
