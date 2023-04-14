@@ -1,4 +1,4 @@
-package com.psm;
+package com.psm.service;
 import org.springframework.stereotype.Service;
 
 @Service

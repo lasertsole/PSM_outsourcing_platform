@@ -1,7 +1,7 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: SourceSans3-It;
+  font-family: SourceSans3-Medium;
 }
 ul{
   list-style: none;
@@ -114,30 +114,6 @@ button:focus-visible {
 }
 
 /* 加载自定义字体 */
-@font-face{
-  font-family: '仓耳小丸子'; 
-  src:url('/src/assets/font/仓耳小丸子.ttf') format('truetype');
-}
-@font-face{
-  font-family: '仓耳舒圆体W01'; 
-  src:url('/src/assets/font/仓耳舒圆体W01.ttf') format('truetype');
-}
-@font-face{
-  font-family: '仓耳舒圆体W02'; 
-  src:url('/src/assets/font/仓耳舒圆体W02.ttf') format('truetype');
-}
-@font-face{
-  font-family: '仓耳舒圆体W03'; 
-  src:url('/src/assets/font/仓耳舒圆体W03.ttf') format('truetype');
-}
-@font-face{
-  font-family: '仓耳舒圆体W04'; 
-  src:url('/src/assets/font/仓耳舒圆体W04.ttf') format('truetype');
-}
-@font-face{
-  font-family: '仓耳舒圆体W05'; 
-  src:url('/src/assets/font/仓耳舒圆体W05.ttf') format('truetype');
-}
 @font-face{
   font-family: 'SourceSans3-It'; 
   src:url('/src/assets/font/SourceSans3-Medium.ttf') format('truetype');

@@ -23,8 +23,8 @@
 <script setup lang="ts">
     import {ref} from "vue";
     import { optionInfo } from "@/types/pageType/showcase";
-    import itemBox from "@/components/indexPage/itemBox.vue";
-    import filterBar from "@/components/indexPage/filterBar.vue";
+    import itemBox from "@/components/showcase/itemBox.vue";
+    import filterBar from "@/components/showcase/filterBar.vue";
     import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
 
     //过滤器选项

@@ -78,7 +78,8 @@
                 .left{
                     @include fixedWidth(60%);
                     .title{
-                        font-family: 仓耳舒圆体W04;
+                        font-family: SourceSans3-Medium;
+                        font-weight: bolder;
                         text-overflow: ellipsis; /* 文本溢出时显示省略号来代表被修剪的文本 */
                         overflow: hidden; /* 溢出部分隐藏 */
                         white-space: nowrap; /* 段落中的文本不进行换行 */

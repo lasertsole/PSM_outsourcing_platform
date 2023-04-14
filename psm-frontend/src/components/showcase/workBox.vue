@@ -45,11 +45,13 @@
             }
             .abstract{
                 @include fixedWidth(100px);
-                font-family: 仓耳舒圆体W03;
+                font-family: SourceSans3-Medium;
+                font-weight: bold;
             }
             .price{
                 @include fixedWidth(73px);
-                font-family: 仓耳舒圆体W04;
+                font-family: SourceSans3-Medium;
+                font-weight: bold;
                 color: #fb7299;
             }
         }

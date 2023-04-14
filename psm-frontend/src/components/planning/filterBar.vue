@@ -54,7 +54,8 @@
                     min-width: 110px;
                     height: 34px;
                     color: #666;
-                    font-family: 仓耳舒圆体W03;
+                    font-family: SourceSans3-Medium;
+                    font-weight: bold;
                 }
                 li{
                     padding-left: 10px;

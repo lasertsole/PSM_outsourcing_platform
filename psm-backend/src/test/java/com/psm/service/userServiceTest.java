@@ -1,6 +1,5 @@
-package com.psm;
+package com.psm.service;
 
-import com.psm.userService;//目录结构不相同时用classes
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -15,6 +15,8 @@ import captionsVue from '@/pages/showcase/captions.vue'
 //企划页面
 import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
+//协议页面
+import contract from "@/pages/contract.vue"
 
 const routes:RouteRecordRaw[] = [
     //首页
@@ -33,6 +35,7 @@ const routes:RouteRecordRaw[] = [
         name: 'loginAndRegister',
         component: loginAndResigterVue,
     },
+    //橱窗页
     {
         path: '/showcase',
         name: 'showcase',
@@ -69,6 +72,7 @@ const routes:RouteRecordRaw[] = [
             },
         ]
     },
+    //企划页
     {
         path: '/planning',
         name: 'planning',
@@ -93,11 +97,18 @@ const routes:RouteRecordRaw[] = [
             },
         ]
     },
+    //作品页
     {
         path: '/works',
         name: 'works',
         component: worksVue,
     },
+    //合同页
+    {
+        path: '/contract',
+        name: 'contract',
+        component: contract,
+    }
 ]
 
 const router = createRouter({

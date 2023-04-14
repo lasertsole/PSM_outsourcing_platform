@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
     import {defineProps, ref, PropType} from "vue"
-    import workBox from "@/components/indexPage/workBox.vue"
+    import workBox from "@/components/showcase/workBox.vue"
     const props = defineProps({name:String, profile:String, commentNum:Number, certificate:String, recomment:String, works:{type:Array as PropType<{abstract:string, price:string, imgPath:string}[]>}});
 </script>
 
@@ -82,7 +82,7 @@
                         white-space: nowrap; /* 段落中的文本不进行换行 */
                     }
                     .name{
-                        font-family: 仓耳舒圆体W04;
+                        font-family: SourceSans3-Medium;
                         font-size: 14px;
                         font-weight: bold;
                     }

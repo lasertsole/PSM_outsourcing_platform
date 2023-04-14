@@ -10,23 +10,19 @@
             </router-link>
             <transition mode="out-in">
                 <div v-if="pageController" class="login">
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称/邮箱/手机号" clearable/>
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" clearable/>
-                    <el-button type="primary">登录</el-button>
+                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称/邮箱/手机号" v-model="loginAccount" clearable/>
+                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="loginPassword" clearable/>
+                    <el-button type="primary" @click="login(loginAccount, loginPassword)">登录</el-button>
                     <div class="select">
                         <span @click="changePage">注册新账号</span>
                         <span>忘记密码</span>
                     </div>
                 </div>
                 <div v-else :class="{register:true, show:!pageController}">
-                    <div class="role">
-                        <div :class="{show:roleController}" @click="changeRole(true)">我是需求方</div>
-                        <div :class="{show:!roleController}" @click="changeRole(false)">我是创作者</div>
-                    </div>
-                    <div class="lineContainer"><div :class="{line:true, move:!roleController}"></div></div>
                     <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称" v-model="registerAccount" clearable/>
                     <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="registerPassword" clearable/>
-                    <el-button type="primary" @click="registerSend">注册</el-button>
+                    <div class="contract">请确认您已同意 <router-link to="/contract">《喵剪辑服务协议》</router-link></div>
+                    <el-button type="primary" @click="register(registerAccount, registerPassword)">注册</el-button>
                     <div class="backLogin" @click="changePage">已有账号,去登录</div>
                 </div>
             </transition>
@@ -35,37 +31,45 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
-    import axios from "axios"
-    
-    const registerAccount = ref<string>("");//注册账号
-    const registerPassword = ref<string>("")//注册密码
-    function registerSend():void{
-        let result = axios.post("frp-age.top:54530");
-        console.log(result);
-    }
+    import {ref} from "vue";
+    import axios from "axios";
+    import useGlobal from "@/global"
+    import { ElMessage } from "element-plus";
 
+     /**********获取全局变量*********/
+    const global = useGlobal();
+    const ServerPath:string = global?.ServerPath;
 
+    /**********切换注册登录页*********/
     const pageController = ref<boolean>(true);
     function changePage():void{
         pageController.value=!pageController.value;
     }
 
-    const roleController = ref<boolean>(true);
-    function changeRole(option:boolean):void{
-        roleController.value=option;
+    /**********用户登录*********/
+    const loginAccount = ref<string>("");//注册账号
+    const loginPassword = ref<string>("")//注册密码
+
+    async function login(phoneNumber:string,password:string):Promise<void>{
+        let result = await axios.post(ServerPath+"/user/login",{phoneNumber, password});
+        let data = result.data;
+        if(data.status==1){ElMessage.success(data.msg);}
+        else{ElMessage.error(data.msg);}
+    }
+
+    /**********用户注册*********/
+    const registerAccount = ref<string>("");//注册账号
+    const registerPassword = ref<string>("")//注册密码
+
+    async function register(phoneNumber:string,password:string):Promise<void>{
+        let result = await axios.post(ServerPath+"/user/register",{phoneNumber,password});
+        let data = result.data;
+        if(data.status==1){ElMessage.success(data.msg);}
+        else{ElMessage.error(data.msg);}
     }
 </script>
 
 <style lang="scss" scoped>
-    @keyframes showPage{
-        0%{
-            opacity: 0;
-        }
-        100%{
-            opacity: 1;
-        }
-    }
     @mixin fixedSquare($size){
         max-width: $size;
         min-width: $size;
@@ -136,37 +140,12 @@
 
             .register{
                 width: 100%;
-                .role{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    align-items: center;
-                    >div{
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        width: 175px;
-                        height: 40px;
-                        color: #c0c0c0;
-                        cursor: pointer;
-                        &.show{
-                            color: #4a4a4a;
-                        }
-                    }
-                }
-                .lineContainer{
-                    width: 100%;
-                    height: 2px;
-                    margin-bottom: 15px;
-                    .line{
-                        width: 175px;
-                        height: 100%;
-                        background-color: #00a8e9;
-                        transition: transform .3s ease;
-                        &.move{
-                            transform: translateX(100%);
-                        }
+
+                .contract{
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    a{
+                        color: #00a8e9;
                     }
                 }
                 .backLogin{
