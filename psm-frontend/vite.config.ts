@@ -1,18 +1,32 @@
-import { defineConfig, optimizeDeps } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path' //引入path模块
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      vue: "vue/dist/vue.esm-bundler.js",
-      '@': path.resolve(__dirname, 'src'), //配置@路径
+export default ({ mode }) => {//传入环境模式
+  const env = loadEnv(mode, process.cwd());//获取环境变量
+  return defineConfig({
+    plugins: [vue()],
+    resolve: {
+      alias: {
+        vue: "vue/dist/vue.esm-bundler.js",
+        '@': path.resolve(__dirname, 'src'), //配置@路径
+      }
+    },
+    optimizeDeps:{
+      exclude:[]//在预构建中强制排除某依赖项
+    },
+    server:{
+      open: false,//项目启动时是否打开页面
+      host: '127.0.0.1',//主机地址
+      port: 3456,//启动端口
+      proxy: {//跨域代理
+        "^/api/": {//拦截以/api/开头的请求路径，拦截后进行修改，再重新发送
+          target: env.VITE_API_URL,// 跨域的域名(不需要写路径)
+          ws: true,//是否启用websocket
+          changeOrigin: true, /*允许跨域*/
+          rewrite: (path) => path.replace(/^\/api/, ''),//路径重写把/api变为空字符
+        }
+      }
     }
-  },
-  //在预构建中强制排除某依赖项
-  optimizeDeps:{
-    exclude:[]
-  }
-})
+  })
+}
