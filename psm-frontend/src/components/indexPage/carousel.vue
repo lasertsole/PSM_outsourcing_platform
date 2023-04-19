@@ -16,15 +16,18 @@
 			:navigation="false"
             effect="coverflow"
 			:modules="modules"
-		 >
-			<swiper-slide><img src="Carousel/bg-1.jpg" alt="" /></swiper-slide>
-            <swiper-slide><img src="Carousel/bg-2.jpg" alt="" /></swiper-slide>
-            <swiper-slide><img src="Carousel/bg-3.jpg" alt="" /></swiper-slide>
+		>
+            <template v-for="item in carouselProcessArr">
+                <swiper-slide>
+                    <img :src="item"/>
+                </swiper-slide>
+            </template>
 		</swiper>
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+    import { defineProps, PropType } from "vue"
     import { Swiper, SwiperSlide } from 'swiper/vue'; // swiper所需组件
     // 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
     import { Autoplay, Navigation, Pagination, A11y, EffectCoverflow } from 'swiper';
@@ -32,6 +35,8 @@
     import 'swiper/css';
     import 'swiper/css/navigation';
     import 'swiper/css/pagination';
+
+    const props = defineProps({carouselProcessArr:{type:Array as PropType<string[]>}});
     const modules = [Autoplay, Pagination, Navigation, A11y, EffectCoverflow ];
 </script>
 

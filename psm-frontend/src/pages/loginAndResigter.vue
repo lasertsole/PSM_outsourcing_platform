@@ -8,37 +8,37 @@
                     <h5>miaozimu.com</h5>
                 </div>
             </router-link>
-            <transition mode="out-in">
-                <div v-if="pageController" class="login">
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称/邮箱/手机号" v-model="loginAccount" clearable/>
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="loginPassword" clearable/>
-                    <el-button type="primary" @click="login(loginAccount, loginPassword)">登录</el-button>
-                    <div class="select">
-                        <span @click="changePage">注册新账号</span>
-                        <span>忘记密码</span>
+            <keep-alive>
+                <transition mode="out-in">
+                    <div v-if="pageController" class="login">
+                        <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="手机号" v-model="loginAccountData" clearable/>
+                        <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="loginPasswordData" clearable/>
+                        <el-button type="primary" @click="mainStore.loginAccount(loginAccountData, loginPasswordData)">登录</el-button>
+                        <div class="select">
+                            <span @click="changePage">注册新账号</span>
+                            <span>忘记密码</span>
+                        </div>
                     </div>
-                </div>
-                <div v-else :class="{register:true, show:!pageController}">
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="昵称" v-model="registerAccount" clearable/>
-                    <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="registerPassword" clearable/>
-                    <div class="contract">请确认您已同意 <router-link to="/contract">《喵剪辑服务协议》</router-link></div>
-                    <el-button type="primary" @click="register(registerAccount, registerPassword)">注册</el-button>
-                    <div class="backLogin" @click="changePage">已有账号,去登录</div>
-                </div>
-            </transition>
+                    <div v-else :class="{register:true, show:!pageController}">
+                        <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="手机号" v-model="registerAccountData" clearable/>
+                        <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="registerPasswordData" clearable/>
+                        <div class="contract">请确认您已同意 <router-link to="/contract">《喵剪辑服务协议》</router-link></div>
+                        <el-button type="primary" @click="mainStore.registerAccount(registerAccountData, registerPasswordData)">注册</el-button>
+                        <div class="backLogin" @click="changePage">已有账号,去登录</div>
+                    </div>
+                </transition>
+            </keep-alive>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
     import {ref} from "vue";
-    import axios from "axios";
     import useGlobal from "@/global"
-    import { ElMessage } from "element-plus";
 
      /**********获取全局变量*********/
     const global = useGlobal();
-    const ServerPath:string = global?.ServerPath;
+    const mainStore = global?.UserInfo;
 
     /**********切换注册登录页*********/
     const pageController = ref<boolean>(true);
@@ -47,26 +47,13 @@
     }
 
     /**********用户登录*********/
-    const loginAccount = ref<string>("");//注册账号
-    const loginPassword = ref<string>("")//注册密码
-
-    async function login(phoneNumber:string,password:string):Promise<void>{
-        let result = await axios.post(ServerPath+"/user/login",{phoneNumber, password});
-        let data = result.data;
-        if(data.status==1){ElMessage.success(data.msg);}
-        else{ElMessage.error(data.msg);}
-    }
+    const loginAccountData = ref<string>("");//注册账号
+    const loginPasswordData = ref<string>("")//注册密码
 
     /**********用户注册*********/
-    const registerAccount = ref<string>("");//注册账号
-    const registerPassword = ref<string>("")//注册密码
+    const registerAccountData = ref<string>("");//注册账号
+    const registerPasswordData = ref<string>("")//注册密码
 
-    async function register(phoneNumber:string,password:string):Promise<void>{
-        let result = await axios.post(ServerPath+"/user/register",{phoneNumber,password});
-        let data = result.data;
-        if(data.status==1){ElMessage.success(data.msg);}
-        else{ElMessage.error(data.msg);}
-    }
 </script>
 
 <style lang="scss" scoped>

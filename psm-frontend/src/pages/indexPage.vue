@@ -9,18 +9,35 @@
                 </div>
             </div>
         </div>
-        <div class="bottom"><carousel></carousel></div>
+        <div class="bottom">
+            <carousel
+                :carouselProcessArr="carouselProcessArr"
+            >
+            </carousel>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import { ref } from "vue";
+    import { ref, computed } from "vue";
+    import axios from "axios";
     import useGlobal from "@/global";
-    import { storeToRefs } from "pinia";
     import carousel from "@/components/indexPage/carousel.vue"
 
     const global = useGlobal();
     const LARModel = global?.LARFloat;
+
+    const carouselArr = ref<string[]>([]);
+    (async function getFrontCover():Promise<void>{//首页获取设置轮播图
+        let result = await axios.get("api/getFrontCover");
+        carouselArr.value= result.data.src;
+    })();//setup时自调用一次，然后因为keepalive不会再次调用
+
+    const carouselProcessArr = computed(()=>{
+        return carouselArr.value.map((item)=>{
+            return import.meta.env.VITE_API_URL+item;
+        });
+    });
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,11 @@
     <div class="main">
         <HeaderComponent></HeaderComponent>
         <div class="wrapper">
-            <router-view></router-view>
+            <router-view v-slot="{ Component }">
+                <keep-alive>
+                    <component :is="Component" />
+                </keep-alive>
+            </router-view>
             <session></session>
         </div>
         <LARModel></LARModel>
@@ -10,9 +14,20 @@
 </template>
 
 <script setup lang="ts">
+    import useGlobal from "@/global"
+    import { storeToRefs } from "pinia";
     import session from "@/components/session.vue";
     import LARModel from "@/components/LARModel.vue";
     import HeaderComponent from "@/components/HeaderComponent.vue";
+
+     /**********获取全局变量*********/
+    const global = useGlobal();
+    const mainStore = global?.UserInfo;
+    const { token } = storeToRefs(mainStore);
+
+    if(token.value){//如果存在token则自动登录
+        mainStore.fasterLogin();
+    };
 </script>
 
 <style lang="scss" scoped>

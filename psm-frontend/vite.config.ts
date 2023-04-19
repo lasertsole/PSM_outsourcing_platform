@@ -2,9 +2,10 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path' //引入path模块
 
-export default ({ mode }) => {//传入环境模式
-  const env = loadEnv(mode, process.cwd());//获取环境变量
-  return defineConfig({
+export default defineConfig(({command, mode}) => {
+  const env = loadEnv(mode, './');//获取环境变量
+  return {
+    base:"./",//更改根目录,打包后根目录会变化
     plugins: [vue()],
     resolve: {
       alias: {
@@ -22,11 +23,11 @@ export default ({ mode }) => {//传入环境模式
       proxy: {//跨域代理
         "^/api/": {//拦截以/api/开头的请求路径，拦截后进行修改，再重新发送
           target: env.VITE_API_URL,// 跨域的域名(不需要写路径)
-          ws: true,//是否启用websocket
+          ws: false,//是否启用websocket
           changeOrigin: true, /*允许跨域*/
           rewrite: (path) => path.replace(/^\/api/, ''),//路径重写把/api变为空字符
         }
       }
     }
-  })
-}
+  }
+})

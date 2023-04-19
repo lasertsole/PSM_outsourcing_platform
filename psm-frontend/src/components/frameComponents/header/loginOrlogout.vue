@@ -1,13 +1,26 @@
 <template>
-    <div class="loginOrRegister">
+    <!-- 登录注册按钮 -->
+    <div v-if="!hadToken" class="loginOrRegister">
         <router-link to="/loginAndRegister" class="login">登录</router-link>
         <router-link to="/loginAndRegister" class="register">注册</router-link>
+    </div>
+    <!-- 用户账号管理 -->
+    <div v-else>
+
     </div>
 </template>
 
 <script lang="ts" setup>
+    import { computed } from "vue";
+    import useGlobal from "@/global";
+    import { storeToRefs } from "pinia";
 
-</script>
+    const global = useGlobal();
+
+    const mainStore = global?.UserInfo;//获取用户账号信息的pinia
+    const { token } = storeToRefs(mainStore);
+
+    const hadToken = computed(()=>{return token.value?true:false});//判断localStorage中是否已经有token</script>
 
 <style lang="scss">
     @mixin button{

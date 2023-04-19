@@ -33,11 +33,6 @@ app.config.globalProperties.UserInfo = mainStore;
 //事件总线全局化
 app.config.globalProperties.Bus = mitt();
 
-//服务器地址与端口全局化
-// let ServerPath="http://localhost:8000"//本地服务器地址
- let ServerPath="http://frp-fix.top:50724"//外部服务器地址
-app.config.globalProperties.ServerPath = ServerPath;
-
 //登录注册悬浮窗的显示控制全局化
 let LARFloat = useLoginAndRegisterStore();
 app.config.globalProperties.LARFloat = LARFloat;
@@ -45,7 +40,7 @@ app.config.globalProperties.LARFloat = LARFloat;
 //axio请求拦截器
 axios.interceptors.request.use((config)=>{
 	if(mainStore.token){
-		config.headers['token'] = mainStore.token
+		config.headers['token'] = mainStore.token;
 	}
 	return config;
 });

@@ -16,7 +16,9 @@ import captionsVue from '@/pages/showcase/captions.vue'
 import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
 //协议页面
-import contract from "@/pages/contract.vue"
+import contractVue from "@/pages/contract.vue"
+//个人页面
+import personSpaceVue from '@/pages/personSpace.vue'
 
 const routes:RouteRecordRaw[] = [
     //首页
@@ -107,7 +109,13 @@ const routes:RouteRecordRaw[] = [
     {
         path: '/contract',
         name: 'contract',
-        component: contract,
+        component: contractVue,
+    },
+    //个人页
+    {
+        path: '/personSpace',
+        name: 'personSpace',
+        component: personSpaceVue,
     }
 ]
 
