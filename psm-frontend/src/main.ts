@@ -5,7 +5,7 @@ import App from '@/App.vue'
 //引入router
 import router from '@/router'
 
-//引入pinia持久化存储
+//引入pinia临时存储和持久化存储
 import store from '@/stores'
 import { useMainStore, useLoginAndRegisterStore }  from "@/stores/main.js"
 
@@ -37,7 +37,7 @@ app.config.globalProperties.Bus = mitt();
 let LARFloat = useLoginAndRegisterStore();
 app.config.globalProperties.LARFloat = LARFloat;
 
-//axio请求拦截器
+//axios请求拦截器
 axios.interceptors.request.use((config)=>{
 	if(mainStore.token){
 		config.headers['token'] = mainStore.token;

@@ -3,27 +3,25 @@
         <div class="itemContent">
             <div class="top">
                 <div class="left">
-                    <div class="title">双人联动轴</div>
-                    <div class="describe">双人轴 带点日语和英语 需要和谐部分词汇</div>
+                    <div class="title">{{title}}</div>
+                    <div class="describe">{{describe}}</div>
                 </div>
                 <div class="right">
-                    <img src="Carousel/bg-1.jpg">
+                    <img :src="imgSrc">
                 </div>
             </div>
             <div class="bottom">
                 <div class="left">
                     <div class="type">
                         <img src="icons/computer.svg" alt="">
-                        <span>美工</span>
+                        <span>{{type}}</span>
                     </div>
                     <div class="calendar">
                         <img src="icons/calendar.svg" alt="">
-                        <span>2023-5-10</span>
+                        <span>{{calendar}}</span>
                     </div>
                 </div>
-                <div class="right">
-                    ￥150-250
-                </div>
+                <div class="right">{{price}}</div>
             </div>
         </div>
     </div>
@@ -31,6 +29,14 @@
 
 <script setup lang="ts">
     import {defineProps, ref, PropType} from "vue"
+    const props = defineProps({
+        title:{type:String, required:true},
+        describe:{type:String, required:true},
+        imgSrc:{type:String, required:true},
+        type:{type:String, required:true},
+        calendar:{type:String, required:true},
+        price:{type:String, required:true},
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -48,9 +54,12 @@
         min-height: $size;
         max-height: $size;
     }
+    @mixin fixedRectangle($widthSize, $heightSize){
+        @include fixedWidth($widthSize);
+        @include fixedHeight($heightSize);
+    }
     .itemBox{
-        width: 50%;
-        height: 170px;
+        @include fixedRectangle(500px ,180px);
         display: flex;
         flex-direction: row;
         padding: 10px;

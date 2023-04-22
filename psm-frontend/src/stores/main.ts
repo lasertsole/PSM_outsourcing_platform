@@ -1,4 +1,4 @@
-import axios from"axios"
+import axios from "axios"
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
 import { useMainStoreObjType, useMainStoreObjInfoType } from "@/types/stores/useMainStoreType"
