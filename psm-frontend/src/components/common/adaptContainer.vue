@@ -9,7 +9,11 @@
 
 <script setup lang="ts">
     import { ref, defineProps, onMounted, onUnmounted, computed } from 'vue';
-    const props = defineProps({boxNum:{type:Number, required: true}, boxWidth:{type:Number, required: true}, boxHeight:{type:Number, required: true}}); 
+    const props = defineProps({
+        boxNum:{type:Number, required: true},
+        boxWidth:{type:Number, required: true},
+        boxHeight:{type:Number, required: true}
+    }); 
 
     /*************计算fixBox样式属性*************/
     const computedBoxWidth = computed(()=>{
