@@ -14,20 +14,35 @@
 </template>
 
 <script setup lang="ts">
+    import axios from "axios";
     import useGlobal from "@/global"
     import { storeToRefs } from "pinia";
+    import { ElMessage } from "element-plus";
     import session from "@/components/session.vue";
     import LARModel from "@/components/LARModel.vue";
     import HeaderComponent from "@/components/HeaderComponent.vue";
 
-     /**********获取全局变量*********/
+    /**********获取全局变量*********/
     const global = useGlobal();
     const mainStore = global?.UserInfo;
-    const { token } = storeToRefs(mainStore);
+    const { token,userinfo } = storeToRefs(mainStore);
 
+    /**********自动登录*********/
     if(token.value){//如果存在token则自动登录
-        mainStore.fasterLogin();
+        mainStore.fasterLogin(token.value);
     };
+    async function fasterLogin(){//自动登录
+        let result = await axios.get("api/user/fasterLogin");
+        let data = result.data;
+        if(data.status==1){
+            ElMessage.success(data.msg);
+            token.value = result.data.token;
+            userinfo.value = result.data.userinfo;
+        }
+        else{
+            ElMessage.error(data.msg);
+        }
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -42,7 +42,7 @@
     .header {
         transition: height .3s linear;
         position: relative;
-        z-index: 1;
+        z-index: 2;
         background: white;
         display: flex;
         flex-direction: row;

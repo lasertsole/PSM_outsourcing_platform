@@ -5,24 +5,124 @@
         <router-link to="/loginAndRegister" class="register">注册</router-link>
     </div>
     <!-- 用户账号管理 -->
-    <div v-else>
-
-    </div>
+    <ul class="userTool" v-else>
+        <li class="profile" @mouseenter="showDetail" @mouseleave="hideDetail">
+            <img :class="{userProfile:true, show:showUserDetail}" :src="profile">
+            <transition 
+                :css="false"
+                @enter="onEnter"
+                @leave="onLeave"
+            >
+                <div v-show="showUserDetail" :class="{userDetail:true}">
+                    <div class="name">psm0509</div>
+                    <ul class="numInfo">
+                        <li>
+                            <div class="top">57</div>
+                            <div class="bottom">关注</div>
+                        </li>
+                        <li>
+                            <div class="top">3</div>
+                            <div class="bottom">粉丝</div>
+                        </li>
+                    </ul>
+                    <ul class="option">
+                        <li><div><img src="icons/profile.png"><span>账户设置</span></div></li>
+                        <li><div><img src="icons/planning.png"><span>我的企划</span></div></li>
+                        <li><div><img src="icons/Vector.png"><span>我的橱窗</span></div></li>
+                        <hr>
+                        <li><div><img src="icons/longArrow.svg"><span>退出登录</span></div></li>
+                    </ul>
+                </div>
+            </transition>
+        </li>
+        <li>动态</li>
+        <li>收藏</li>
+        <li>历史</li>
+        <li>创作中心</li>
+        <li>投稿</li>
+    </ul>
 </template>
 
 <script lang="ts" setup>
-    import { computed } from "vue";
+    import { ref, computed } from "vue";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
+    import gsap from "gsap";
 
     const global = useGlobal();
 
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
-    const { token } = storeToRefs(mainStore);
+    const { token, userinfo } = storeToRefs(mainStore);
 
-    const hadToken = computed(()=>{return token.value?true:false});//判断localStorage中是否已经有token</script>
+    const hadToken = computed(()=>{return token.value?true:false});//判断localStorage中是否已经有token
+
+    /*显示用户信息*/
+    // const serverUrl = import.meta.env.VITE_API_URL;//从环境变量中获取服务器地址
+    // const userProfile = userinfo.value.userProfile;//从pinia中获取头像数据
+
+    const profile = ref("http://frp-few.top:26246/media/userProfile/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjE5ODIwNDgyODA4IiwicGFzc3dvcmQiOiIxMTIyMzMifQ.3cPYKNEmXWQjswgHYRd3ad496VYVS6txECjnX34WmMc.jpg");
+
+    /*鼠标移入时展示用户细节*/
+    const showUserDetail = ref<boolean>(false);
+    function showDetail():void{
+        isMouseInBox=true;
+        if(animateLock){return};//判断动画是否锁上
+        showUserDetail.value=true;
+        animate?.kill();
+    }
+
+    /*鼠标移出时隐藏用户细节*/
+    function hideDetail():void{
+        isMouseInBox=false;
+        if(animateLock){return};//判断动画是否锁上
+        showUserDetail.value=false;
+        animate?.kill();
+    }
+
+    /*详情盒子动画钩子*/
+    let animate:any = undefined;//gsap动画容器
+    let isMouseInBox:boolean = false;//鼠标是否在详情盒子中
+    let animateLock:boolean = false;//动画锁
+    function onEnter(el:any, done:Function):void{
+        animate = gsap.to(el,{
+            opacity:1,
+            top: 70,
+            duration: .3,//持续时间
+            onStart:()=>{//开始触发函数
+                animateLock=true;
+            },
+            onComplete:()=>{//结束触发函数
+                done();
+                animateLock=false;
+                if(!isMouseInBox){
+                    hideDetail();
+                }
+            }
+        });
+    }
+    function onLeave(el:any, done:Function):void{
+        animate = gsap.to(el,{
+            opacity:0,
+            top: 30,
+            duration: .3,//持续时间
+            onStart:()=>{//开始触发函数
+                animateLock=true;
+            },
+            onComplete:()=>{//结束触发函数
+                done();
+                animateLock=false;
+                if(isMouseInBox){
+                    showDetail();
+                }
+            }
+        });
+    }
+</script>
 
 <style lang="scss">
+    @use "sass:math";
+    @import "@/common.scss";
+    
     @mixin button{
         width: 80px;
         height: 36px;
@@ -49,8 +149,117 @@
             @include button;
         }
     }
+    .userTool{
+        display: flex;
+        flex-direction: row;
+        font-size: 13px;
+        align-items: center;
+        padding: 10px;
+        li{
+            padding: 5px;
+            cursor: pointer;
+            &.profile{
+                background-size: 100%;
+                margin-right: 20px;
+                padding: 0px;
+                position: relative;
+                $profileSize: 35px;
+                .userProfile{
+                    @include fixedCircle($profileSize);
+                    z-index: 2;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: linear .3s;
+
+                    &.show{
+                        transform: scale(2) translateY(75%);
+                    }
+                }
+                .userDetail{
+                    opacity: 0;
+                    display: block;
+                    z-index: 1;
+                    position: absolute;
+                    background-color: #f5f5f5;
+                    @include fixedRoundedRectangle(200px,280px, 10px);
+                    top: 30px;
+                    left: math.div($profileSize, 2);
+                    transform: translateX(-50%);
+                    padding: math.div($profileSize, 2) + 25px 20px 10px;
+
+                    .name{
+                        display: flex;
+                        justify-content: center;
+                        font-weight: bolder;
+                    }
+
+                    .numInfo{
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-around;
+                        
+                        li{
+                            >div{
+                                display: flex;
+                                justify-content: center;
+
+                                &.top{
+                                    font-size: 16px;
+                                    font-weight: bolder;
+                                }
+                                &.bottom{
+                                    font-size: 10px;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+
+                    .option{
+                        margin-top: 15px;
+                        li{
+                            font-weight: bold;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            div{
+                                display: flex;
+                                align-items: center;
+                                span{}
+
+                                img{
+                                    @include fixedSquare(15px);
+                                    margin-right: 10px;
+
+                                }
+                            }
+
+                            &:not(:last-of-type){
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    @include fixedSquare(15px);
+                                    background-image: url(icons/arrow.svg);
+                                    background-size: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    hr{
+                        margin: 10px 0px;
+                    }
+                }
+            }
+        }
+    }
     @media screen and (max-width: 600px) {
         .loginOrRegister{
+            display: none;
+        }
+        .userTool{
             display: none;
         }
     }

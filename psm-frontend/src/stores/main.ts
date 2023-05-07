@@ -59,7 +59,6 @@ export const useMainStore = defineStore({
             else{
                 let result = await axios.post("api/user/login",{phoneNumber, password});
                 let data = result.data;
-                console.log(data);
                 if(data.status==1){
                     ElMessage.success(data.msg);
                     this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile});
@@ -106,6 +105,25 @@ export const useMainStore = defineStore({
             }
             else{
                 ElMessage.success("修改成功");
+            }
+        },
+        accountSetProfile: async function(file:any):Promise<void>{//用户设置头像
+            const formData = new FormData();//第一次请求
+            formData.append("file", file);
+            formData.append("format", "jpg");
+            let result = await axios({
+                method: 'post',
+                url: "api/user/setProfile",
+                headers: {
+                    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVCFSAonTuDbVCoAN",
+                },
+                data: formData,
+            });
+            if(result.data.status==0){
+                ElMessage.error("上传失败");
+            }
+            else{
+                ElMessage.success("上传成功");
             }
         }
     }

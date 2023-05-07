@@ -1,8 +1,11 @@
 <template>
-    <div class="works"></div>
+    <div class="works">
+        <uploadImg></uploadImg>
+    </div>
 </template>
 
 <script setup lang="ts">
+    import uploadImg from "@/components/works/uploadImg.vue"
 </script>
 
 <style lang="scss" scoped>

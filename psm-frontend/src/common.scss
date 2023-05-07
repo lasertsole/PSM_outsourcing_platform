@@ -1,0 +1,54 @@
+@use "sass:math";
+/* 固定宽度 */
+@mixin fixedWidth($size) {
+	min-width: $size;
+	max-width: $size;
+}
+/* 固定高度 */
+@mixin fixedHeight($size) {
+	min-height: $size;
+	max-height: $size;
+}
+/* 固定长方形 */
+@mixin fixedRetangle($widthSize, $heightSize){
+	@include fixedWidth($widthSize);
+	@include fixedHeight($heightSize);
+	box-sizing: border-box;
+}
+/* 固定正方形 */
+@mixin fixedSquare($size){
+	@include fixedRetangle($size, $size);
+}
+/* 固定圆角矩形 */
+@mixin fixedRoundedRectangle($widthSize, $heightSize, $borderRadiusSize){
+	@include fixedRetangle($widthSize, $heightSize);
+	border-radius: $borderRadiusSize;
+}
+/*固定胶囊形*/
+@mixin fixedCapsule($widthSize, $heightSize){
+	@include fixedRetangle($widthSize, $heightSize);
+	border-radius: math.div($heightSize,2);
+}
+/* 固定圆形 */
+@mixin fixedCircle($size){
+	@include fixedRoundedRectangle($size,$size,50%);
+}
+/* 固定充满父容器 */
+@mixin fullInParent {
+	@include fixedSquare(100%);
+}
+/* 固定充满父容器的图片 */
+@mixin imgFullInParent($imgSrc) {
+	@include fullInParent;
+	background-image: url(#{$imgSrc});
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+}
+/* 固定充满本容器的图片 */
+@mixin fullImg($imgSrc) {
+	background-image: url(#{$imgSrc});
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+}
