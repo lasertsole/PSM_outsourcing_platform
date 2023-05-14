@@ -5,6 +5,8 @@ import loginAndResigterVue from '@/pages/loginAndResigter.vue'
 import showcaseVue from '@/pages/showcase.vue'
 import planningVue from '@/pages/planning.vue'
 import worksVue from '@/pages/works.vue'
+import personSpaceVue from '@/pages/personSpace.vue'//个人空间页面
+import personInfo from "@/pages/personInfo.vue"//个人信息页面
 
 /*二级路由*/
 //橱窗页面
@@ -17,8 +19,6 @@ import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
 //协议页面
 import contractVue from "@/pages/contract.vue"
-//个人页面
-import personSpaceVue from '@/pages/personSpace.vue'
 
 const routes:RouteRecordRaw[] = [
     //首页
@@ -111,11 +111,17 @@ const routes:RouteRecordRaw[] = [
         name: 'contract',
         component: contractVue,
     },
-    //个人页
+    //个人空间页
     {
         path: '/personSpace',
         name: 'personSpace',
         component: personSpaceVue,
+    },
+    //个人信息页
+    {
+        path: '/personInfo',
+        name: 'personInfo',
+        component: personInfo,
     }
 ]
 

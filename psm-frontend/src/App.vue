@@ -62,6 +62,8 @@
             flex-direction: row;
             flex-grow: 1;
             overflow: auto;
+            position: relative;
+            z-index: 0;
         }
     }
 </style>

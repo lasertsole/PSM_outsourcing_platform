@@ -7,14 +7,14 @@
     <!-- 用户账号管理 -->
     <ul class="userTool" v-else>
         <li class="profile" @mouseenter="showDetail" @mouseleave="hideDetail">
-            <img :class="{userProfile:true, show:showUserDetail}" :src="profile">
+            <img :class="{userProfile:true, show:showUserDetail}" :src="profile" @click="onClick">
             <transition 
                 :css="false"
                 @enter="onEnter"
                 @leave="onLeave"
             >
                 <div v-show="showUserDetail" :class="{userDetail:true}">
-                    <div class="name">psm0509</div>
+                    <div class="name" @click="onClick">{{name}}</div>
                     <ul class="numInfo">
                         <li>
                             <div class="top">57</div>
@@ -44,10 +44,11 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, computed } from "vue";
+    import { ref, computed, onMounted, onUnmounted } from "vue";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import gsap from "gsap";
+    import router from "@/router";
 
     const global = useGlobal();
 
@@ -57,10 +58,14 @@
     const hadToken = computed(()=>{return token.value?true:false});//判断localStorage中是否已经有token
 
     /*显示用户信息*/
-    // const serverUrl = import.meta.env.VITE_API_URL;//从环境变量中获取服务器地址
-    // const userProfile = userinfo.value.userProfile;//从pinia中获取头像数据
-
-    const profile = ref("http://frp-few.top:26246/media/userProfile/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjE5ODIwNDgyODA4IiwicGFzc3dvcmQiOiIxMTIyMzMifQ.3cPYKNEmXWQjswgHYRd3ad496VYVS6txECjnX34WmMc.jpg");
+    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
+    let userProfile:string = userinfo.value.userProfile;//从pinia中获取头像数据
+    const profile = ref<string>(serverUrl+userProfile);
+    const name = ref<string>(userinfo.value.userName);
+    function replaceProfile(){//登录时替换头像
+        userProfile = userinfo.value.userProfile
+        profile.value = serverUrl+userProfile;
+    }
 
     /*鼠标移入时展示用户细节*/
     const showUserDetail = ref<boolean>(false);
@@ -117,6 +122,20 @@
             }
         });
     }
+
+    function onClick():void{//点击触发事件
+        router.replace("/personInfo");
+    }
+
+    /************挂载触发事件************/
+    onMounted(()=>{
+        global?.Bus.on("login",replaceProfile);
+    });
+
+    /************卸载载触发事件************/
+    onUnmounted(()=>{
+        global?.Bus.off("login",replaceProfile);
+    });
 </script>
 
 <style lang="scss">
@@ -157,8 +176,8 @@
         padding: 10px;
         li{
             padding: 5px;
-            cursor: pointer;
             &.profile{
+                cursor: pointer;
                 background-size: 100%;
                 margin-right: 20px;
                 padding: 0px;
@@ -201,6 +220,7 @@
                         justify-content: space-around;
                         
                         li{
+                            cursor: pointer;
                             >div{
                                 display: flex;
                                 justify-content: center;
@@ -220,6 +240,7 @@
                     .option{
                         margin-top: 15px;
                         li{
+                            cursor: pointer;
                             font-weight: bold;
                             display: flex;
                             justify-content: space-between;

@@ -7,7 +7,7 @@ import router from '@/router'
 
 //引入pinia临时存储和持久化存储
 import store from '@/stores'
-import { useMainStore, useLoginAndRegisterStore }  from "@/stores/main.js"
+import { useMainStore, useLoginAndRegisterStore, initGlobal }  from "@/stores/main.js"
 
 //引入Element-Plus
 import ElementPlus from 'element-plus'
@@ -26,6 +26,9 @@ app.use(router);
 app.use(store);
 app.use(ElementPlus);
 
+//服务器地址全局化
+app.config.globalProperties.serverUrl = import.meta.env.VITE_API_URL;
+
 //将pinia存储的数据全局化
 let mainStore = useMainStore();
 app.config.globalProperties.UserInfo = mainStore;
@@ -36,6 +39,9 @@ app.config.globalProperties.Bus = mitt();
 //登录注册悬浮窗的显示控制全局化
 let LARFloat = useLoginAndRegisterStore();
 app.config.globalProperties.LARFloat = LARFloat;
+
+//给pinia传全局变量
+initGlobal(app.config.globalProperties);
 
 //axios请求拦截器
 axios.interceptors.request.use((config)=>{

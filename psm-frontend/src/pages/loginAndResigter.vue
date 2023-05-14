@@ -35,6 +35,7 @@
 <script setup lang="ts">
     import {ref} from "vue";
     import useGlobal from "@/global"
+    import { storeToRefs } from "pinia";
 
      /**********获取全局变量*********/
     const global = useGlobal();

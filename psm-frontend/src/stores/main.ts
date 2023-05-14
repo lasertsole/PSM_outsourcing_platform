@@ -3,6 +3,12 @@ import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
 import { useMainStoreObjType, useMainStoreObjInfoType } from "@/types/stores/useMainStoreType"
 
+/**********main传入全局变量**********/
+let global:any=undefined;
+export function initGlobal(passGlobal:any):void{
+    global=passGlobal;
+}
+
 /**********持久化存储用户信息**********/
 let obj:useMainStoreObjType={
     token:undefined,
@@ -35,6 +41,7 @@ export const useMainStore = defineStore({
             if(data.status==1){
                 ElMessage.success(data.msg);
                 this.setAccount(this.token, {userName:data.userName,userProfile:data.userProfile});
+                global.Bus.emit("login","");//广播用户上线通知
             }
             else{
                 ElMessage.error(data.msg);
@@ -62,6 +69,7 @@ export const useMainStore = defineStore({
                 if(data.status==1){
                     ElMessage.success(data.msg);
                     this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile});
+                    global.Bus.emit("login","");//广播用户上线通知
                 }
                 else{
                     ElMessage.error(data.msg);

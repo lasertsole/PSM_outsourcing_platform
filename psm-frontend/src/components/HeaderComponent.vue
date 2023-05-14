@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
-    import {RouteLocationRaw} from "vue-router"
     import {routerInfo} from "@/types/componentsType/HeaderComponent"//获取本页面要使用的复合类型
 
     import logo from "@/components/frameComponents/header/logo.vue"
