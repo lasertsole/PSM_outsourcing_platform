@@ -12,6 +12,7 @@ import { useMainStore, useLoginAndRegisterStore, initGlobal }  from "@/stores/ma
 //引入Element-Plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { ElMessage } from 'element-plus';
 
 //引入axios
@@ -24,7 +25,7 @@ const app = createApp(App);
 
 app.use(router);
 app.use(store);
-app.use(ElementPlus);
+app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 
 //服务器地址全局化
 app.config.globalProperties.serverUrl = import.meta.env.VITE_API_URL;

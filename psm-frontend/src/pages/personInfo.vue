@@ -22,11 +22,17 @@
                             <span class="gray">今日剩余邀请次数</span>
                             <span class="times">10 / 10</span>
                         </div>
-                    </div>
-                    <div class="bottom">
                         
                     </div>
+                    <div class="hr"><div class="line"></div></div>
+                    <div class="bottom">
+                        <selectItem></selectItem>
+                    </div>
                 </div>
+
+                <collectOption></collectOption>
+
+                <calendar></calendar>
             </div>
             <div class="right"></div>
         </div>
@@ -37,6 +43,9 @@
     import { ref, computed, onMounted, onUnmounted, toRefs } from "vue";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
+    import selectItem from "@/components/personInfo/selectItem.vue";
+    import collectOption from "@/components/personInfo/collectOption.vue";
+    import calendar from "@/components/personInfo/calendar.vue";
 
     const global = useGlobal();
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
@@ -55,7 +64,7 @@
     .personInfo{
         width: 100%;
         height: 100%;
-        padding: 30px 80px;
+        padding: 30px 80px 0px 80px;
         display: flex;
         justify-content:  center;
         overflow-y: auto;
@@ -69,7 +78,6 @@
             justify-content: space-between;
 
             >.left{
-                background-color: orange;
                 width: 250px;
                 height: 100%;
                 >.personCard{
@@ -78,15 +86,16 @@
                     border-radius: 4px;
                     background-color: white;
                     box-sizing: border-box;
-                    padding: 20px;
+                    
                     >div{
                         box-sizing: border-box;
                     }
                     >.top{
                         width: 100%;
-                        height: 40%;
+                        height: 30%;
                         display: flex;
                         flex-direction: column;
+                        padding: 20px 20px 10px 20px;
 
                         .top{
                             width: 100%;
@@ -125,6 +134,7 @@
                             height: 60%;
                             display: flex;
                             justify-content: space-between;
+                            align-items: flex-end;
                             padding-top: 5px;
                             >.gray{
                                 color: lightgray;
@@ -136,11 +146,19 @@
                                 font-size: 16px;
                             }
                         }
+                        
+                    }
+                    >.hr{
+                        height: 0.5px;
+                        padding: 0px 20px;
+                        .line{
+                            height: 100%;
+                            background-color: lightgray;
+                        }
                     }
                     >.bottom{
                         width: 100%;
-                        height: 60%;
-                        background-color: blue;
+                        height: 70%;
                     }
                 }
             }
