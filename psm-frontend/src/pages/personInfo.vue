@@ -34,7 +34,9 @@
 
                 <calendar></calendar>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <myPlanning></myPlanning>
+            </div>
         </div>
     </div>
 </template>
@@ -46,6 +48,7 @@
     import selectItem from "@/components/personInfo/selectItem.vue";
     import collectOption from "@/components/personInfo/collectOption.vue";
     import calendar from "@/components/personInfo/calendar.vue";
+    import myPlanning from "@/components/personInfo/myPlanning.vue";
 
     const global = useGlobal();
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
@@ -71,7 +74,6 @@
         box-sizing: border-box;
         background-color: #ededed;
         >.container{
-            background-color: aqua;
             width: 1000px;
             height: 100%;
             display: flex;
@@ -164,9 +166,9 @@
             }
 
             >.right{
-                background-color: orange;
                 width: 740px;
                 height: 100%;
+                margin-left: 10px;
             }
         }
     }

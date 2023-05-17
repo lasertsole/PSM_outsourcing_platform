@@ -29,7 +29,9 @@
             align-items: center;
             padding: 10px;
             box-sizing: border-box;
+            color: gray;
             @include fixedHeight(70px);
+            cursor: pointer;
             &.center{
                 padding: 10px 0px;
                 display: flex;
