@@ -4,25 +4,7 @@
             <div class="left">
                 <div class="personCard">
                     <div class="top">
-                        <div class="top">
-                            <div class="left">
-                                <img class="profile" :src="profile"/>
-                            </div>
-                            <div class="right">
-                                <div class="top">
-                                    <span class="transformRule">企划方</span>
-                                    <span>{{ userName }}</span>
-                                </div>
-                                <div class="bottom">
-                                    <span class="gray">切换为画师</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bottom">
-                            <span class="gray">今日剩余邀请次数</span>
-                            <span class="times">10 / 10</span>
-                        </div>
-                        
+                        <personCard></personCard>
                     </div>
                     <div class="hr"><div class="line"></div></div>
                     <div class="bottom">
@@ -49,6 +31,7 @@
     import collectOption from "@/components/personInfo/collectOption.vue";
     import calendar from "@/components/personInfo/calendar.vue";
     import myPlanning from "@/components/personInfo/myPlanning.vue";
+    import personCard from "@/components/personInfo/personCard.vue";
 
     const global = useGlobal();
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
@@ -96,59 +79,7 @@
                         width: 100%;
                         height: 30%;
                         display: flex;
-                        flex-direction: column;
                         padding: 20px 20px 10px 20px;
-
-                        .top{
-                            width: 100%;
-                            height: 40%;
-                            display: flex;
-                            >.left{
-                                >.profile{
-                                    @include fixedCircle(50px);
-                                    background-color: white;
-                                }
-                            }
-                            >.right{
-                                margin-left: 8px;
-                                display: flex;
-                                flex-direction: column;
-                                >.top{
-                                    >span{
-                                        font-size: 14px;
-                                        font-weight: bold;
-                                    }
-                                    >.transformRule{
-                                        color: #00a8e9;
-                                        margin-right: 10px;
-                                    }
-                                }
-                                >.bottom{
-                                    >.gray{
-                                        color: lightgray;
-                                        font-size: 12px;
-                                    }
-                                }
-                            }
-                        }
-                        .bottom{
-                            width: 100%;
-                            height: 60%;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: flex-end;
-                            padding-top: 5px;
-                            >.gray{
-                                color: lightgray;
-                                font-size: 12px;
-                                margin-top: 4px;
-                            }
-                            >.times{
-                                color: #00a8e9;
-                                font-size: 16px;
-                            }
-                        }
-                        
                     }
                     >.hr{
                         height: 0.5px;

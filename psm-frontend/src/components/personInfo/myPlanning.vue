@@ -1,12 +1,12 @@
 <template>
     <div class="myPlanning">
-        <div class="header">
-            <span>我的企划</span>
-        </div>
+        <planningHeader/>
+        <RouterView></RouterView>
     </div>
 </template>
 
 <script setup lang="ts">
+    import planningHeader from "@/components/personInfo/planningHeader.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -17,14 +17,5 @@
         @include fixedRoundedRectangle(100%, 300px, 6px);
         background-color: white;
         box-sizing: border-box;
-
-        .header{
-            height: 60px;
-            display: flex;
-            align-items: center;
-            padding: 10px 30px;
-            border-bottom: 1px lightgray solid;
-            box-sizing: border-box;
-        }
     }
 </style>

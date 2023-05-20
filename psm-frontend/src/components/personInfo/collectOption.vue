@@ -1,8 +1,23 @@
 <template>
     <ul class="collectOption">
-        <li>画师收藏</li>
-        <li class="center">作品收藏</li>
-        <li>橱窗收藏</li>
+        <li>
+            <div>
+                <img src="icons/drawerCollect.png" class="collectIcon"/>
+                <div class="collectName">画师收藏</div>
+            </div>
+        </li>
+        <li class="center">
+            <div>
+                <img src="icons/worksCollect.png" class="collectIcon"/>
+                <div class="collectName">作品收藏</div>
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="icons/showcaseCollect.png" class="collectIcon"/>
+                <div class="collectName">橱窗收藏</div>
+            </div>
+        </li>
     </ul>
 </template>
 
@@ -32,6 +47,19 @@
             color: gray;
             @include fixedHeight(70px);
             cursor: pointer;
+            >div{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .collectIcon{
+                    @include fixedSquare(38px);
+                }
+
+                .collectName{
+
+                }
+            }
+
             &.center{
                 padding: 10px 0px;
                 display: flex;

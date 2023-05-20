@@ -1,13 +1,25 @@
 <template>
     <div class="selectItem">
-        <div class="blackLineContainer">
-            <div class="blackLine" :style="`transform: translateY(${selectIndex*100}%);`"></div>
+        <div class="lineContainer">
+            <div class="line" :style="`transform: translateY(${selectIndex*100}%);`"></div>
         </div>
         <ul>
-            <li :class="{selected:selectIndex==0}" @click="changeSelectIndex(0)">我的企划</li>
-            <li :class="{selected:selectIndex==1}" @click="changeSelectIndex(1)">我的画师</li>
-            <li :class="{selected:selectIndex==2}" @click="changeSelectIndex(2)">我的稿件</li>
-            <li :class="{selected:selectIndex==3}" @click="changeSelectIndex(3)">系统通知</li>
+            <li :class="{selected:selectIndex==0}" @click="changeSelectIndex(0)">
+                <img src="icons/bluePlanning.png"/>
+                <div>我的企划</div>
+            </li>
+            <li :class="{selected:selectIndex==1}" @click="changeSelectIndex(1)">
+                <img src="icons/blueDrawer.png"/>
+                <div>我的画师</div>
+            </li>
+            <li :class="{selected:selectIndex==2}" @click="changeSelectIndex(2)">
+                <img src="icons/bluePlanning.png"/>
+                <div>我的稿件</div>
+            </li>
+            <li :class="{selected:selectIndex==3}" @click="changeSelectIndex(3)">
+                <img src="icons/blueAnnounce.png"/>
+                <div>系统通知</div>
+            </li>
         </ul>
     </div>
 </template>
@@ -22,20 +34,22 @@
 </script>
 
 <style lang="scss" scoped>
+    @use "sass:math";
+    @import "@/common.scss";
     .selectItem{
         box-sizing: border-box;
         width: 100%;
         height: 100%;
         display: flex;
 
-        .blackLineContainer{
+        .lineContainer{
             height: 100%;
             width: 1.5%;
             padding: 20px 0px;
             box-sizing: border-box;
-            .blackLine{
+            .line{
                 height: 25%;
-                background-color: black;
+                background-color: #0080ff;
                 box-sizing: border-box;
                 padding: 20px 0px;
                 transition: all .3s ease-out;
@@ -60,8 +74,13 @@
                 border-left: 3px solid transparent;
                 color: gray;
                 &.selected{
-                    color: black;
+                    color: rgb(90, 90, 90);
                     font-weight: bold;
+                }
+
+                img{
+                    @include fixedSquare(25px);
+                    margin-right: 10px;
                 }
             }
         }
