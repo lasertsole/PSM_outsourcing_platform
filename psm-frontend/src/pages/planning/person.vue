@@ -7,7 +7,7 @@
         >
         </filterBar>
         <div class="itemBoxContainer">
-            <itemBox></itemBox>
+            <itemBox ></itemBox>
             <itemBox></itemBox>
             <itemBox></itemBox>
         </div>

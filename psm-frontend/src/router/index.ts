@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 /*一级路由*/
-import indexPageVue from "@/pages/indexPage.vue"
-import loginAndResigterVue from '@/pages/loginAndResigter.vue'
-import showcaseVue from '@/pages/showcase.vue'
-import planningVue from '@/pages/planning.vue'
-import worksVue from '@/pages/works.vue'
-import personSpaceVue from '@/pages/personSpace.vue'//个人空间页面
-import personInfo from "@/pages/personInfo.vue"//个人信息页面
+import indexPageVue from "@/pages/indexPage/indexPage.vue"//首页
+import loginAndResigterVue from '@/pages/loginAndResigter/loginAndResigter.vue'//登录注册页
+import showcaseVue from '@/pages/showcase/showcase.vue'//橱窗页
+import planningVue from '@/pages/planning/planning.vue'//企划页
+import worksVue from '@/pages/works/works.vue'//作品页
+import personSpaceVue from '@/pages/personSpace/personSpace.vue'//个人空间页面
+import personInfo from "@/pages/personInfo/personInfo.vue"//个人信息页面
 
 /*二级路由*/
 //橱窗页面
@@ -18,7 +18,7 @@ import captionsVue from '@/pages/showcase/captions.vue'
 import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
 //协议页面
-import contractVue from "@/pages/contract.vue"
+import contractVue from "@/pages/contract/contract.vue"
 
 const routes:RouteRecordRaw[] = [
     //首页

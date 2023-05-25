@@ -18,9 +18,9 @@
     import useGlobal from "@/global"
     import { storeToRefs } from "pinia";
     import { ElMessage } from "element-plus";
-    import session from "@/components/session.vue";
-    import LARModel from "@/components/LARModel.vue";
-    import HeaderComponent from "@/components/HeaderComponent.vue";
+    import session from "@/components/framework/session.vue";
+    import LARModel from "@/components/framework/LARModel.vue";
+    import HeaderComponent from "@/components/framework/HeaderComponent.vue";
 
     /**********获取全局变量*********/
     const global = useGlobal();

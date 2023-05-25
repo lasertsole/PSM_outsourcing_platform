@@ -109,7 +109,7 @@
         box-sizing: border-box;
         border-bottom: 2px ;
         background-color: white;
-        border-radius: 5px 5px 0px 0px;
+        border-radius: 5px;
         transition: all .3s linear;
         overflow: hidden;
         &.hide{
@@ -118,7 +118,7 @@
 
         &.fullPage{
             width: 700px;
-            right: 0px;
+            right: 20px;
         }
         .header{
             display: flex;
@@ -155,6 +155,8 @@
                 min-width: 250px;
                 overflow-y: auto;
                 padding: 10px;
+                width: 100%;
+                box-sizing: border-box;
                 li{
                     margin-right: 10px;
                     display: flex;
@@ -209,7 +211,7 @@
                     max-width: 0px;
                     transition: max-width .3s linear;
                     padding: 5px;
-                    flex-direction: column;
+                    box-sizing: border-box;
                     &.show{
                         max-width: 100%;
                         display: block;
