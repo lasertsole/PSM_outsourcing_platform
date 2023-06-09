@@ -47,8 +47,15 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue';
+    import useGlobal from "@/global";
+    import { storeToRefs } from "pinia";
     import { sessionInfo } from "@/types/pageType/session"
     import sessionBox from '@/components/frameComponents/session/sessionBox.vue';
+
+    const global = useGlobal();
+    const mainStore = global?.UserInfo;
+    const { token, userinfo } = storeToRefs(mainStore);
+    let WSConnect = global?.WSConnect;
 
     const hideContacts = ref<Boolean>(true);//控制隐藏和显示联系人
     function clickShowContacts():void{//点击私聊栏顶部时向上显示联系人
@@ -61,7 +68,17 @@
     const fullPage = ref<Boolean>(false);//控制私聊框全屏
     function changeFullPage():void{//点击某个联系人时全屏
         fullPage.value=true;
+        let obj:Object = {"user_id": userinfo.value.userID,"type":"getChatInfo"};
+        obj=JSON.stringify(obj);
+        WSConnect.send(obj);
     }
+
+    /**************以下是获取聊天记录**************/
+
+    
+
+    /**************以上是获取聊天记录**************/
+
     const chatArr:sessionInfo[] =[
         {
             isMe:false,

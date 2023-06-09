@@ -1,6 +1,7 @@
 export interface useMainStoreObjInfoType{
     userName:string|undefined,
-    userProfile:undefined|string
+    userProfile:undefined|string,
+    userID:undefined|string,
 }
 
 export interface useMainStoreObjType{

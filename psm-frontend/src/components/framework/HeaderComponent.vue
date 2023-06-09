@@ -12,7 +12,7 @@
             <div @click="drawer=!drawer" class="menu"></div>
         </div>
     </div>
-    <dropMenu :tabBarArr="tabBarArr" :drawer="drawer"></dropMenu>
+    <dropMenu :tabBarArr="tabBarArr" :drawer="drawer" @closeDropMenu="closeDropMenu"></dropMenu>
 </template>
 
 <script setup lang="ts">
@@ -25,6 +25,10 @@
     import loginOrlogout from "@/components/frameComponents/header/loginOrlogout.vue"
     
     const drawer = ref<boolean>(false);//控制菜单下拉框显示与否
+    function closeDropMenu():void{//屏幕大于600px时关闭下拉框
+        drawer.value = false;
+    }
+
     const tabBarArr = ref<routerInfo[]>([
         {text:"橱窗", linkTo:"/showcase"},
         {text:"企划", linkTo:"/planning"},

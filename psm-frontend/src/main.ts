@@ -21,6 +21,9 @@ import axios from 'axios'
 //引入事件总线mitt
 import mitt from 'mitt'
 
+//引入socket
+import { createConnect, disconnect } from "@/socket"
+
 const app = createApp(App);
 
 app.use(router);
@@ -64,6 +67,10 @@ axios.interceptors.response.use((res)=>{
 	// }
 	return res;
 });
+
+//创建socket链接
+let WSConnect = createConnect();
+app.config.globalProperties.WSConnect = WSConnect;
 
 //虚拟节点挂载到app节点
 app.mount('#app')

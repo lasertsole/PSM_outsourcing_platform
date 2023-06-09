@@ -25,7 +25,7 @@
     /**********获取全局变量*********/
     const global = useGlobal();
     const mainStore = global?.UserInfo;
-    const { token,userinfo } = storeToRefs(mainStore);
+    const { token, userinfo } = storeToRefs(mainStore);
 
     /**********自动登录*********/
     if(token.value){//如果存在token则自动登录

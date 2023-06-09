@@ -8,9 +8,24 @@
 </template>
 
 <script lang="ts" setup>
-    import {defineProps} from "vue"
+    import {defineProps, onMounted, onUnmounted, defineEmits} from "vue"
     import {RouteLocationRaw} from "vue-router"
     const props = defineProps({tabBarArr:Object, drawer:Boolean});
+    const emits = defineEmits(['closeDropMenu']);
+
+    function closeDropMenu():void{
+        console.log(window.innerWidth);
+        if(window.innerWidth>600){
+            emits('closeDropMenu');
+        }
+    }
+    onMounted(()=>{
+        window.addEventListener("resize",closeDropMenu,false);//绑定监听屏幕大小变化事件
+    })
+
+    onUnmounted(()=>{
+        window.removeEventListener("resize",closingDropMenu);//解绑监听屏幕大小变化事件
+    })
 </script>
 
 <style lang="scss">
@@ -54,6 +69,7 @@
             height: 1px;
             margin: 5px 0px;
         }
+
         @media screen and (max-width: 600px) {
             display: block;
             &.show{

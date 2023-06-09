@@ -12,7 +12,7 @@ export function initGlobal(passGlobal:any):void{
 /**********持久化存储用户信息**********/
 let obj:useMainStoreObjType={
     token:undefined,
-    userinfo: {userName:undefined, userProfile:undefined},
+    userinfo: {userName:undefined, userProfile:undefined,userID:undefined},
 };
 
 export const useMainStore = defineStore({
@@ -27,12 +27,13 @@ export const useMainStore = defineStore({
     actions:{
         removeAccount:function():void{//移除账号信息
             this.token=undefined;
-            this.userinfo={userName:undefined, userProfile:undefined};
+            this.userinfo={userName:undefined, userProfile:undefined,userID:undefined};
         },
         setAccount:function(token:any,userinfo:useMainStoreObjInfoType):void{//设置账号信息
             this.token=token;
             if(userinfo.userName==""){userinfo.userName=undefined;}
             if(userinfo.userProfile==""){userinfo.userProfile=undefined;}
+            if(userinfo.userID==""){userinfo.userID=undefined;}
             this.userinfo=userinfo;
         },
         fasterLogin: async function() {//自动登录
@@ -40,7 +41,7 @@ export const useMainStore = defineStore({
             let data = result.data;
             if(data.status==1){
                 ElMessage.success(data.msg);
-                this.setAccount(this.token, {userName:data.userName,userProfile:data.userProfile});
+                this.setAccount(this.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                 global.Bus.emit("login","");//广播用户上线通知
             }
             else{
@@ -68,7 +69,7 @@ export const useMainStore = defineStore({
                 let data = result.data;
                 if(data.status==1){
                     ElMessage.success(data.msg);
-                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile});
+                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                     global.Bus.emit("login","");//广播用户上线通知
                 }
                 else{
@@ -98,7 +99,7 @@ export const useMainStore = defineStore({
                 console.log(data);
                 if(data.status==1){
                     ElMessage.success(data.msg);
-                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile});
+                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                     this.fasterLogin();//注册完成后自动登录
                 }
                 else{
@@ -141,6 +142,7 @@ export const useMainStore = defineStore({
 export const useLoginAndRegisterStore = defineStore({
     id: 'LoginAndRegisterFloat', 
     state: () => ({
+        isOnline:false,//判断是否已登录
         isShowFloat:false,
     }),
     actions:{
