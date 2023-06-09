@@ -1,6 +1,6 @@
 <template>
     <!-- 登录注册按钮 -->
-    <div v-if="!hadToken" class="loginOrRegister">
+    <div v-if="!isOnline" class="loginOrRegister">
         <router-link to="/loginAndRegister" class="login">登录</router-link>
         <router-link to="/loginAndRegister" class="register">注册</router-link>
     </div>
@@ -53,9 +53,7 @@
     const global = useGlobal();
 
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
-    const { token, userinfo } = storeToRefs(mainStore);
-
-    const hadToken = computed(()=>{return token.value?true:false});//判断localStorage中是否已经有token
+    const { isOnline, userinfo } = storeToRefs(mainStore);
 
     /*显示用户信息*/
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址

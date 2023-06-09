@@ -1,20 +1,29 @@
 <template>
     <div :class="{selectList:true, show:drawer}">
         <router-link v-for="item in tabBarArr" active-class="active" :to="<RouteLocationRaw>item.linkTo">{{item.text}}</router-link>
-        <hr>
-        <router-link to="/loginAndRegister" href="#">登录</router-link>
-        <router-link to="/loginAndRegister" href="#">注册</router-link>
+        <template v-if="!isOnline">
+            <hr>
+            <router-link to="/loginAndRegister" href="#">登录</router-link>
+            <router-link to="/loginAndRegister" href="#">注册</router-link>
+        </template>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import {defineProps, onMounted, onUnmounted, defineEmits} from "vue"
-    import {RouteLocationRaw} from "vue-router"
+    import useGlobal from "@/global";
+    import { storeToRefs } from "pinia";
+    import { RouteLocationRaw } from "vue-router"
+    import { defineProps, onMounted, onUnmounted, defineEmits } from "vue"
     const props = defineProps({tabBarArr:Object, drawer:Boolean});
     const emits = defineEmits(['closeDropMenu']);
+    const global = useGlobal();
 
+    /*******************登录后将隐藏掉登录注册项*******************/
+    const mainStore = global?.UserInfo;//获取用户账号信息的pinia
+    const { isOnline } = storeToRefs(mainStore);
+
+    /*******************屏幕变大时关闭下拉框*******************/
     function closeDropMenu():void{
-        console.log(window.innerWidth);
         if(window.innerWidth>600){
             emits('closeDropMenu');
         }
@@ -24,7 +33,7 @@
     })
 
     onUnmounted(()=>{
-        window.removeEventListener("resize",closingDropMenu);//解绑监听屏幕大小变化事件
+        window.removeEventListener("resize",closeDropMenu);//解绑监听屏幕大小变化事件
     })
 </script>
 
@@ -52,6 +61,10 @@
         padding: 0px 15px;
         &.show{
             height: 290px;
+            $isOnline: v-bind(isOnline);
+            @if($isOnline){
+                height: 173px;
+            }
         }
 
         a{

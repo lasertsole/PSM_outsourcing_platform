@@ -13,6 +13,7 @@ export function initGlobal(passGlobal:any):void{
 let obj:useMainStoreObjType={
     token:undefined,
     userinfo: {userName:undefined, userProfile:undefined,userID:undefined},
+    isOnline: false,//判断是否已登录
 };
 
 export const useMainStore = defineStore({
@@ -20,7 +21,14 @@ export const useMainStore = defineStore({
     state: () => (obj),
     //持久化选项
     persist:{ 
-        storage: window.localStorage,
+        enabled: true,
+        strategies:[//数据保存策略，若未设置则保存到内存
+            {
+                key: 'token',//key可省略，省略则为变量同名key值
+                storage: localStorage,
+                paths: ['token'] 
+            },
+        ]
     },
     getters: {
     },
@@ -35,6 +43,7 @@ export const useMainStore = defineStore({
             if(userinfo.userProfile==""){userinfo.userProfile=undefined;}
             if(userinfo.userID==""){userinfo.userID=undefined;}
             this.userinfo=userinfo;
+            this.isOnline=true;
         },
         fasterLogin: async function() {//自动登录
             let result = await axios.get("api/user/fasterLogin");
@@ -138,12 +147,11 @@ export const useMainStore = defineStore({
     }
 })
 
-/**********用户登录注册账号**********/
+/**********用户登录注册账号的悬浮窗**********/
 export const useLoginAndRegisterStore = defineStore({
     id: 'LoginAndRegisterFloat', 
     state: () => ({
-        isOnline:false,//判断是否已登录
-        isShowFloat:false,
+        isShowFloat:false,//显示账号悬浮窗
     }),
     actions:{
         showFloat:function():void{//移除账号信息
