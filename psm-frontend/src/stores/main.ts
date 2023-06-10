@@ -1,6 +1,7 @@
 import axios from "axios"
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
+import { createConnect, disconnect } from "@/socket"; //引入webSocket
 import { useMainStoreObjType, useMainStoreObjInfoType } from "@/types/stores/useMainStoreType"
 
 /**********main传入全局变量**********/
@@ -34,8 +35,9 @@ export const useMainStore = defineStore({
     },
     actions:{
         removeAccount:function():void{//移除账号信息
-            this.token=undefined;
-            this.userinfo={userName:undefined, userProfile:undefined,userID:undefined};
+            this.token = undefined;
+            this.isOnline = false;
+            this.userinfo = {userName:undefined, userProfile:undefined,userID:undefined};
         },
         setAccount:function(token:any,userinfo:useMainStoreObjInfoType):void{//设置账号信息
             this.token=token;
@@ -79,7 +81,7 @@ export const useMainStore = defineStore({
                 if(data.status==1){
                     ElMessage.success(data.msg);
                     this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
-                    global.Bus.emit("login","");//广播用户上线通知
+                    global.Bus.emit("login");//广播用户上线通知
                 }
                 else{
                     ElMessage.error(data.msg);
@@ -116,6 +118,10 @@ export const useMainStore = defineStore({
                 }
             }
         },
+        logOutAccount: async function() {
+            this.removeAccount();
+            global.Bus.emit("logout");//广播用户下线通知
+        },
         accountSetName: async function(userName:string):Promise<void>{//用户设置名字
             let result = await axios.post("api/user/setName",{userName});
             if(result.data.status==0){
@@ -143,6 +149,19 @@ export const useMainStore = defineStore({
             else{
                 ElMessage.success("上传成功");
             }
+        }
+    }
+})
+
+/**********临时性websocket**********/
+let WSConnect: undefined|WebSocket = undefined;
+
+export const useWS = defineStore({
+    id: 'WS', 
+    state: () => ({WSConnect}),
+    actions:{
+        createWSConnect:function(user_id:string){
+            this.WSConnect = createConnect(user_id);
         }
     }
 })

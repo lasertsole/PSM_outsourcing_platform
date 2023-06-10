@@ -39,7 +39,7 @@
                         :content="item.content"
                     ></sessionBox>
                 </ul>
-                <textarea class="input" maxlength="200"></textarea>
+                <textarea class="input" maxlength="200" @click="sendMessage"></textarea>
             </div>
         </div>
     </div>
@@ -54,8 +54,7 @@
 
     const global = useGlobal();
     const mainStore = global?.UserInfo;
-    const { token, userinfo } = storeToRefs(mainStore);
-    let WSConnect = global?.WSConnect;
+    const { userinfo } = storeToRefs(mainStore);
 
     const hideContacts = ref<Boolean>(true);//控制隐藏和显示联系人
     function clickShowContacts():void{//点击私聊栏顶部时向上显示联系人
@@ -68,14 +67,34 @@
     const fullPage = ref<Boolean>(false);//控制私聊框全屏
     function changeFullPage():void{//点击某个联系人时全屏
         fullPage.value=true;
-        let obj:Object = {"user_id": userinfo.value.userID,"type":"getChatInfo"};
-        obj=JSON.stringify(obj);
-        WSConnect.send(obj);
     }
 
     /**************以下是获取聊天记录**************/
-
-    
+    let WS = global?.WS;
+    const { WSConnect } = storeToRefs(WS);
+    function sendMessage():void{//点击某个联系人时全屏
+        WSConnect.value.send(`{
+            "type": "Chat",
+            "msg": [
+                {
+                    "time": "2023-06-01 11:56:14",
+                    "user_id1": 1,
+                    "user_id2": 2,
+                    "msg_id": 1,
+                    "data": [
+                        {
+                            "type": "text",
+                            "text": "123"
+                        },
+                        {
+                            "type": "face",
+                            "id": "156"
+                        }
+                    ]
+                }
+            ]
+        }`);
+    }
 
     /**************以上是获取聊天记录**************/
 

@@ -1,7 +1,7 @@
 //引入socket.io
 import io from 'socket.io-client';
-export function createConnect() {//创建socket链接
-    let WSConnect = new WebSocket(import.meta.env.VITE_WS_URL+"/ws/socketio/");
+export function createConnect(user_id:string) {//创建socket链接
+    let WSConnect = new WebSocket(import.meta.env.VITE_WS_URL+"/ws/socketio/?user_id="+user_id);
     WSConnect.onopen = function() {
         console.log('Client Socket Open');
     };

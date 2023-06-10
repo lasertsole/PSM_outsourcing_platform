@@ -4,7 +4,7 @@
         <div class="wrapper">
             <router-view v-slot="{ Component }">
                 <keep-alive>
-                    <component :is="Component" />
+                    <component :is="Component"/>
                 </keep-alive>
             </router-view>
             <session></session>
@@ -24,7 +24,8 @@
 
     /**********获取全局变量*********/
     const global = useGlobal();
-    const mainStore = global?.UserInfo;
+    const Bus = global?.Bus;//获取事件总线
+    const mainStore = global?.UserInfo;//用户状态信息
     const { token, userinfo } = storeToRefs(mainStore);
 
     /**********自动登录*********/
@@ -43,6 +44,19 @@
             ElMessage.error(data.msg);
         }
     }
+
+    /**********用户登录时根据用户信息建立websocket*********/
+    const WS = global?.WS;
+    const { WSConnect } = storeToRefs(WS);
+    Bus.on("login",()=>{ 
+        WS.createWSConnect(userinfo.value.userID);//创建socket链接
+    });
+    
+    /**********用户登出时根据用户信息关闭websocket*********/
+    Bus.on("logout",()=>{ 
+        WSConnect.value.close();//创建socket链接
+    });
+
 </script>
 
 <style lang="scss" scoped>

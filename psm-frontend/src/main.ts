@@ -7,7 +7,7 @@ import router from '@/router'
 
 //引入pinia临时存储和持久化存储
 import store from '@/stores'
-import { useMainStore, useLoginAndRegisterStore, initGlobal }  from "@/stores/main.js"
+import { useMainStore, useLoginAndRegisterStore, useWS, initGlobal }  from "@/stores/main.js"
 
 //引入Element-Plus
 import ElementPlus from 'element-plus'
@@ -21,9 +21,6 @@ import axios from 'axios'
 //引入事件总线mitt
 import mitt from 'mitt'
 
-//引入socket
-import { createConnect, disconnect } from "@/socket"
-
 const app = createApp(App);
 
 app.use(router);
@@ -33,19 +30,26 @@ app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 //服务器地址全局化
 app.config.globalProperties.serverUrl = import.meta.env.VITE_API_URL;
 
-//将pinia存储的数据全局化
+//用户信息全局化
 let mainStore = useMainStore();
 app.config.globalProperties.UserInfo = mainStore;
-
-//事件总线全局化
-app.config.globalProperties.Bus = mitt();
 
 //登录注册悬浮窗的显示控制全局化
 let LARFloat = useLoginAndRegisterStore();
 app.config.globalProperties.LARFloat = LARFloat;
 
+//websocket全局化
+let WS = useWS();
+app.config.globalProperties.WS = WS;
+
+//事件总线全局化
+app.config.globalProperties.Bus = mitt();
+
 //给pinia传全局变量
 initGlobal(app.config.globalProperties);
+
+//给路由守卫传用户信息变量
+router.initRouterGuard(mainStore);
 
 //axios请求拦截器
 axios.interceptors.request.use((config)=>{
@@ -67,10 +71,6 @@ axios.interceptors.response.use((res)=>{
 	// }
 	return res;
 });
-
-//创建socket链接
-let WSConnect = createConnect();
-app.config.globalProperties.WSConnect = WSConnect;
 
 //虚拟节点挂载到app节点
 app.mount('#app')

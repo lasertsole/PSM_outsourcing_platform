@@ -33,13 +33,15 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue";
-    import useGlobal from "@/global"
+    import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
+    import {ref, onMounted, onUnmounted} from "vue";
+    import { useRoute, useRouter } from "vue-router";
 
      /**********获取全局变量*********/
     const global = useGlobal();
     const mainStore = global?.UserInfo;
+    const Bus = global?.Bus;
 
     /**********切换注册登录页*********/
     const pageController = ref<boolean>(true);
@@ -55,6 +57,17 @@
     const registerAccountData = ref<string>("");//注册账号
     const registerPasswordData = ref<string>("")//注册密码
 
+    /**********挂载触发*********/
+    const router = useRouter();
+    onMounted(()=>{
+        Bus.on("login",()=>{ 
+            router.replace({ name: 'home'});
+        });
+    })
+    /**********卸载触发*********/
+    onUnmounted(()=>{
+
+    })
 </script>
 
 <style lang="scss" scoped>

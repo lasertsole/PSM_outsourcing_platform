@@ -20,6 +20,10 @@ import commerceVue from "@/pages/planning/commerce.vue"
 //协议页面
 import contractVue from "@/pages/contract/contract.vue"
 
+/*路由守卫*/
+import { storeToRefs } from 'pinia'
+import { ElMessage } from 'element-plus';
+
 const routes:RouteRecordRaw[] = [
     //首页
     {
@@ -128,6 +132,30 @@ const routes:RouteRecordRaw[] = [
 const router = createRouter({
     history: createWebHashHistory(),
     routes
+})
+
+/*路由守卫*/
+let UserInfo:any = null;
+router.initRouterGuard = function(passUserInfo:any):void{
+    UserInfo=passUserInfo;
+}
+
+const powerArr:any[]=[];//登录后才能访问的权限页面
+const hadPowerCantArr:any[]=["loginAndRegister"];//只有登录后不能访问的权限页面
+
+router.beforeResolve((to, from, next) => {
+    
+    const {isOnline} = storeToRefs(UserInfo);
+
+    if(hadPowerCantArr.indexOf(to.name)!=-1&&isOnline.value){//判断用户访问的页面是否在权限页面
+        next({
+            path: '/home',
+            query: {}
+        });
+    }
+    else{
+        next();
+    }
 })
 
 export default router

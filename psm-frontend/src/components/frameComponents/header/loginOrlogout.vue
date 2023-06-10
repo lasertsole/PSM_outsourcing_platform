@@ -30,7 +30,9 @@
                         <li><div><img src="icons/planning.png"><span>我的企划</span></div></li>
                         <li><div><img src="icons/Vector.png"><span>我的橱窗</span></div></li>
                         <hr>
-                        <li><div><img src="icons/longArrow.svg"><span>退出登录</span></div></li>
+                        <li @click="logout">
+                            <div><img src="icons/longArrow.svg"><span>退出登录</span></div>
+                        </li>
                     </ul>
                 </div>
             </transition>
@@ -44,11 +46,11 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, computed, onMounted, onUnmounted } from "vue";
-    import useGlobal from "@/global";
-    import { storeToRefs } from "pinia";
     import gsap from "gsap";
     import router from "@/router";
+    import useGlobal from "@/global";
+    import { storeToRefs } from "pinia";
+    import { ref, computed, onMounted, onUnmounted } from "vue";
 
     const global = useGlobal();
 
@@ -123,6 +125,12 @@
 
     function onClick():void{//点击触发事件
         router.replace("/personInfo");
+    }
+
+    /************退出账号事件************/
+    function logout():void{
+        mainStore.logOutAccount();
+        hideDetail();
     }
 
     /************挂载触发事件************/

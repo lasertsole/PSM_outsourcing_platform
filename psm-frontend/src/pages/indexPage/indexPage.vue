@@ -3,10 +3,12 @@
         <div class="top">
             <div class="info">
                 <div class="title">找好切片MAN，完成需求，一举两得</div>
-                <div class="select">
-                    <div class="button require" @click="LARModel.showFloat()">我是需求方</div>
-                    <div class="button create" @click="LARModel.showFloat()">我是创作者</div>
-                </div>
+                <template v-if="!isOnline">
+                    <div class="select">
+                        <div class="button require" @click="LARModel.showFloat()">我是需求方</div>
+                        <div class="button create" @click="LARModel.showFloat()">我是创作者</div>
+                    </div>
+                </template>
             </div>
         </div>
         <div class="bottom">
@@ -22,10 +24,15 @@
     import { ref, computed } from "vue";
     import axios from "axios";
     import useGlobal from "@/global";
+    import { storeToRefs } from "pinia";
     import carousel from "@/components/indexPage/carousel.vue"
 
     const global = useGlobal();
+    const UserInfo = global?.UserInfo;
     const LARModel = global?.LARFloat;
+
+    /**********当登录时两个大按钮消失*********/
+    const { isOnline } = storeToRefs(UserInfo);
 
     const carouselArr = ref<string[]>([]);
     (async function getFrontCover():Promise<void>{//首页获取设置轮播图
