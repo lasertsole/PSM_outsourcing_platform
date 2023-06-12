@@ -28,7 +28,7 @@ export const useMainStore = defineStore({
                 key: 'token',//key可省略，省略则为变量同名key值
                 storage: localStorage,
                 paths: ['token'] 
-            },
+            }
         ]
     },
     getters: {

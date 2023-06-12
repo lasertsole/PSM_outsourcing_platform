@@ -61,13 +61,14 @@
                 display: flex;
                 flex-direction: column;
                 >.top{
+                    display: flex;
+                    flex-direction: column;
                     >span{
                         font-size: 14px;
                         font-weight: bold;
                     }
                     >.transformRule{
                         color: #00a8e9;
-                        margin-right: 10px;
                     }
                 }
                 >.bottom{

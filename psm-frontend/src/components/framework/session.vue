@@ -78,8 +78,8 @@
             "msg": [
                 {
                     "time": "2023-06-01 11:56:14",
-                    "user_id1": 1,
-                    "user_id2": 2,
+                    "user1_id": 12,
+                    "user2_id": 2,
                     "msg_id": 1,
                     "data": [
                         {

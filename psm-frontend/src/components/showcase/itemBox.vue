@@ -83,16 +83,18 @@
                     }
                     .name{
                         font-family: SourceSans3-Medium;
-                        font-size: 14px;
+                        font-size: 15px;
                         font-weight: bold;
                     }
                     .commentNum{
                         color: #707070;
                         font-size: 10px;
+                        line-height: 15px;
                     }
                     .certificate{
                         color: #707070;
-                        font-size: 12px;
+                        font-size: 10px;
+                        line-height: 15px;
                     }
                 }
             }

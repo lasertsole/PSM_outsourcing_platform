@@ -208,7 +208,7 @@
                     z-index: 1;
                     position: absolute;
                     background-color: #f5f5f5;
-                    @include fixedRoundedRectangle(200px,280px, 10px);
+                    @include fixedRoundedRectangle(200px,260px, 10px);
                     top: 30px;
                     left: math.div($profileSize, 2);
                     transform: translateX(-50%);

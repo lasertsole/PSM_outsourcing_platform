@@ -79,7 +79,7 @@
                         width: 100%;
                         height: 30%;
                         display: flex;
-                        padding: 20px 20px 10px 20px;
+                        padding: 10px 20px 10px 20px;
                     }
                     >.hr{
                         height: 0.5px;
