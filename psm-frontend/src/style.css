@@ -21,6 +21,10 @@ ul{
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+button,button:hover,button:focus{
+  outline: none;
+  border: none;
+}
 
 a {
   font-weight: 500;
