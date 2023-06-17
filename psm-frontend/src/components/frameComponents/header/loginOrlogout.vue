@@ -14,7 +14,7 @@
                 @leave="onLeave"
             >
                 <div v-show="showUserDetail" :class="{userDetail:true}">
-                    <div class="name" @click="onClick">{{name}}</div>
+                    <div class="name" @click="onClick">{{userinfo.userName}}</div>
                     <ul class="numInfo">
                         <li>
                             <div class="top">57</div>
@@ -50,7 +50,7 @@
     import router from "@/router";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
-    import { ref, computed, onMounted, onUnmounted } from "vue";
+    import { ref, onMounted, onUnmounted } from "vue";
 
     const global = useGlobal();
 
@@ -61,7 +61,6 @@
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
     let userProfile:string = userinfo.value.userProfile;//从pinia中获取头像数据
     const profile = ref<string>(serverUrl+userProfile);
-    const name = ref<string>(userinfo.value.userName);
     function replaceProfile(){//登录时替换头像
         userProfile = userinfo.value.userProfile
         profile.value = serverUrl+userProfile;
@@ -208,7 +207,7 @@
                     z-index: 1;
                     position: absolute;
                     background-color: #f5f5f5;
-                    @include fixedRoundedRectangle(200px,260px, 10px);
+                    @include fixedRoundedRectangle(200px,280px, 10px);
                     top: 30px;
                     left: math.div($profileSize, 2);
                     transform: translateX(-50%);

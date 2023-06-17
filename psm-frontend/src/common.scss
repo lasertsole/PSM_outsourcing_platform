@@ -37,18 +37,20 @@
 @mixin fullInParent {
 	@include fixedSquare(100%);
 }
-/* 固定充满父容器的图片 */
-@mixin imgFullInParent($imgSrc) {
-	@include fullInParent;
-	background-image: url(#{$imgSrc});
+/* 放置背景图片的环境配置 */
+@mixin backgroundImgCondition(){
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;
 }
+/* 固定充满父容器的图片 */
+@mixin imgFullInParent($imgSrc) {
+	@include fullInParent;
+	@include backgroundImgCondition;
+	background-image: url(#{$imgSrc});
+}
 /* 固定充满本容器的图片 */
 @mixin fullImg($imgSrc) {
 	background-image: url(#{$imgSrc});
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
+	@include backgroundImgCondition;
 }

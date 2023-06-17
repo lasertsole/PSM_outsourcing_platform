@@ -54,7 +54,7 @@
     
     /**********用户登出时根据用户信息关闭websocket*********/
     Bus.on("logout",()=>{ 
-        WSConnect.value.close();//创建socket链接
+        WSConnect.value.close();//关闭socket链接
     });
 
 </script>

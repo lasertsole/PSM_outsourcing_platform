@@ -73,27 +73,26 @@
     let WS = global?.WS;
     const { WSConnect } = storeToRefs(WS);
     function sendMessage():void{//点击某个联系人时全屏
-        WSConnect.value.send(`{
-            "type": "Chat",
-            "msg": [
-                {
-                    "time": "2023-06-01 11:56:14",
-                    "user1_id": 12,
-                    "user2_id": 2,
-                    "msg_id": 1,
-                    "data": [
-                        {
-                            "type": "text",
-                            "text": "123"
-                        },
-                        {
-                            "type": "face",
-                            "id": "156"
-                        }
-                    ]
-                }
-            ]
-        }`);
+        // WSConnect.value.send(`{
+        //     "type": "Chat",
+        //     "msg": [
+        //         {
+        //             "time": "2023-06-01 11:56:14",
+        //             "user_id": 2,
+        //             "data": [
+        //                 {
+        //                     "type": "text",
+        //                     "text": "123"
+        //                 },
+        //                 {
+        //                     "type": "face",
+        //                     "id": "156"
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // }`);
+        WSConnect.value.send(`{"user_id":2,"type":"getChatInfo"}`);
     }
 
     /**************以上是获取聊天记录**************/
@@ -124,14 +123,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin square($Size){
-        width: $Size;
-        height: $Size;
-    }
-    @mixin fixedHeight($Size){
-        min-height: $Size;
-        max-height: $Size;
-    }
+    @use "sass:math";
+    @import "@/common.scss";
     .session{
         display: flex;
         flex-direction: column;
@@ -160,11 +153,11 @@
             display: flex;
             justify-content: space-between;
             cursor: pointer;
-            height: 24px;
             padding: 10px 0px 10px 10px;
             border-bottom: 1px white solid;
             background-color: #00aeec;
             color: white;
+            @include fixedRetangle(100%, 44px);
             .left{
                 font-weight: bold;
             }
@@ -173,7 +166,7 @@
                 align-items: center;
                 margin-right: 10px;
                 img{
-                    @include square(17px);
+                    @include fixedSquare(17px);
                     &.down{
                         transform: rotate(180deg);
                     }
@@ -187,14 +180,12 @@
             flex-direction: row;
             justify-content: flex-start;
             .contacts{
-                max-width: 250px;
-                min-width: 250px;
+                @include fixedWidth(264px);
                 overflow-y: auto;
                 padding: 10px;
                 width: 100%;
                 box-sizing: border-box;
                 li{
-                    margin-right: 10px;
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;
@@ -249,8 +240,18 @@
                     padding: 5px;
                     box-sizing: border-box;
                     &.show{
-                        max-width: 100%;
+                        max-width: 435px;
                         display: block;
+                    }
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                        border-radius: 10px;
+                        background: white;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        border-radius: 10px;
+                        background: rgba($color: #000000, $alpha: .2);
                     }
                 }
                 .input{
@@ -265,15 +266,5 @@
                 }
             }
         }
-    }
-    ::-webkit-scrollbar {
-        width: 4px;
-        border-radius: 10px;
-        background: white;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: rgba($color: #000000, $alpha: .2);
     }
 </style>

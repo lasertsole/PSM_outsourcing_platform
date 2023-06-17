@@ -1,5 +1,5 @@
 <template>
-    <div class="workBox">
+    <div class="workBox" @click="jumpToShowcaseDetail()">
         <div class="top">
             <span class="abstract">{{abstract}}</span>
             <span class="price">￥{{price}}</span>
@@ -11,8 +11,15 @@
 </template>
 
 <script setup lang="ts">
-    import {defineProps} from "vue"
+    import { defineProps } from "vue"
+    import { useRouter } from "vue-router";
     const props = defineProps({abstract:String, price:String, imgPath:String});
+
+    /*点击橱窗盒子的作品盒子后页面跳转*/
+    const router = useRouter();
+    function jumpToShowcaseDetail():void{
+        router.replace({ name: 'showcaseDetail',query:{username:"fuck u"}});
+    }
 </script>
 
 <style lang="scss" scoped>
