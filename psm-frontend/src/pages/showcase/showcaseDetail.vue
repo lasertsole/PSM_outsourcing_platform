@@ -3,7 +3,9 @@
         <div class="page">
             <!-- 左栏 -->
             <div class="leftBar">
-
+                <div class="runningPic">
+                    <album></album>
+                </div>
             </div>
 
             <!-- 右栏 -->
@@ -88,6 +90,7 @@
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
+    import album from "@/components/common/album.vue";
 
     /**获取全局变量**/
     const global = useGlobal();
@@ -120,7 +123,9 @@
 
             .leftBar{
                 @include fixedRetangle(55%, 100%);
-                background-color: red;
+                .runningPic{
+                    height: 300px;
+                }
             }
 
             .rightBar{
@@ -224,6 +229,9 @@
                             justify-content: center;
                             padding: 0px 20px;
                             border-radius: 4px;
+                        }
+                        >*{
+                            cursor:pointer;
                         }
                         .boughtBotton{
                             background-color: #00a8e9;
