@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw, Router } from 'vue-
 import indexPageVue from "@/pages/indexPage/indexPage.vue"//首页
 import loginAndResigterVue from '@/pages/loginAndResigter/loginAndResigter.vue'//登录注册页
 import showcaseVue from '@/pages/showcase/showcase.vue'//橱窗页
-import showcaseDetailVue from "@/pages/showcase/showcaseDetail.vue"//橱窗详情页
+import showcaseDetailVue from "@/pages/showcaseDetail/showcaseDetail.vue"//橱窗详情页
 import planningVue from '@/pages/planning/planning.vue'//企划页
 import planningDetailVue from "@/pages/showcase/showcaseDetail.vue"//橱窗详情页
 import worksVue from '@/pages/works/works.vue'//作品页
@@ -16,6 +16,10 @@ import montageVue from '@/pages/showcase/montage.vue'
 import artVue from '@/pages/showcase/art.vue'
 import translateVue from "@/pages/showcase/translate.vue"
 import captionsVue from '@/pages/showcase/captions.vue'
+//橱窗详情页
+import showcaseDetailInfo from "@/pages/showcaseDetail/showcaseDetailInfo.vue"
+import createPhase from "@/pages/showcaseDetail/createPhase.vue"
+import commendOfShowcase from "@/pages/showcaseDetail/commendOfShowcase.vue"
 //企划页面
 import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
@@ -85,6 +89,26 @@ const routes:RouteRecordRaw[] = [
         path: '/showcaseDetail',
         name: 'showcaseDetail',
         component: showcaseDetailVue,
+        children:[
+            //橱窗详情
+            {
+                path: 'showcaseDetailInfo',
+                name: "showcaseDetailInfo",
+                component: showcaseDetailInfo
+            },
+            //创作阶段
+            {
+                path: "createPhase",
+                name: "createPhase",
+                component: createPhase
+            },
+            //橱窗评价
+            {
+                path: 'commendOfShowcase',
+                name: "commendOfShowcase",
+                component: commendOfShowcase
+            },
+        ]
     },
     //企划页
     {

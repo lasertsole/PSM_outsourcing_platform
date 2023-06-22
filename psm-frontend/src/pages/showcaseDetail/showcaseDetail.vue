@@ -6,6 +6,17 @@
                 <div class="runningPic">
                     <album></album>
                 </div>
+                <div class="tabBar">
+                    <tabBar :tabList="tabList"></tabBar>
+                    <div class="report">举报橱窗</div>
+                </div>
+                <div class="detailBox">
+                    <router-view v-slot="{ Component }">
+                        <keep-alive>
+                            <component :is="Component"/>
+                        </keep-alive>
+                    </router-view>
+                </div>
             </div>
 
             <!-- 右栏 -->
@@ -87,10 +98,13 @@
 </template>
 
 <script setup lang="ts">
+    import {ref} from "vue"
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
     import album from "@/components/common/album.vue";
+    import { tabBarItem } from "@/types/common/tabBarType"
+    import tabBar from "@/components/common/tabBar.vue"
 
     /**获取全局变量**/
     const global = useGlobal();
@@ -103,19 +117,31 @@
     /**获取路由传参**/
     const route = useRoute();
     console.log(route.query);
+
+    /**二级路由切换**/
+    const tabList = ref<tabBarItem[]>([
+        {tabName:"橱窗详情",linkTo:"/showcaseDetail/showcaseDetailInfo"},
+        {tabName:"创作阶段",linkTo:"/showcaseDetail/createPhase"},
+        {tabName:"橱窗评价",linkTo:"/showcaseDetail/commendOfShowcase"},
+    ]);
+
 </script>
 
 <style lang="scss" scoped>
     @use "sass:math";
     @import "@/common.scss";
     .showcaseDetail{
-        @include fixedRetangle(100%, 100%);
+        width: 100%;
+        min-height: 100%;
         background-color: #ededed;
-        padding: 30px 80px 0px 80px;
+        padding: 30px 80px 30px 80px;
         display: flex;
+        flex-wrap: wrap;//使page填满整个容器的关键属性
         justify-content: center;
+        overflow: scroll;
+        box-sizing: border-box;
         .page{
-            @include fixedRetangle(1000px, 100%);
+            @include fixedWidth(1000px);
             background-color: white;
             padding: 20px;
             display: flex;
@@ -125,6 +151,32 @@
                 @include fixedRetangle(55%, 100%);
                 .runningPic{
                     height: 300px;
+                }
+                .tabBar{
+                    margin-top: 20px;
+                    display:flex;
+                    flex-direction: column;
+                    position: relative;
+                    &::v-deep(.classify){
+                        position: relative;
+                        z-index: 1;
+                    }
+                    .report{
+                        position: absolute;
+                        z-index: 3;
+                        display: inline-block;
+                        right: 5px;
+                        bottom: 12px;
+                        font-size: 12px;
+                        color: #b3b3b3;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                }
+                .detailBox{
+                    @include fixedRetangle(100%, 1000px);
+                    display: flex;
+                    flex-direction: column;
                 }
             }
 

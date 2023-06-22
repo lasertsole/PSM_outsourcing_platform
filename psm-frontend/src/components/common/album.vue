@@ -42,7 +42,7 @@
         align-items: center;
         justify-content: flex-end;
         .pic{
-            @include fixedRetangle(100%, 200px);
+            @include fixedRetangle(100%, 205px);
             object-fit: cover;
             background-repeat: no-repeat;
             background-position: center;

@@ -2,11 +2,13 @@
     <div class="main">
         <HeaderComponent></HeaderComponent>
         <div class="wrapper">
-            <router-view v-slot="{ Component }">
-                <keep-alive>
-                    <component :is="Component"/>
-                </keep-alive>
-            </router-view>
+            <div class="content">
+                <router-view v-slot="{ Component }">
+                    <keep-alive>
+                        <component :is="Component"/>
+                    </keep-alive>
+                </router-view>
+            </div>
             <session></session>
         </div>
         <LARModel></LARModel>
@@ -32,6 +34,7 @@
     if(token.value){//如果存在token则自动登录
         mainStore.fasterLogin(token.value);
     };
+
     async function fasterLogin(){//自动登录
         let result = await axios.get("api/user/fasterLogin");
         let data = result.data;
@@ -73,11 +76,19 @@
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             flex-grow: 1;
             overflow: auto;
             position: relative;
             z-index: 0;
+            .content{
+                flex-grow: 1;
+                overflow: hidden;
+                display: flex;
+                overflow-y: auto;
+                flex-direction: row;
+                justify-content: center;
+            }
         }
     }
 </style>
