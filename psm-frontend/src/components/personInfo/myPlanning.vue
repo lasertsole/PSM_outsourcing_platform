@@ -6,12 +6,12 @@
 </template>
 
 <script setup lang="ts">
-    import planningHeader from "@/components/personInfo/planningHeader.vue";
+    import planningHeader from "components/personInfo/planningHeader.vue";
 </script>
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
 
     .myPlanning{
         @include fixedRoundedRectangle(100%, 300px, 6px);

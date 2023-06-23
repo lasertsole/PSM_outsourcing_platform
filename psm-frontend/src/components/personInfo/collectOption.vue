@@ -26,7 +26,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .collectOption{
         background-color: white;
         display: flex;

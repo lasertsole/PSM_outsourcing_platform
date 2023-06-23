@@ -10,7 +10,17 @@ export default defineConfig(({command, mode}) => {
     resolve: {
       alias: {
         vue: "vue/dist/vue.esm-bundler.js",
-        '@': path.resolve(__dirname, 'src'), //配置@路径
+        '@': path.resolve(__dirname, 'src'),
+        'components': path.resolve(__dirname, 'src/components'),
+        'global': path.resolve(__dirname, 'src/global'),
+        'types': path.resolve(__dirname, 'src/types'),
+        'commonScss': path.resolve(__dirname, 'src/common.scss'),
+        'router': path.resolve(__dirname, 'src/router'),
+      }
+    },
+    css:{//module.css结构导入方式
+      modules:{
+        localsConvention: "camelCase",//小驼峰方式
       }
     },
     optimizeDeps:{

@@ -35,7 +35,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .selectItem{
         box-sizing: border-box;
         width: 100%;

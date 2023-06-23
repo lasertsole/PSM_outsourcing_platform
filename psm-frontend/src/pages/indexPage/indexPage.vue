@@ -23,9 +23,9 @@
 <script lang="ts" setup>
     import { ref, computed } from "vue";
     import axios from "axios";
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
-    import carousel from "@/components/indexPage/carousel.vue"
+    import carousel from "components/indexPage/carousel.vue"
 
     const global = useGlobal();
     const UserInfo = global?.UserInfo;

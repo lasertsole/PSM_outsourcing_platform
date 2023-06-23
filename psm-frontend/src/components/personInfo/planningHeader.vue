@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
-    import tabBar from "@/components/common/tabBar.vue"
-    import { tabBarItem } from "@/types/common/tabBarType"
+    import tabBar from "components/common/tabBar.vue"
+    import { tabBarItem } from "types/common/tabBarType"
 
     const tabList = ref<tabBarItem[]>([
         {tabName:"进行中",linkTo:"/personInfo"},
@@ -26,7 +26,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
 
     .header{
         height: 60px;

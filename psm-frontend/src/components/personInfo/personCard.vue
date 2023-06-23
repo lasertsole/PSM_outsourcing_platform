@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
     import { ref, toRefs } from "vue";
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
 
     const global = useGlobal();
@@ -39,7 +39,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .personCard{
         width: 100%;
         height: 100%;

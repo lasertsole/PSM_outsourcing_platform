@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-    import { optionInfo } from "@/types/pageType/showcase"
+    import { optionInfo } from "types/pageType/showcase"
     import { ref, defineProps, PropType } from "vue"
 
     const props = defineProps({bigClass:{type:Array as PropType<optionInfo[]>}, smallClass:{type:Array as PropType<optionInfo[]>}});

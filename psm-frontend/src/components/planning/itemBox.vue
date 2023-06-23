@@ -40,26 +40,10 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin fixedSquare($size){
-        min-width: $size;
-        max-width: $size;
-        min-height: $size;
-        max-height: $size;
-    }
-    @mixin fixedWidth($size){
-        min-width: $size;
-        max-width: $size;
-    }
-    @mixin fixedHeight($size){
-        min-height: $size;
-        max-height: $size;
-    }
-    @mixin fixedRectangle($widthSize, $heightSize){
-        @include fixedWidth($widthSize);
-        @include fixedHeight($heightSize);
-    }
+    @use "sass:math";
+    @import "commonScss";
     .itemBox{
-        @include fixedRectangle(500px ,180px);
+        @include fixedRetangle(500px ,180px);
         display: flex;
         flex-direction: row;
         padding: 10px;

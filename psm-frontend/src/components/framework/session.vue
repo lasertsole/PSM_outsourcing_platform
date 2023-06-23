@@ -47,10 +47,10 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue';
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
-    import { sessionInfo } from "@/types/pageType/session"
-    import sessionBox from '@/components/frameComponents/session/sessionBox.vue';
+    import { sessionInfo } from "types/pageType/session"
+    import sessionBox from 'components/frameComponents/session/sessionBox.vue';
 
     const global = useGlobal();
     const mainStore = global?.UserInfo;

@@ -23,10 +23,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin fixedWidth($size){
-        min-width: $size;
-        max-width: $size;
-    }
+    @use "sass:math";
+    @import "commonScss";
     .workBox{
         box-sizing: border-box;
         @include fixedWidth(200px);

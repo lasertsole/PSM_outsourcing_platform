@@ -17,12 +17,12 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
-    import {routerInfo} from "@/types/componentsType/HeaderComponent"//获取本页面要使用的复合类型
+    import {routerInfo} from "types/componentsType/HeaderComponent"//获取本页面要使用的复合类型
 
-    import logo from "@/components/frameComponents/header/logo.vue"
-    import tabBar from "@/components/frameComponents/header/tabBar.vue"
-    import dropMenu from "@/components/frameComponents/header/dropMenu.vue"
-    import loginOrlogout from "@/components/frameComponents/header/loginOrlogout.vue"
+    import logo from "components/frameComponents/header/logo.vue"
+    import tabBar from "components/frameComponents/header/tabBar.vue"
+    import dropMenu from "components/frameComponents/header/dropMenu.vue"
+    import loginOrlogout from "components/frameComponents/header/loginOrlogout.vue"
     
     const drawer = ref<boolean>(false);//控制菜单下拉框显示与否
     function closeDropMenu():void{//屏幕大于600px时关闭下拉框

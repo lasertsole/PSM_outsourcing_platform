@@ -11,12 +11,10 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin fiexedWidth($size){
-        max-width: $size;
-        min-width: $size;
-    }
+    @use "sass:math";
+    @import "commonScss";
     .box{
-        @include fiexedWidth(250px);
+        @include fixedWidth(250px);
         margin: 10px 20px;
         .top{
             overflow: hidden;

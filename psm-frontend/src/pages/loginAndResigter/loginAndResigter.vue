@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
     import {ref, onMounted, onUnmounted} from "vue";
     import { useRoute, useRouter } from "vue-router";
@@ -71,13 +71,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin fixedSquare($size){
-        max-width: $size;
-        min-width: $size;
-        max-height: $size;
-        min-height: $size;
-        box-sizing: border-box;
-    }
+    @use "sass:math";
+    @import "commonScss";
     .loginAndResigter{
         width: 100%;
         height: 100%;

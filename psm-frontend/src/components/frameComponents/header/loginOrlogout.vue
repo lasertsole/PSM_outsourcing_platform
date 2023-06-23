@@ -47,8 +47,8 @@
 
 <script lang="ts" setup>
     import gsap from "gsap";
-    import router from "@/router";
-    import useGlobal from "@/global";
+    import router from "router";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
     import { ref, onMounted, onUnmounted } from "vue";
 
@@ -145,7 +145,7 @@
 
 <style lang="scss">
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     
     @mixin button{
         width: 80px;

@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
 
@@ -79,7 +79,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .showcaseDetail{
         @include fixedRetangle(100%, 100%);
         background-color: #ededed;

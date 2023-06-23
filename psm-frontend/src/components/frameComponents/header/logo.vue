@@ -13,10 +13,8 @@
 </script>
 
 <style lang="scss">
-    @mixin square($edgeSize){
-        width: $edgeSize;
-        height: $edgeSize;
-    }
+    @use "sass:math";
+    @import "commonScss";
     .logo{
         height: 100%;
         display: flex;
@@ -29,7 +27,7 @@
             color: #fb7299
         }
         .logo-image{
-            @include square(80px);
+            @include fixedSquare(80px);
             background-image: url(images/psmlogo.png);
             background-repeat: no-repeat;
             background-position: center 5px;
@@ -67,7 +65,7 @@
     @media screen and (max-width: 600px) {
         .logo{
             .logo-image{
-                @include square(50px);
+                @include fixedSquare(50px);
                 background-size: 56px;
                 background-position: center 4px;
             }

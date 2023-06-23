@@ -35,17 +35,13 @@
 
 <script setup lang="ts">
     import {defineProps, ref, PropType} from "vue"
-    import workBox from "@/components/showcase/workBox.vue"
+    import workBox from "components/showcase/workBox.vue"
     const props = defineProps({name:String, profile:String, commentNum:Number, certificate:String, recomment:String, works:{type:Array as PropType<{abstract:string, price:string, imgPath:string}[]>}});
 </script>
 
 <style lang="scss" scoped>
-    @mixin fixedSquare($size){
-        min-width: $size;
-        max-width: $size;
-        min-height: $size;
-        max-height: $size;
-    }
+    @use "sass:math";
+    @import "commonScss";
     
     .itemBox{
         margin-top: 15px;

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
     import { RouteLocationRaw } from "vue-router"
     import { defineProps, onMounted, onUnmounted, defineEmits } from "vue"

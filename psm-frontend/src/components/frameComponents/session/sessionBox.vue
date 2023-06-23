@@ -17,13 +17,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @mixin round($edgeSize){
-        max-width: $edgeSize;
-        max-height: $edgeSize;
-        min-width: $edgeSize;
-        min-width: $edgeSize;
-        border-radius: 50%;
-    }
+    @use "sass:math";
+    @import "commonScss";
     .sessionBox{
         margin-bottom: 10px;
         max-width: 426px;
@@ -45,7 +40,7 @@
             display: flex;
             flex-direction: row;
             .profile{
-                @include round(40px);
+                @include fixedCircle(40px);
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: 100%;

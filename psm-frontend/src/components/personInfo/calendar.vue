@@ -24,7 +24,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .calendar{
         display: block;
         @include fixedRetangle(100%, 300px);

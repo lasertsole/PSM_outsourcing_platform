@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
-    import { tabBarItem } from "@/types/common/tabBarType"
-    import tabBar from "@/components/common/tabBar.vue"
+    import { tabBarItem } from "types/common/tabBarType"
+    import tabBar from "components/common/tabBar.vue"
 
     const tabList = ref<tabBarItem[]>([
         {tabName:"个人",linkTo:"/planning/person"},

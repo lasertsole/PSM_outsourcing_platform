@@ -69,11 +69,11 @@
 </template>
 
 <script setup lang="ts">
-    import itemBox from "@/components/planning/itemBox.vue";
-    import adaptContainer from "@/components/common/adaptContainer.vue"
-    import showCaseBox from "@/components/personSpace/showCaseBox.vue"
+    import itemBox from "components/planning/itemBox.vue";
+    import adaptContainer from "components/common/adaptContainer.vue"
+    import showCaseBox from "components/personSpace/showCaseBox.vue"
     import { ref } from "vue"
-    import { showCaseBoxInfo, planningBoxInfo} from "@/types/personSpace/personSpace"
+    import { showCaseBoxInfo, planningBoxInfo} from "types/personSpace/personSpace"
 
     /*橱窗盒子的数据*/
     const showCaseBoxArr = ref<showCaseBoxInfo[]>([

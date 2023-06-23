@@ -25,13 +25,13 @@
 
 <script setup lang="ts">
     import { ref, computed, onMounted, onUnmounted, toRefs } from "vue";
-    import useGlobal from "@/global";
+    import useGlobal from "global";
     import { storeToRefs } from "pinia";
-    import selectItem from "@/components/personInfo/selectItem.vue";
-    import collectOption from "@/components/personInfo/collectOption.vue";
-    import calendar from "@/components/personInfo/calendar.vue";
-    import myPlanning from "@/components/personInfo/myPlanning.vue";
-    import personCard from "@/components/personInfo/personCard.vue";
+    import selectItem from "components/personInfo/selectItem.vue";
+    import collectOption from "components/personInfo/collectOption.vue";
+    import calendar from "components/personInfo/calendar.vue";
+    import myPlanning from "components/personInfo/myPlanning.vue";
+    import personCard from "components/personInfo/personCard.vue";
 
     const global = useGlobal();
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
@@ -46,7 +46,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .personInfo{
         width: 100%;
         height: 100%;

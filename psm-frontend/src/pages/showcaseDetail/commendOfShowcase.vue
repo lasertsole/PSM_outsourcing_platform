@@ -8,7 +8,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .content{
         flex-grow: 1;
         padding:10px;

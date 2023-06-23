@@ -7,7 +7,7 @@
         >
         </filterBar>
         <div class="itemBoxContainer">
-            <itemBox ></itemBox>
+            <itemBox></itemBox>
             <itemBox></itemBox>
             <itemBox></itemBox>
         </div>
@@ -16,10 +16,10 @@
 
 <script setup lang="ts">
     import {ref} from "vue";
-    import { optionInfo } from "@/types/pageType/showcase";
-    import itemBox from "@/components/planning/itemBox.vue";
-    import filterBar from "@/components/planning/filterBar.vue";
-    import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
+    import { optionInfo } from "types/pageType/showcase";
+    import itemBox from "components/planning/itemBox.vue";
+    import filterBar from "components/planning/filterBar.vue";
+    import { itemBoxInfo } from "types/componentsType/itemBoxComponent";
 
     //过滤器选项
     const bigClass:optionInfo[] = [

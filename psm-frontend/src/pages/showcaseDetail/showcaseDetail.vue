@@ -129,7 +129,7 @@
 
 <style lang="scss" scoped>
     @use "sass:math";
-    @import "@/common.scss";
+    @import "commonScss";
     .showcaseDetail{
         width: 100%;
         min-height: 100%;
@@ -184,6 +184,8 @@
                 @include fixedRetangle(40%, 100%);
 
                 .summary{
+                    position: sticky;
+                    top: 20px;
                     .title{
                         display: flex;
                         align-items: center;

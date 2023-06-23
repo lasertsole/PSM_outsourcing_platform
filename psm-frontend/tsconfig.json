@@ -7,7 +7,7 @@
     "strict": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": true,//模块隔离
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
@@ -16,7 +16,12 @@
 	"baseUrl": "./",
 	//路径映射，相对于baseUrl
 	"paths": {
-		"@/*": ["./src/*"]
+		"@/*": ["src/*"],
+    "components/*": ["src/components/*"],
+    "global": ["src/global"],
+    "types/*": ["src/types/*"],
+    "commonScss": ["src/common.scss"],
+    "router": ["src/router"],
 	},
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.js"],
