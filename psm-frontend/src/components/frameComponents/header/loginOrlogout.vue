@@ -50,7 +50,7 @@
     import router from "router";
     import useGlobal from "global";
     import { storeToRefs } from "pinia";
-    import { ref, onMounted, onUnmounted } from "vue";
+    import { ref, onMounted, onUnmounted, computed, ComputedRef } from "vue";
 
     const global = useGlobal();
 
@@ -59,12 +59,9 @@
 
     /*显示用户信息*/
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
-    let userProfile:string = userinfo.value.userProfile;//从pinia中获取头像数据
-    const profile = ref<string>(serverUrl+userProfile);
-    function replaceProfile(){//登录时替换头像
-        userProfile = userinfo.value.userProfile
-        profile.value = serverUrl+userProfile;
-    }
+    const profile:ComputedRef<string> = computed(()=>{//获取头像
+        return serverUrl+userinfo.value.userProfile;
+    })
 
     /*鼠标移入时展示用户细节*/
     const showUserDetail = ref<boolean>(false);
@@ -131,16 +128,6 @@
         mainStore.logOutAccount();
         hideDetail();
     }
-
-    /************挂载触发事件************/
-    onMounted(()=>{
-        global?.Bus.on("login",replaceProfile);
-    });
-
-    /************卸载载触发事件************/
-    onUnmounted(()=>{
-        global?.Bus.off("login",replaceProfile);
-    });
 </script>
 
 <style lang="scss">

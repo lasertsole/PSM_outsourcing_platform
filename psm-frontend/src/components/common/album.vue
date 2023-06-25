@@ -36,13 +36,13 @@
         border: 2px solid #dbdbdb;
         border-radius: 10px;
         overflow: hidden;
-        padding: 20px 10px 10px 5px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
         .pic{
-            @include fixedRetangle(100%, 205px);
+            @include fixedRetangle(100%, 215px);
             object-fit: cover;
             background-repeat: no-repeat;
             background-position: center;

@@ -7,7 +7,7 @@
             <div class="right">
                 <div class="top">
                     <span class="transformRule">企划方</span>
-                    <span>{{ userName }}</span>
+                    <span>{{ userinfo.userName }}</span>
                 </div>
                 <div class="bottom">
                     <span class="gray">切换为画师</span>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, toRefs } from "vue";
+    import { ref, toRefs, computed, ComputedRef } from "vue";
     import useGlobal from "global";
     import { storeToRefs } from "pinia";
 
@@ -31,10 +31,9 @@
 
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
     const { userinfo } = storeToRefs(mainStore);
-
-    const {userName, userProfile} = toRefs(userinfo.value);//从pinia中获取用户头像数据和用户名字
-    const profile = ref<string>(serverUrl+userProfile.value);
-    
+    const profile:ComputedRef<string> = computed(()=>{
+        return serverUrl+userinfo.value.userProfile;
+    })
 </script>
 
 <style lang="scss" scoped>

@@ -89,6 +89,7 @@ const routes:RouteRecordRaw[] = [
         path: '/showcaseDetail',
         name: 'showcaseDetail',
         component: showcaseDetailVue,
+        redirect:'/showcaseDetail/showcaseDetailInfo',
         children:[
             //橱窗详情
             {

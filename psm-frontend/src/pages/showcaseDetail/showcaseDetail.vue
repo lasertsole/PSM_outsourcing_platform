@@ -148,7 +148,7 @@
             justify-content: space-between;
 
             .leftBar{
-                @include fixedRetangle(55%, 100%);
+                @include fixedRetangle(60%, 100%);
                 .runningPic{
                     height: 300px;
                 }
@@ -181,7 +181,7 @@
             }
 
             .rightBar{
-                @include fixedRetangle(40%, 100%);
+                @include fixedRetangle(35%, 100%);
 
                 .summary{
                     position: sticky;
