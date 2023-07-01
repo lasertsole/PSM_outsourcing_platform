@@ -116,7 +116,6 @@
 
     /**获取路由传参**/
     const route = useRoute();
-    console.log(route.query);
 
     /**二级路由切换**/
     const tabList = ref<tabBarItem[]>([

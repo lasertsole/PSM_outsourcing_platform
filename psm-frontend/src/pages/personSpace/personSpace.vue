@@ -73,7 +73,7 @@
     import adaptContainer from "components/common/adaptContainer.vue"
     import showCaseBox from "components/personSpace/showCaseBox.vue"
     import { ref } from "vue"
-    import { showCaseBoxInfo, planningBoxInfo} from "types/personSpace/personSpace"
+    import { showCaseBoxInfo, planningBoxInfo} from "types/pageType/personSpace"
 
     /*橱窗盒子的数据*/
     const showCaseBoxArr = ref<showCaseBoxInfo[]>([
@@ -273,4 +273,4 @@
             }
         }
     }
-</style>
+</style>@/types/pageType/personSpace
