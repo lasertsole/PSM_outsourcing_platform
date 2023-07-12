@@ -207,13 +207,15 @@
                     justify-content: center;
                     button{
                         font-size: 20px;
-                        font-weight: bolder;
                         background-color: #00a8e9;
                         color: white;
                         outline: none;
                         border: 0;
-                        padding: 5px 10px;
+                        padding: 2px 10px;
                         width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
                 }
 
@@ -264,8 +266,25 @@
             .step{
                 .planningStep{
                     color: #00a8e9;
-                    font-weight: bold;
                     font-size: 18px;
+                }
+                &::v-deep(.el-steps){
+                    padding-top: 10px;
+                    .el-step__icon{
+                        @include fixedSquare(15px);
+                        .el-step__icon-inner{
+                            font-size: 8px;
+                        }
+                    }
+                    .el-step__main{
+                        
+                        .el-step__description{
+                            position: absolute;
+                            top: -10px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                        }
+                    }
                 }
             }
 
