@@ -5,7 +5,7 @@ import loginAndResigterVue from '@/pages/loginAndResigter/loginAndResigter.vue'/
 import showcaseVue from '@/pages/showcase/showcase.vue'//橱窗页
 import showcaseDetailVue from "@/pages/showcaseDetail/showcaseDetail.vue"//橱窗详情页
 import planningVue from '@/pages/planning/planning.vue'//企划页
-import planningDetailVue from "@/pages/showcase/showcaseDetail.vue"//橱窗详情页
+import planningDetailVue from "@/pages/planningDetail/planningDetail.vue"//橱窗详情页
 import worksVue from '@/pages/works/works.vue'//作品页
 import personSpaceVue from '@/pages/personSpace/personSpace.vue'//个人空间页面
 import personInfo from "@/pages/personInfo/personInfo.vue"//个人信息页面
@@ -135,6 +135,12 @@ const routes:RouteRecordRaw[] = [
                 component: commerceVue
             },
         ]
+    },
+    //企划详情页
+    {
+        path: '/planningDetail',
+        name: 'planningDetail',
+        component: planningDetailVue,
     },
     //作品页
     {

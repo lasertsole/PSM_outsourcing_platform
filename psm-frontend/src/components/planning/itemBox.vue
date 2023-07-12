@@ -1,5 +1,5 @@
 <template>
-    <div class="itemBox">
+    <div class="itemBox" @click="toDetailPage(link)">
         <div class="itemContent">
             <div class="top">
                 <div class="left">
@@ -28,7 +28,8 @@
 </template>
 
 <script setup lang="ts">
-    import {defineProps, ref, PropType} from "vue"
+    import { defineProps, ref, PropType} from "vue"
+    import { useRouter } from 'vue-router'
     const props = defineProps({
         title:{type:String, required:true},
         describe:{type:String, required:true},
@@ -36,7 +37,13 @@
         type:{type:String, required:true},
         calendar:{type:String, required:true},
         price:{type:String, required:true},
+        link:{type:String, required:true},
     });
+
+    const router = useRouter();
+    function toDetailPage(link:string):void{
+        router.replace({path:link,query:""});
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +55,7 @@
         flex-direction: row;
         padding: 10px;
         box-sizing: border-box;
+        cursor: pointer;
         .itemContent{
             width: 100%;
             height: 100%;
@@ -62,10 +70,10 @@
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: row;
+                border-bottom: 1px solid rgba(165, 165, 165, 0.3568627451);
                 >*{
                     box-sizing: border-box;
                     height: 100%;
-                    border-bottom: 1px solid rgba(165, 165, 165, 0.3568627451);
                     padding-bottom: 10px;
                 }
                 .left{

@@ -7,9 +7,17 @@
         >
         </filterBar>
         <div class="itemBoxContainer">
-            <itemBox></itemBox>
-            <itemBox></itemBox>
-            <itemBox></itemBox>
+            <template v-for="(item,index) in itemDetailBox">
+                <itemBox
+                    :title="item.title"
+                    :describe="item.describe"
+                    :imgSrc="item.imgSrc"
+                    :type="item.type"
+                    :calendar="item.calendar"
+                    :price="item.price"
+                    :link="item.link"
+                ></itemBox>
+            </template>
         </div>
     </div>
 </template>
@@ -74,6 +82,36 @@
             label: '3天以内',
         },
     ]
+
+    const itemDetailBox = ref([
+        {
+            title:'123',
+            describe:"123",
+            imgSrc:"Carousel/bg-1.jpg",
+            type:"123",
+            calendar:"2021-1-1",
+            price:"123",
+            link:"/planningDetail"
+        },
+        {
+            title:'123',
+            describe:"123",
+            imgSrc:"Carousel/bg-1.jpg",
+            type:"123",
+            calendar:"2021-1-1",
+            price:"123",
+            link:"/planningDetail"
+        },
+        {
+            title:'123',
+            describe:"123",
+            imgSrc:"Carousel/bg-1.jpg",
+            type:"123",
+            calendar:"2021-1-1",
+            price:"123",
+            link:"/planningDetail"
+        }
+    ]);
 </script>
 
 <style lang="scss" scoped>
