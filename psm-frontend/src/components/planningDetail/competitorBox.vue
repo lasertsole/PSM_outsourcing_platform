@@ -43,7 +43,7 @@
     @use "sass:math";
     @import "commonScss";
     .competitor{
-        @include fixedRetangle(900px, 130px);
+        @include fixedRetangle(900px, 110px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;

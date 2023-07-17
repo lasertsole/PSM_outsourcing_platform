@@ -23,26 +23,8 @@
 
         <div class="rightBar">
             <!-- 右上详情盒子 -->
-            <div class="detail">
-                <div class="title">设计一个背景墙</div>
-
-                <div class="hr"></div>
-
-                <div class="selectInfoBox">
-                    <div>企划发布时间：2023年3月10日</div>
-                    <div>封面/美工</div>
-                </div>
-                <div class="step">
-                    <div class="planningStep">企划流程</div>
-                    <el-steps :active="5" align-center>
-                        <el-step title="开始合作" description="0%" />
-                        <el-step title="草稿阶段" description="30%" />
-                        <el-step title="初步定稿" description="50%" />
-                        <el-step title="中期确定" description="70%" />
-                        <el-step title="确认收稿" description="100%" />
-                    </el-steps>
-                </div>
-            </div>
+            <detailBox>
+            </detailBox>
 
             <!-- 右下应征人员盒子 -->
             <competitorBox
@@ -57,6 +39,7 @@
     import personInfoBox from "components/planningDetail/personInfoBox.vue";
     import employDetailBox from "components/planningDetail/employDetailBox.vue";
     import competitorBox from "components/planningDetail/competitorBox.vue";
+    import detailBox from "components/planningDetail/detailBox.vue";
     import { ref } from "vue";
     import useGlobal from "global";
     import { storeToRefs } from "pinia";
@@ -102,7 +85,7 @@
         display: flex;
         justify-content: space-between;
         .leftBar{
-            @include fixedRetangle(200px, 100%);
+            @include fixedRetangle(200px, 505px);
             >div{
                 background-color: white;
                 border-radius: 8px;
@@ -111,7 +94,7 @@
             }
         }
         .rightBar{
-            @include fixedRetangle(900px, 510px);
+            @include fixedRetangle(900px, 505px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -120,54 +103,6 @@
                 background-color: white;
                 border-radius: 8px;
                 padding: 10px;
-            }
-            .detail{
-                @include fixedRetangle(900px, 360px);
-                display: flex;
-                flex-direction: column;
-                .title{
-                    color: #444444;
-                    font-weight: bold;
-                    padding: 5px 0px;
-                }
-                .hr{
-                    @include fixedHeight(1.5px);
-                    background-color: #cbcbcb;
-                }
-                .selectInfoBox{
-                    display: flex;
-                    font-size: 12px;
-                    color: #707070;
-                    font-weight: bold;
-                    >div{
-                        margin-right: 50px;
-                        padding: 2px 0px;
-                    }
-                }
-            }
-            .step{
-                .planningStep{
-                    color: #00a8e9;
-                    font-size: 18px;
-                }
-                &::v-deep(.el-steps){
-                    padding-top: 10px;
-                    .el-step__icon{
-                        @include fixedSquare(15px);
-                        .el-step__icon-inner{
-                            font-size: 8px;
-                        }
-                    }
-                    .el-step__main{
-                        
-                        .el-step__description{
-                            position: absolute;
-                            top: -10px;
-                            left: 50%;
-                            transform: translateX(-50%);
-                        }
-                    }
-                }
             }
         }
     }
