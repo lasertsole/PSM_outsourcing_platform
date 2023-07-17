@@ -73,9 +73,6 @@
 
 <script setup lang="ts">
     const props = defineProps({
-        // deadLine:{type:String, required: true}, 
-        // budget:{type:String, required: true},
-        // employFinishedTime:{type:String, required: true},
     });
 </script>
 
@@ -109,7 +106,7 @@
         .content{
             display: flex;
             justify-content: space-between;
-            @include fixedRetangle(100%,210px);
+            @include fixedRetangle(100%,225px);
             box-sizing: border-box;
             >.left{
                 @include fixedRetangle(70%,100%);
@@ -142,7 +139,7 @@
                             align-items: center;
                             flex-wrap: wrap;
                             &:not(:nth-of-type(1),:nth-of-type(2)){
-                                margin-top: 10px;
+                                margin-top: 17px;
                             }
                             .key{
                                 color: #00a8e9;
@@ -173,6 +170,7 @@
             .planningStep{
                 color: #00a8e9;
                 font-size: 18px;
+                font-size: 16px;
             }
             &::v-deep(.el-steps){
                 padding-top: 10px;
@@ -183,7 +181,10 @@
                     }
                 }
                 .el-step__main{
-                    
+                    .el-step__title{
+                        font-size: 12px;
+                        line-height: 18px;
+                    }
                     .el-step__description{
                         position: absolute;
                         top: -10px;
