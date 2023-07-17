@@ -2,55 +2,23 @@
     <div class="showcaseDetail">
         <div class="leftBar">
             <!-- 左上个人信息盒子 -->
-            <div class="personInfoBox">
-                <!-- 用户头像 -->
-                <div class="userProfile" :style="`background-image: url(${serverUrl+userinfo.userProfile});`"></div>
-                
-                <!-- 用户名 -->
-                <div class="userName">{{ userinfo.userName }}</div>
-
-                <!-- 用户评分 -->
-                <div class="userScore">{{ 9.6 }}</div>
-
-                <!-- 用户评论数 -->
-                <div class="commentNum">评论数:{{ 13 }}</div>
-
-                <!-- 用户完成率 -->
-                <div class="compleleRate">完成率:{{ 10 }}/{{ 10 }}</div>
-            </div>
+            <personInfoBox
+                :userProfile="serverUrl+userinfo.userProfile"
+                :userName="userinfo.userName?userinfo.userName:''"
+                :userScore="9.6"
+                :commentNum="13"
+                :compleled="10"
+                :totalDeal="10"
+            >
+            </personInfoBox>
             
             <!-- 左下企划价格盒子 -->
-            <div class="planningDetail">
-                <!-- 截止日期 -->
-                <div class="deadLine">
-                    <div class="key">截止日期:</div>
-                    <div class="value">2023年5月12日</div>
-                </div>
-
-                <!-- 预算金额 -->
-                <div class="budget">
-                    <div class="key">预算金额:</div>
-                    <div class="value">200-500元</div>
-                </div>
-
-                <!-- 应征截止日期 -->
-                <div class="employTime">
-                    <div class="key">应征截止时间:</div>
-                    <div class="value">2023年4月10日</div>
-                </div>
-
-                <!-- 应征企划按钮 -->
-                <div class="employ">
-                    <button>应征企划</button>
-                </div>
-
-                 <!-- 底下扩展 -->
-                 <hr/>
-                 <div class="extend">
-                    <div class="share">分享企划</div>
-                    <div class="back">返回列表</div>
-                </div>
-            </div>
+            <employDetailBox
+                :deadLine="`2023年5月12日`"
+                :budget="`200-500元`"
+                :employFinishedTime="`2023年4月10日`"
+            >
+            </employDetailBox>
         </div>
 
         <div class="rightBar">
@@ -77,35 +45,18 @@
             </div>
 
             <!-- 右下应征人员盒子 -->
-            <div class="competitor">
-                <div class="top">
-                    <div class="left">已应征的画师</div>
-                    <div class="right">已应征的画师数:<span class="num">{{ 1 }}人</span></div>
-                </div>
-                <div class="bottom">
-                    <div class="guy">
-                        <template v-for="(item, index) in infoArr">
-                            <div class="competitor_info">
-                                <div class="base">
-                                    <div class="profile">
-                                        <img :src="`${item.profile}`">
-                                    </div>
-                                    <div class="honour">
-                                        <div class="name">{{item.name}}</div>
-                                        <div class="commentNum">{{item.commentNum}}条评论</div>
-                                        <div class="certificate">{{item.certificate}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </div>
+            <competitorBox
+                :infoArr="infoArr"
+            >
+            </competitorBox>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+    import personInfoBox from "components/planningDetail/personInfoBox.vue";
+    import employDetailBox from "components/planningDetail/employDetailBox.vue";
+    import competitorBox from "components/planningDetail/competitorBox.vue";
     import { ref } from "vue";
     import useGlobal from "global";
     import { storeToRefs } from "pinia";
@@ -157,75 +108,6 @@
                 border-radius: 8px;
                 overflow: hidden;
                 padding: 20px;
-            }
-            .personInfoBox{
-                @include fixedRetangle(100%, 200px);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                >div:not(:first-of-type){
-                    margin-top: 5px;
-                }
-                .userProfile{
-                    @include fixedCircle(50px);
-                    @include backgroundImgCondition();
-                }
-                .userName{
-                    font-size: 17px;
-                    font-weight: 500;
-                }
-                .userScore{
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #fb7299;
-                }
-                .commentNum,.compleleRate{
-                    color: #707070;
-                    font-size: 12px;
-                    font-weight: bold;
-                }
-            }
-
-            .planningDetail{
-                color: #707070;
-                margin-top: 50px;
-                font-weight: bold;
-
-                >div:not(:first-of-type),hr{
-                    margin-top: 5px;
-                }
-                .key{
-                    font-size: 17px;
-                }
-                .value{
-                    font-size: 14px;
-                    color: #00a8e9;
-                }
-                .employ{
-                    display: flex;
-                    justify-content: center;
-                    button{
-                        font-size: 20px;
-                        background-color: #00a8e9;
-                        color: white;
-                        outline: none;
-                        border: 0;
-                        padding: 2px 10px;
-                        width: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-
-                .extend{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    font-size: 12px;
-                    color: #707070;
-                }
             }
         }
         .rightBar{
@@ -283,85 +165,6 @@
                             top: -10px;
                             left: 50%;
                             transform: translateX(-50%);
-                        }
-                    }
-                }
-            }
-
-            .competitor{
-                @include fixedRetangle(900px, 130px);
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                >.top{
-                    display: flex;
-                    flex-direction: row;
-                    font-size: 12px;
-                    font-weight: bold;
-                    justify-content: space-between;
-                    color: #00a8e9;
-                    >.left{
-
-                    }
-                    >.right{
-                        margin-right: 120px;
-                        >.num{
-                            color: #444;
-                            margin-left: 5px;
-                        }
-                    }
-                }
-                >.bottom{
-                    display: flex;
-                    flex-grow: 1;
-                    align-items: center;
-                    .guy{
-                        .competitor_info{
-                            margin-left: 10px;
-                            min-width: 150px;
-                            max-width: 150px;
-                            display: flex;
-                            flex-direction: column;
-                            overflow: hidden;
-                            .base{
-                                height: 50px;
-                                display: flex;
-                                flex-direction: row;
-                                .profile{
-                                    @include fixedSquare(50px);
-                                    border-radius: 50%;
-                                    overflow: hidden;
-                                    cursor: pointer;
-                                    img{
-                                        width: 100%;
-                                        height: 100%;
-                                    }
-                                }
-                                .honour{
-                                    margin-left: 10px;
-                                    overflow: hidden; /* 溢出部分隐藏 */
-                                    >*{
-                                        text-overflow: ellipsis; /* 文本溢出时显示省略号来代表被修剪的文本 */
-                                        overflow: hidden; /* 溢出部分隐藏 */
-                                        white-space: nowrap; /* 段落中的文本不进行换行 */
-                                    }
-                                    .name{
-                                        font-family: SourceSans3-Medium;
-                                        font-size: 15px;
-                                        font-weight: bold;
-                                    }
-                                    .commentNum{
-                                        color: #707070;
-                                        font-size: 10px;
-                                        line-height: 15px;
-                                    }
-                                    .certificate{
-                                        color: #707070;
-                                        font-size: 10px;
-                                        line-height: 15px;
-                                    }
-                                }
-                            }
                         }
                     }
                 }
