@@ -1,5 +1,5 @@
 export function createConnect(user_id:string) {//创建socket链接
-    let WSConnect = new WebSocket(import.meta.env.VITE_WS_URL+"/ws/socketio/?user_id="+user_id);
+    let WSConnect = new WebSocket("ws://"+import.meta.env.VITE_URL+"/ws/socketio/?user_id="+user_id);
     WSConnect.onopen = function() {
         console.log('Client Socket Open');
     };

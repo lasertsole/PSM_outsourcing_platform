@@ -13,6 +13,7 @@
     import {ref} from "vue"
     import { tabBarItem } from "@/types/common/tabBarType"
     import tabBar from "@/components/common/tabBar.vue"
+import axios from "axios";
 
     const tabList = ref<tabBarItem[]>([
         {tabName:"剪辑类",linkTo:"/showcase/montage"},
@@ -20,6 +21,9 @@
         {tabName:"翻译类",linkTo:"/showcase/translate"},
         {tabName:"字幕类",linkTo:"/showcase/captions"},
     ]);
+
+    let value = await axios.get("http://127.0.0.1:8000/version");
+    console.log(value);
 </script>
 
 <style lang="scss" scoped>

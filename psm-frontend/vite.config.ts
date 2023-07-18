@@ -32,7 +32,7 @@ export default defineConfig(({command, mode}) => {
       port: 3456,//启动端口
       proxy: {//跨域代理
         "^/api/": {//拦截以/api/开头的请求路径，拦截后进行修改，再重新发送
-          target: env.VITE_API_URL,// 跨域的域名(不需要写路径)
+          target: "http://"+env.VITE_URL,// 跨域的域名(不需要写路径)
           ws: false,//是否启用websocket
           changeOrigin: true, /*允许跨域*/
           rewrite: (path) => path.replace(/^\/api/, ''),//路径重写把/api变为空字符

@@ -28,7 +28,8 @@ app.use(store);
 app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 
 //服务器地址全局化
-app.config.globalProperties.serverUrl = import.meta.env.VITE_API_URL;
+app.config.globalProperties.serverUrl = "http://"+import.meta.env.VITE_URL;
+app.config.globalProperties.serverWS = "ws://"+import.meta.env.VITE_URL;
 
 //用户信息全局化
 let mainStore = useMainStore();

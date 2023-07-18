@@ -42,7 +42,7 @@
 
     const carouselProcessArr = computed(()=>{
         return carouselArr.value.map((item)=>{
-            return import.meta.env.VITE_API_URL+item;
+            return "http://"+import.meta.env.VITE_URL+item;
         });
     });
 </script>
