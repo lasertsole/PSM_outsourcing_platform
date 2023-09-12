@@ -11,6 +11,10 @@ import personSpaceVue from '@/pages/personSpace/personSpace.vue'//个人空间�
 import personInfo from "@/pages/personInfo/personInfo.vue"//个人信息页面
 
 /*二级路由*/
+//登录注册页
+import loginVue from '@/pages/loginAndResigter/login.vue'//登录页
+import registerVue from '@/pages/loginAndResigter/register.vue'//登录页
+
 //橱窗页面
 import montageVue from '@/pages/showcase/montage.vue'
 import artVue from '@/pages/showcase/art.vue'
@@ -23,6 +27,9 @@ import commendOfShowcase from "@/pages/showcaseDetail/commendOfShowcase.vue"
 //企划页面
 import personVue from "@/pages/planning/person.vue"
 import commerceVue from "@/pages/planning/commerce.vue"
+//作品页面
+import recommend from "@/pages/works/recommend.vue"
+import hot from "@/pages/works/hot.vue"
 //协议页面
 import contractVue from "@/pages/contract/contract.vue"
 
@@ -46,6 +53,24 @@ const routes:RouteRecordRaw[] = [
         path: '/loginAndRegister',
         name: 'loginAndRegister',
         component: loginAndResigterVue,
+        children:[
+            //登录
+            {
+                path: 'login',
+                name: "login",
+                component: loginVue
+            },
+            {
+                path: "/",
+                redirect:'login',
+            },
+            //注册
+            {
+                path: 'register',
+                name: "register",
+                component: registerVue
+            },
+        ]
     },
     //橱窗页
     {
@@ -147,6 +172,25 @@ const routes:RouteRecordRaw[] = [
         path: '/works',
         name: 'works',
         component: worksVue,
+        redirect:'/works/recommend',
+        children:[
+            //个人
+            {
+                path: 'recommend',
+                name: "recommend",
+                component: recommend
+            },
+            {
+                path: "/",
+                redirect:'recommend',
+            },
+            //商业
+            {
+                path: 'hot',
+                name: "hot",
+                component: hot
+            },
+        ]
     },
     //合同页
     {

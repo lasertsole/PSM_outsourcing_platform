@@ -7,7 +7,7 @@ import router from '@/router'
 
 //引入pinia临时存储和持久化存储
 import store from '@/stores'
-import { useMainStore, useLoginAndRegisterStore, useWS, initGlobal }  from "@/stores/main.js"
+import { useMainStore, useWS, initGlobal }  from "@/stores/main.js"
 
 //引入Element-Plus
 import ElementPlus from 'element-plus'
@@ -34,10 +34,6 @@ app.config.globalProperties.serverWS = "ws://"+import.meta.env.VITE_URL;
 //用户信息全局化
 let mainStore = useMainStore();
 app.config.globalProperties.UserInfo = mainStore;
-
-//登录注册悬浮窗的显示控制全局化
-let LARFloat = useLoginAndRegisterStore();
-app.config.globalProperties.LARFloat = LARFloat;
 
 //websocket全局化
 let WS = useWS();

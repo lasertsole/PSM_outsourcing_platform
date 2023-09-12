@@ -1,8 +1,8 @@
 <template>
     <!-- 登录注册按钮 -->
     <div v-if="!isOnline" class="loginOrRegister">
-        <router-link to="/loginAndRegister" class="login">登录</router-link>
-        <router-link to="/loginAndRegister" class="register">注册</router-link>
+        <router-link to="/loginAndRegister/login" class="login">登录</router-link>
+        <router-link to="/loginAndRegister/register" class="register">注册</router-link>
     </div>
     <!-- 用户账号管理 -->
     <ul class="userTool" v-else>

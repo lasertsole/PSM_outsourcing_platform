@@ -22,8 +22,8 @@ import axios from "axios";
         {tabName:"字幕类",linkTo:"/showcase/captions"},
     ]);
 
-    let value = await axios.get("http://127.0.0.1:8000/version");
-    console.log(value);
+    // let value = await axios.get("http://127.0.0.1:8000/getFrontCover");
+    // console.log(value.data);
 </script>
 
 <style lang="scss" scoped>

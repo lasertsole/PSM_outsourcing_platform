@@ -50,7 +50,7 @@ export const useMainStore = defineStore({
         fasterLogin: async function() {//自动登录
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
-            if(data.status==1){
+            if(data.code==200){
                 ElMessage.success(data.msg);
                 this.setAccount(this.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                 global.Bus.emit("login","");//广播用户上线通知
@@ -78,7 +78,7 @@ export const useMainStore = defineStore({
             else{
                 let result = await axios.post("api/user/login",{phoneNumber, password});
                 let data = result.data;
-                if(data.status==1){
+                if(data.code==200){
                     ElMessage.success(data.msg);
                     this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                     global.Bus.emit("login");//广播用户上线通知
@@ -108,7 +108,7 @@ export const useMainStore = defineStore({
                 let result = await axios.post("api/user/register",{phoneNumber,password});
                 let data = result.data;
                 console.log(data);
-                if(data.status==1){
+                if(data.code==200){
                     ElMessage.success(data.msg);
                     this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
                     this.fasterLogin();//注册完成后自动登录
@@ -162,22 +162,6 @@ export const useWS = defineStore({
     actions:{
         createWSConnect:function(user_id:string){
             this.WSConnect = createConnect(user_id);
-        }
-    }
-})
-
-/**********用户登录注册账号的悬浮窗**********/
-export const useLoginAndRegisterStore = defineStore({
-    id: 'LoginAndRegisterFloat', 
-    state: () => ({
-        isShowFloat:false,//显示账号悬浮窗
-    }),
-    actions:{
-        showFloat:function():void{//移除账号信息
-            this.isShowFloat=true;
-        },
-        hideFloat:function():void{//移除账号信息
-            this.isShowFloat=false;
         }
     }
 })

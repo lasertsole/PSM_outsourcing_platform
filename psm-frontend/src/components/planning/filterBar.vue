@@ -30,7 +30,8 @@
     const props = defineProps(
         {bigClass:{type:Array as PropType<optionInfo[]>}, 
         smallClass:{type:Array as PropType<optionInfo[]>},
-        timeClass:{type:Array as PropType<optionInfo[]>}});
+        timeClass:{type:Array as PropType<optionInfo[]>}}
+    );
 </script>
 
 <style lang="scss" scoped>

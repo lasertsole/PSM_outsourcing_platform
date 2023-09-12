@@ -1,6 +1,9 @@
 #开发环境申明
 spring:
   profiles: dev
+  #多媒体文件所在文件夹
+  resource:
+    static-locations: classpath:/static/
 
 #redis的主机ip及端口
   redis:
@@ -16,6 +19,7 @@ spring:
 
 #后端版本
 version: "1.1.1"
+
 #服务器地址及端口
 server:
   port: 8000

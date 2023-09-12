@@ -48,18 +48,17 @@
         }
     }
 
-    /**********用户登录时根据用户信息建立websocket*********/
-    const WS = global?.WS;
-    const { WSConnect } = storeToRefs(WS);
-    Bus.on("login",()=>{ 
-        WS.createWSConnect(userinfo.value.userID);//创建socket链接
-    });
+    // /**********用户登录时根据用户信息建立websocket*********/
+    // const WS = global?.WS;
+    // const { WSConnect } = storeToRefs(WS);
+    // Bus.on("login",()=>{ 
+    //     WS.createWSConnect(userinfo.value.userID);//创建socket链接
+    // });
     
-    /**********用户登出时根据用户信息关闭websocket*********/
-    Bus.on("logout",()=>{ 
-        WSConnect.value.close();//关闭socket链接
-    });
-
+    // /**********用户登出时根据用户信息关闭websocket*********/
+    // Bus.on("logout",()=>{ 
+    //     WSConnect.value.close();//关闭socket链接
+    // });
 </script>
 
 <style lang="scss" scoped>
