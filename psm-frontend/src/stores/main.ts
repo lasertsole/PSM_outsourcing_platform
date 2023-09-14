@@ -2,7 +2,7 @@ import axios from "axios"
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
 import { createConnect, disconnect } from "@/socket"; //引入webSocket
-import { useMainStoreObjType, useMainStoreObjInfoType } from "@/types/stores/useMainStoreType"
+import { accountInfo } from "@/types/stores/accountInfo"
 
 /**********main传入全局变量**********/
 let global:any=undefined;
@@ -11,10 +11,11 @@ export function initGlobal(passGlobal:any):void{
 }
 
 /**********持久化存储用户信息**********/
-let obj:useMainStoreObjType={
-    token:undefined,
-    userinfo: {userName:undefined, userProfile:undefined,userID:undefined},
-    isOnline: false,//判断是否已登录
+let obj:accountInfo={
+    token: undefined,
+    userName: undefined,
+    userPhoneNumber: undefined,
+    userProfile: undefined,
 };
 
 export const useMainStore = defineStore({
@@ -36,23 +37,24 @@ export const useMainStore = defineStore({
     actions:{
         removeAccount:function():void{//移除账号信息
             this.token = undefined;
-            this.isOnline = false;
-            this.userinfo = {userName:undefined, userProfile:undefined,userID:undefined};
+            this.userPhoneNumber = undefined;
+            this.userName = undefined;
+            this.userProfile = undefined;
         },
-        setAccount:function(token:any,userinfo:useMainStoreObjInfoType):void{//设置账号信息
-            this.token=token;
-            if(userinfo.userName==""){userinfo.userName=undefined;}
-            if(userinfo.userProfile==""){userinfo.userProfile=undefined;}
-            if(userinfo.userID==""){userinfo.userID=undefined;}
-            this.userinfo=userinfo;
-            this.isOnline=true;
+        setAccount:function( userInfo:accountInfo ):void{//设置账号信息
+            this.token = userInfo.token;
+            this.userName = userInfo.userName;
+            if(this.userName==""){this.userName=undefined;}
+            if(this.userProfile==""){this.userProfile=undefined;}
+            this.userPhoneNumber = userInfo.userPhoneNumber;
+            this.userProfile = userInfo.userProfile;
         },
         fasterLogin: async function() {//自动登录
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
             if(data.code==200){
                 ElMessage.success(data.msg);
-                this.setAccount(this.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
+                this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
                 global.Bus.emit("login","");//广播用户上线通知
             }
             else{
@@ -80,7 +82,7 @@ export const useMainStore = defineStore({
                 let data = result.data;
                 if(data.code==200){
                     ElMessage.success(data.msg);
-                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
+                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
                     global.Bus.emit("login");//广播用户上线通知
                 }
                 else{
@@ -110,7 +112,7 @@ export const useMainStore = defineStore({
                 console.log(data);
                 if(data.code==200){
                     ElMessage.success(data.msg);
-                    this.setAccount(data.token, {userName:data.userName,userProfile:data.userProfile,userID:data.user_id});
+                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
                     this.fasterLogin();//注册完成后自动登录
                 }
                 else{

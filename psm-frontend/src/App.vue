@@ -9,7 +9,6 @@
                     </keep-alive>
                 </router-view>
             </div>
-            <session></session>
         </div>
         <LARModel></LARModel>
     </div>
@@ -20,7 +19,6 @@
     import useGlobal from "global"
     import { storeToRefs } from "pinia";
     import { ElMessage } from "element-plus";
-    import session from "components/framework/session.vue";
     import LARModel from "components/framework/LARModel.vue";
     import HeaderComponent from "components/framework/HeaderComponent.vue";
 
@@ -48,17 +46,6 @@
         }
     }
 
-    // /**********用户登录时根据用户信息建立websocket*********/
-    // const WS = global?.WS;
-    // const { WSConnect } = storeToRefs(WS);
-    // Bus.on("login",()=>{ 
-    //     WS.createWSConnect(userinfo.value.userID);//创建socket链接
-    // });
-    
-    // /**********用户登出时根据用户信息关闭websocket*********/
-    // Bus.on("logout",()=>{ 
-    //     WSConnect.value.close();//关闭socket链接
-    // });
 </script>
 
 <style lang="scss" scoped>
