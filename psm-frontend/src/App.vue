@@ -20,6 +20,7 @@
     import { storeToRefs } from "pinia";
     import { ElMessage } from "element-plus";
     import LARModel from "components/framework/LARModel.vue";
+    import { onMounted, onUnmounted } from "vue";
     import HeaderComponent from "components/framework/HeaderComponent.vue";
 
     /**********获取全局变量*********/
@@ -45,6 +46,22 @@
             ElMessage.error(data.msg);
         }
     }
+
+    function initUserInfo():void{//如果没有token值则清空账户信息
+        if(token.value==undefined){
+            mainStore.removeAccount();
+        }
+    }
+
+    /**********挂载事件********/
+    onMounted(()=>{
+        initUserInfo();
+    })
+
+    /**********卸载事件********/
+    onUnmounted(()=>{
+        
+    })
 
 </script>
 

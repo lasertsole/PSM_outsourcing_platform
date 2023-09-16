@@ -1,6 +1,8 @@
 package com.psm.vo;
 
-public class AccountVo {
+import java.io.Serializable;
+
+public class AccountVo implements Serializable {
     private String status;
 
     private String phoneNumber;

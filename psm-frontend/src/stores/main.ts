@@ -16,6 +16,7 @@ let obj:accountInfo={
     userName: undefined,
     userPhoneNumber: undefined,
     userProfile: undefined,
+    isOnline: false,
 };
 
 export const useMainStore = defineStore({
@@ -40,6 +41,7 @@ export const useMainStore = defineStore({
             this.userPhoneNumber = undefined;
             this.userName = undefined;
             this.userProfile = undefined;
+            this.isOnline = false;
         },
         setAccount:function( userInfo:accountInfo ):void{//设置账号信息
             this.token = userInfo.token;
@@ -48,13 +50,14 @@ export const useMainStore = defineStore({
             if(this.userProfile==""){this.userProfile=undefined;}
             this.userPhoneNumber = userInfo.userPhoneNumber;
             this.userProfile = userInfo.userProfile;
+            this.isOnline = true;
         },
         fasterLogin: async function() {//自动登录
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
             if(data.code==200){
                 ElMessage.success(data.msg);
-                this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
+                this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
             else{
@@ -82,7 +85,7 @@ export const useMainStore = defineStore({
                 let data = result.data;
                 if(data.code==200){
                     ElMessage.success(data.msg);
-                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
+                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                     global.Bus.emit("login");//广播用户上线通知
                 }
                 else{
@@ -109,11 +112,11 @@ export const useMainStore = defineStore({
             else{
                 let result = await axios.post("api/user/register",{phoneNumber,password});
                 let data = result.data;
-                console.log(data);
                 if(data.code==200){
                     ElMessage.success(data.msg);
-                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.userProfile});
-                    this.fasterLogin();//注册完成后自动登录
+                    data=data.data;
+                    this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
+                    global.Bus.emit("login");//广播用户上线通知
                 }
                 else{
                     ElMessage.error(data.msg);

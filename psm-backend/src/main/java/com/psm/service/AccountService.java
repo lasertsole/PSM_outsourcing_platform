@@ -60,10 +60,29 @@ public class AccountService {
         return Result.success(accountVo,"注册成功");
     }
 
-    public AccountEntity fasterLogin(String token) {
-        List<AccountEntity> list = accountMapper.findByToken(token);
-        System.out.println(list);
-        return list.get(0);
+    public Result<?> fasterLogin(String token) {
+        List<AccountEntity> list;
+        try{
+            list = accountMapper.findByToken(token);
+        }catch (Exception e){
+            return Result.error("500","登录时发生错误");
+        }
+        if (list.size()==0){
+            return Result.error("404","token对应的用户不存在");
+        }
+        else if(list.get(0).getStatus()=="2"){
+            return Result.error("403","账号封禁中");
+        }
+        else if(list.get(0).getStatus()=="2"){
+            return Result.error("410","账号已注销");
+        }
+        else{
+            AccountVo accountVo = new AccountVo();
+            BeanUtils.copyProperties(accountVo,list.get(0));
+            System.out.println(list.get(0));
+            System.out.println(accountVo);
+            return Result.success(accountVo,"注册成功");
+        }
     }
 
     public void register() {

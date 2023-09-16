@@ -1,6 +1,8 @@
 package com.psm.entity;
 
-public class AccountEntity {
+import java.io.Serializable;
+
+public class AccountEntity implements Serializable {
     private String id;
 
     private String phoneNumber;
@@ -87,7 +89,7 @@ public class AccountEntity {
                 "id='" + id + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
-                ", username='" + userName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", profile='" + profile + '\'' +
                 ", salt='" + salt + '\'' +
                 ", token='" + token + '\'' +

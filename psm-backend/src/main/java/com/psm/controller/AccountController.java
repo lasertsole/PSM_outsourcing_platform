@@ -30,8 +30,6 @@ public class AccountController {
     @RequestMapping(value = "/user/fasterLogin", method = RequestMethod.GET)
     public Result<?> fasterLogin(@RequestHeader("token") String token){
         AccountVo accountVo = new AccountVo();
-        AccountEntity info = accountService.fasterLogin(token);
-        BeanUtils.copyProperties(accountVo,info);
-        return Result.success(accountVo,"登录成功");
+        return accountService.fasterLogin(token);
     }
 }

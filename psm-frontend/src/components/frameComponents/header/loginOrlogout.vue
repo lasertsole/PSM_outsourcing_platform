@@ -14,7 +14,7 @@
                 @leave="onLeave"
             >
                 <div v-show="showUserDetail" :class="{userDetail:true}">
-                    <div class="name" @click="onClick">{{userinfo.userName}}</div>
+                    <div class="name" @click="onClick">{{userName}}</div>
                     <ul class="numInfo">
                         <li>
                             <div class="top">57</div>
@@ -55,12 +55,13 @@
     const global = useGlobal();
 
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
-    const { isOnline, userinfo } = storeToRefs(mainStore);
+    const { isOnline, userProfile, userName } = storeToRefs(mainStore);
 
     /*显示用户信息*/
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
     const profile:ComputedRef<string> = computed(()=>{//获取头像
-        return serverUrl+userinfo.value.userProfile;
+        console.log(userName.value);
+        return serverUrl+userProfile.value;
     })
 
     /*鼠标移入时展示用户细节*/
@@ -122,6 +123,16 @@
     function onClick():void{//点击触发事件
         router.replace("/personInfo");
     }
+
+    /************挂载事件************/
+    onMounted(()=>{
+
+    });
+
+    /************卸载事件************/
+    onUnmounted(()=>{
+
+    })
 
     /************退出账号事件************/
     function logout():void{

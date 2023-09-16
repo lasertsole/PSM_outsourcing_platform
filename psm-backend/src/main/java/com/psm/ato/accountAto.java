@@ -1,6 +1,8 @@
 package com.psm.ato;
 
-public class accountAto {
+import java.io.Serializable;
+
+public class accountAto implements Serializable {
 
     private String phoneNumber;
 
