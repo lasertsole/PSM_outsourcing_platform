@@ -33,13 +33,9 @@ public class AccountService {
             };
 
             AccountVo accountVo = new AccountVo();
-            BeanUtils.copyProperties(accountVo,accountEntity);
-            System.out.println(accountVo);
-            System.out.println(accountEntity);
+            BeanUtils.copyProperties(accountEntity, accountVo);
             return Result.success(accountVo, "登录成功");
         }else{
-            System.out.println(accountEntity.getPassword());
-            System.out.println(String.valueOf(Math.abs((password+accountEntity.getSalt()).hashCode())));
             return Result.error("401", "密码错误，登录失败");
         }
     }
@@ -78,9 +74,7 @@ public class AccountService {
         }
         else{
             AccountVo accountVo = new AccountVo();
-            BeanUtils.copyProperties(accountVo,list.get(0));
-            System.out.println(list.get(0));
-            System.out.println(accountVo);
+            BeanUtils.copyProperties(list.get(0), accountVo);
             return Result.success(accountVo,"注册成功");
         }
     }

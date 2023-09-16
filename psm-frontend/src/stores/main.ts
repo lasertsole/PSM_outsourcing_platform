@@ -57,6 +57,7 @@ export const useMainStore = defineStore({
             let data = result.data;
             if(data.code==200){
                 ElMessage.success(data.msg);
+                data = data?.data;
                 this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
@@ -83,8 +84,9 @@ export const useMainStore = defineStore({
             else{
                 let result = await axios.post("api/user/login",{phoneNumber, password});
                 let data = result.data;
-                if(data.code==200){
+                if(data.code == 200){
                     ElMessage.success(data.msg);
+                    data = data.data;
                     this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                     global.Bus.emit("login");//广播用户上线通知
                 }

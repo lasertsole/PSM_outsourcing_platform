@@ -179,6 +179,7 @@
         padding: 10px;
         li{
             padding: 5px;
+            border-radius: 5px;
             &.profile{
                 cursor: pointer;
                 background-size: 100%;
@@ -204,7 +205,7 @@
                     display: block;
                     z-index: 1;
                     position: absolute;
-                    background-color: #f5f5f5;
+                    background-color: white;
                     @include fixedRoundedRectangle(200px,280px, 10px);
                     top: 30px;
                     left: math.div($profileSize, 2);
@@ -224,6 +225,13 @@
                         
                         li{
                             cursor: pointer;
+                            width: 50%;
+
+                            &:hover{
+                                background-color: #f5f5f5;
+                                transition: .5s ease;
+                            }
+
                             >div{
                                 display: flex;
                                 justify-content: center;
@@ -248,6 +256,11 @@
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
+                            &:hover{
+                                background-color: #f5f5f5;
+                                transition: .5s ease;
+                            }
+
                             div{
                                 display: flex;
                                 align-items: center;
