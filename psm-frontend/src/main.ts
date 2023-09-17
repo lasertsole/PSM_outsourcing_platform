@@ -58,14 +58,14 @@ axios.interceptors.request.use((config)=>{
 
 //axios响应拦截器
 axios.interceptors.response.use((res)=>{
-	// if(res.data.error){
-	// 	ElMessage({
-	// 	showClose: true,
-	// 	message: '发生错误。',
-	// 	type: 'error'
-	//   });
-	//   return Promise.reject(res.data);
-	// }
+	if(res.data.code!="200"){
+		ElMessage({
+		showClose: true,
+		message: res.data.msg,
+		type: 'error'
+	  });
+	  return Promise.reject(res.data);
+	}
 	return res;
 });
 

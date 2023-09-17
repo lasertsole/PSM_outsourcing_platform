@@ -75,7 +75,7 @@ public class AccountService {
         else{
             AccountVo accountVo = new AccountVo();
             BeanUtils.copyProperties(list.get(0), accountVo);
-            return Result.success(accountVo,"注册成功");
+            return Result.success(accountVo,"快速登录成功");
         }
     }
 

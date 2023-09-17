@@ -61,9 +61,6 @@ export const useMainStore = defineStore({
                 this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
-            else{
-                ElMessage.error(data.msg);
-            }
         },
         loginAccount: async function(phoneNumber:string,password:string):Promise<void>{//登录账号
             if(phoneNumber==""){
@@ -89,9 +86,6 @@ export const useMainStore = defineStore({
                     data = data.data;
                     this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                     global.Bus.emit("login");//广播用户上线通知
-                }
-                else{
-                    ElMessage.error(data.msg);
                 }
             }
         },
@@ -119,9 +113,6 @@ export const useMainStore = defineStore({
                     data=data.data;
                     this.setAccount({token:data.token, userPhoneNumber:data.userPhoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                     global.Bus.emit("login");//广播用户上线通知
-                }
-                else{
-                    ElMessage.error(data.msg);
                 }
             }
         },

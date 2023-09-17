@@ -32,4 +32,10 @@ public class AccountController {
         AccountVo accountVo = new AccountVo();
         return accountService.fasterLogin(token);
     }
+
+    @RequestMapping(value = "/user/changeName", method = RequestMethod.GET)
+    public Result<?> changeName(@RequestHeader("token") String token){
+        AccountVo accountVo = new AccountVo();
+        return accountService.fasterLogin(token);
+    }
 }

@@ -30,7 +30,7 @@
     const carouselArr = ref<string[]>([]);
     (async function getFrontCover():Promise<void>{//首页获取设置轮播图
         let result = await axios.get("api/getFrontCover");
-        carouselArr.value= result.data;
+        carouselArr.value= result.data.data;
     })();//setup时自调用一次，然后因为keepalive不会再次调用
 
     const carouselProcessArr = computed(()=>{
