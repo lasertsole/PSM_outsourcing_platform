@@ -4,18 +4,19 @@
 	min-width: $size;
 	max-width: $size;
 	width: $size;
+	box-sizing: border-box;
 }
 /* 固定高度 */
 @mixin fixedHeight($size) {
 	min-height: $size;
 	max-height: $size;
 	height: $size;
+	box-sizing: border-box;
 }
 /* 固定长方形 */
 @mixin fixedRetangle($widthSize, $heightSize){
 	@include fixedWidth($widthSize);
 	@include fixedHeight($heightSize);
-	box-sizing: border-box;
 }
 /* 固定正方形 */
 @mixin fixedSquare($size){
