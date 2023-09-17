@@ -3,11 +3,13 @@
 @mixin fixedWidth($size) {
 	min-width: $size;
 	max-width: $size;
+	width: $size;
 }
 /* 固定高度 */
 @mixin fixedHeight($size) {
 	min-height: $size;
 	max-height: $size;
+	height: $size;
 }
 /* 固定长方形 */
 @mixin fixedRetangle($widthSize, $heightSize){

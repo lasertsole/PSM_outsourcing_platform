@@ -9,6 +9,7 @@ import planningDetailVue from "@/pages/planningDetail/planningDetail.vue"//橱�
 import worksVue from '@/pages/works/works.vue'//作品页
 import personSpaceVue from '@/pages/personSpace/personSpace.vue'//个人空间页面
 import personInfo from "@/pages/personInfo/personInfo.vue"//个人信息页面
+import accountModify from "@/pages/accountModify/accountModify.vue"//修改个人信息页
 
 /*二级路由*/
 //登录注册页
@@ -209,6 +210,12 @@ const routes:RouteRecordRaw[] = [
         path: '/personInfo',
         name: 'personInfo',
         component: personInfo,
+    },
+    //个人信息修改页
+    {
+        path: '/accountModify',
+        name: 'accountModify',
+        component: accountModify,
     }
 ]
 

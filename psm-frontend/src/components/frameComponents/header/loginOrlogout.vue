@@ -26,7 +26,7 @@
                         </li>
                     </ul>
                     <ul class="option">
-                        <li><div><img src="icons/profile.png"><span>账户设置</span></div></li>
+                        <li><router-link to="/accountModify"><img src="icons/profile.png"><span>账户设置</span></router-link></li>
                         <li><div><img src="icons/planning.png"><span>我的企划</span></div></li>
                         <li><div><img src="icons/Vector.png"><span>我的橱窗</span></div></li>
                         <hr>
@@ -60,7 +60,6 @@
     /*显示用户信息*/
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
     const profile:ComputedRef<string> = computed(()=>{//获取头像
-        console.log(userName.value);
         return serverUrl+userProfile.value;
     })
 
@@ -261,7 +260,9 @@
                                 transition: .5s ease;
                             }
 
-                            div{
+                            div,a{
+                                font-weight: inherit;
+                                color: black;
                                 display: flex;
                                 align-items: center;
                                 span{}
