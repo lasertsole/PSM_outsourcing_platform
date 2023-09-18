@@ -26,9 +26,9 @@
                         </li>
                     </ul>
                     <ul class="option">
-                        <li><router-link to="/accountModify"><img src="icons/profile.png"><span>账户设置</span></router-link></li>
-                        <li><div><img src="icons/planning.png"><span>我的企划</span></div></li>
-                        <li><div><img src="icons/Vector.png"><span>我的橱窗</span></div></li>
+                        <li><router-link to="/accountModify"><img src="icons/profile.png"><span>账户设置</span><img src="icons/arrow.svg" alt=""></router-link></li>
+                        <li><router-link to="/accountModify"><img src="icons/planning.png"><span>我的企划</span><img src="icons/arrow.svg" alt=""></router-link></li>
+                        <li><router-link to="/accountModify"><img src="icons/Vector.png"><span>我的橱窗</span><img src="icons/arrow.svg" alt=""></router-link></li>
                         <hr>
                         <li @click="logout">
                             <div><img src="icons/longArrow.svg"><span>退出登录</span></div>
@@ -255,6 +255,16 @@
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
+                            
+                            a{
+                                flex-grow: 1;
+                            }
+
+                            span{
+                                flex-grow: 1;
+                                margin-left: 10px;
+                            }
+
                             &:hover{
                                 background-color: #f5f5f5;
                                 transition: .5s ease;
@@ -269,18 +279,6 @@
 
                                 img{
                                     @include fixedSquare(15px);
-                                    margin-right: 10px;
-
-                                }
-                            }
-
-                            &:not(:last-of-type){
-                                &::after{
-                                    content: '';
-                                    display: inline-block;
-                                    @include fixedSquare(15px);
-                                    background-image: url(icons/arrow.svg);
-                                    background-size: 100%;
                                 }
                             }
                         }

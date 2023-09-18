@@ -8,6 +8,9 @@ public class accountAto implements Serializable {
 
     private String password;
 
+    private String userName;
+
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -24,6 +27,14 @@ public class accountAto implements Serializable {
         this.password = password;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public accountAto() {}
 
     public accountAto(String phoneNumber, String password) {
@@ -36,6 +47,7 @@ public class accountAto implements Serializable {
         return "accountAto{" +
                 "phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }

@@ -43,6 +43,7 @@ export const useMainStore = defineStore({
             this.userProfile = undefined;
             this.isOnline = false;
         },
+
         setAccount:function( userInfo:accountInfo ):void{//设置账号信息
             this.token = userInfo.token;
             this.userName = userInfo.userName;
@@ -52,6 +53,25 @@ export const useMainStore = defineStore({
             this.userProfile = userInfo.userProfile;
             this.isOnline = true;
         },
+
+        InfoChange:function( userInfo:accountInfo ):void{//信息修改
+            if(userInfo.token){
+                this.token = userInfo.token;
+            }
+            if(userInfo.userPhoneNumber){
+                this.userPhoneNumber = userInfo.userPhoneNumber;
+            }
+            if(userInfo.userName){
+                this.userName = userInfo.userName;
+            }
+            if(userInfo.userProfile){
+                this.userProfile = userInfo.userProfile;
+            }
+            if(userInfo.isOnline){
+                this.isOnline = userInfo.isOnline;
+            }
+        },
+
         fasterLogin: async function() {//自动登录
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
@@ -62,6 +82,7 @@ export const useMainStore = defineStore({
                 global.Bus.emit("login","");//广播用户上线通知
             }
         },
+
         loginAccount: async function(phoneNumber:string,password:string):Promise<void>{//登录账号
             if(phoneNumber==""){
                 ElMessage.error('手机号不能为空');
@@ -89,6 +110,7 @@ export const useMainStore = defineStore({
                 }
             }
         },
+
         registerAccount: async function(phoneNumber:string,password:string):Promise<void>{//注册账号
             if(phoneNumber==""){
                 ElMessage.error('手机号不能为空');
@@ -116,19 +138,50 @@ export const useMainStore = defineStore({
                 }
             }
         },
+
         logOutAccount: async function() {
             this.removeAccount();
             global.Bus.emit("logout");//广播用户下线通知
         },
-        accountSetName: async function(userName:string):Promise<void>{//用户设置名字
-            let result = await axios.post("api/user/setName",{userName});
-            if(result.data.status==0){
-                ElMessage.error("修改失败");
+
+        changeUserName: async function(userName:string):Promise<boolean>{//用户设置名字
+            let result = await axios.post("api/user/changeUserName",{userName});
+            let data = result.data;
+            if(data.code==200){
+                ElMessage.success("修改成功");
+                this.InfoChange({userName});
+                return true;
             }
             else{
-                ElMessage.success("修改成功");
+                return false;
             }
         },
+
+        changeUserPhoneNumber: async function(userPhoneNumber:string):Promise<boolean>{//用户设置名字
+            let result = await axios.post("api/user/changeUserPhoneNumber",{phoneNumber:userPhoneNumber});
+            let data = result.data;
+            if(data.code==200){
+                ElMessage.success("修改成功");
+                this.InfoChange({userPhoneNumber});
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+
+        changeUserPassword: async function(password:string) {
+            let result = await axios.post("api/user/changeUserPassword",{password});
+            let data = result.data;
+            if(data.code==200){
+                ElMessage.success("修改成功");
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+
         accountSetProfile: async function(file:any):Promise<void>{//用户设置头像
             const formData = new FormData();//第一次请求
             formData.append("file", file);
@@ -141,13 +194,11 @@ export const useMainStore = defineStore({
                 },
                 data: formData,
             });
-            if(result.data.status==0){
-                ElMessage.error("上传失败");
-            }
-            else{
+            if(result.data.status!=0){
                 ElMessage.success("上传成功");
             }
-        }
+        },
+
     }
 })
 

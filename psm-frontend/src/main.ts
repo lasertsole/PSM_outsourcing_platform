@@ -40,7 +40,8 @@ let WS = useWS();
 app.config.globalProperties.WS = WS;
 
 //事件总线全局化
-app.config.globalProperties.Bus = mitt();
+let Bus = mitt();
+app.config.globalProperties.Bus =Bus;
 
 //给pinia传全局变量
 initGlobal(app.config.globalProperties);

@@ -49,48 +49,96 @@ public class AccountService {
         int status = 1;
         try{
             accountMapper.addNewAccount(phoneNumber, password, userName, profile, salt, token);
+            AccountVo accountVo = new AccountVo(String.valueOf(status), phoneNumber, userName, profile, token);
+            return Result.success(accountVo,"注册成功");
         }catch (Exception e){
             return Result.error("409","注册失败，用户已存在");
         }
-        AccountVo accountVo = new AccountVo(String.valueOf(status), phoneNumber, userName, profile, token);
-        return Result.success(accountVo,"注册成功");
     }
 
     public Result<?> fasterLogin(String token) {
         List<AccountEntity> list;
         try{
             list = accountMapper.findByToken(token);
+            if (list.size()==0){
+                return Result.error("404","token对应的用户不存在");
+            }
+            else if(list.get(0).getStatus()=="2"){
+                return Result.error("403","账号封禁中");
+            }
+            else if(list.get(0).getStatus()=="2"){
+                return Result.error("410","账号已注销");
+            }
+            else{
+                AccountVo accountVo = new AccountVo();
+                BeanUtils.copyProperties(list.get(0), accountVo);
+                return Result.success(accountVo,"快速登录成功");
+            }
         }catch (Exception e){
             return Result.error("500","登录时发生错误");
         }
-        if (list.size()==0){
-            return Result.error("404","token对应的用户不存在");
-        }
-        else if(list.get(0).getStatus()=="2"){
-            return Result.error("403","账号封禁中");
-        }
-        else if(list.get(0).getStatus()=="2"){
-            return Result.error("410","账号已注销");
-        }
-        else{
-            AccountVo accountVo = new AccountVo();
-            BeanUtils.copyProperties(list.get(0), accountVo);
-            return Result.success(accountVo,"快速登录成功");
+    }
+
+    public Result<?> changeUserName(String token, String userName) {
+        AccountVo accountVo = new AccountVo();
+        int result = 0;
+
+        try {
+            result = accountMapper.updateUserName(token, userName);
+            if(result!=1){
+                return Result.error("304", "修改名字未成功");
+            }
+            else{
+                return Result.success("修改名字成功");
+            }
+        }catch (Exception e){
+            return Result.error("500","修改名字时发生错误。");
         }
     }
 
-    public Result<?> changeUserName() {
+    public Result<?> changeUserPhoneNumber(String token, String phoneNumber) {
         AccountVo accountVo = new AccountVo();
-        return Result.success(accountVo,"快速登录成功");
+        int result = 0;
+
+        try {
+            result = accountMapper.updatePhoneNumber(token, phoneNumber);
+            if(result!=1){
+                return Result.error("304", "修改手机号未成功");
+            }
+            else{
+                return Result.success("修改成功");
+            }
+        }catch (Exception e){
+            return Result.error("500","修改手机号时发生错误。");
+        }
     }
 
-    public Result<?> changeUserPhoneNumber() {
-        AccountVo accountVo = new AccountVo();
-        return Result.success(accountVo,"快速登录成功");
-    }
+    public Result<?> changeUserPassword(String token, String password) {
+        int result = 0;
+        List<AccountEntity> list;
+        String salt;
+        String oldPassword;
+        String newPassword;
+        try {
+            list = accountMapper.findByToken(token);
+            salt = list.get(0).getSalt();
+            oldPassword = list.get(0).getPassword();
+            newPassword = String.valueOf(Math.abs((password+salt).hashCode()));
 
-    public Result<?> changeUserPassword() {
-        AccountVo accountVo = new AccountVo();
-        return Result.success(accountVo,"快速登录成功");
+            if(oldPassword.equals(newPassword)){
+                return Result.error("304", "新密码不能和旧密码相同");
+            }
+            else{
+                result = accountMapper.updatePassword(token, newPassword);
+                if(result!=1){
+                    return Result.error("304", "修改密码未成功");
+                }
+                else{
+                    return Result.success("修改成功");
+                }
+            }
+        }catch (Exception e){
+            return Result.error("500", "修改密码时发生程序错误");
+        }
     }
 }

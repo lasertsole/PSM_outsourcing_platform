@@ -16,7 +16,7 @@
                     @leave="onLeave"
                 >
                     <div class="hide" v-show="modifyIndex==0">
-                        <button class="save">保存</button>
+                        <button class="save" @click="modifyUserName()">保存</button>
                         <span class="cancel" @click="modifyIndex=-1">取消</span>
                     </div>
                 </transition>
@@ -36,7 +36,7 @@
                     @leave="onLeave"
                 >
                     <div class="hide" v-show="modifyIndex==1">
-                        <button class="save">保存</button>
+                        <button class="save" @click="modifyUserPhoneNumber()">保存</button>
                         <span class="cancel" @click="modifyIndex=-1">取消</span>
                     </div>
                 </transition>
@@ -46,7 +46,7 @@
                 <div class="show">
                     <span class="optionName">登录密码</span>
                     <div class="optionValue">
-                        <el-input v-model="temptPassword" placeholder="请输入新的登录密码" clearable type="password" show-password :disabled="modifyIndex!=2"/>
+                        <el-input v-model="temptPassword" placeholder="请输入新的登录密码" clearable type="password" :disabled="modifyIndex!=2"/>
                     </div>
                     <span class="modifyButton" @click="modifyIndex=2" v-show="modifyIndex!=2">修改</span>
                 </div>
@@ -58,10 +58,10 @@
                     <div class="hide" password v-show="modifyIndex==2">
                         <div class="identifyPassword">
                             <span class="optionName">登录密码</span>
-                            <el-input v-model="identifyPassword" placeholder="确认新的登录密码" clearable type="password" show-password v-show="modifyIndex==2"/>
+                            <el-input v-model="identifyPassword" placeholder="确认新的登录密码" clearable type="password" v-show="modifyIndex==2"/>
                         </div>
                         <div>
-                            <button class="save">保存</button>
+                            <button class="save" @click="modifyUserPassword()">保存</button>
                             <span class="cancel" @click="modifyIndex=-1">取消</span>
                         </div>
                     </div>
@@ -74,10 +74,10 @@
 
 <script setup lang="ts">
     import gsap from "gsap";
-    import { ref, onMounted, onUnmounted, watch } from "vue";
     import useGlobal from "global";
-    import { ElMessage } from 'element-plus';
     import { storeToRefs } from "pinia";
+    import { ElMessage } from 'element-plus';
+    import { ref, onMounted, onUnmounted, watch } from "vue";
 
     const global = useGlobal();
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
@@ -89,6 +89,7 @@
     let animate:any = undefined;//gsap动画容器
     let isMouseInBox:boolean = false;//鼠标是否在详情盒子中
     let animateLock:boolean = false;//动画锁
+
     function onEnter(el:any, done:Function):void{
         animate = gsap.to(el,{
             opacity:1,
@@ -102,6 +103,7 @@
             }
         });
     }
+
     function onLeave(el:any, done:Function):void{
         animate = gsap.to(el,{
             opacity:0,
@@ -123,14 +125,13 @@
     const temptUserPhoneNumber = ref<string>("");//临时用户手机号
     const temptPassword = ref<string>("1111");//临时用户手机号
     const identifyPassword = ref<string>("");
-
     const modifyIndex = ref<number>(-1);
 
     watch(modifyIndex,(newValue, oldValue)=>{
         temptUserName.value = userName.value;
         temptUserPhoneNumber.value = userPhoneNumber.value;
         if(newValue!=2){
-            temptPassword.value = "1111";
+            temptPassword.value = "******";
         }
         else{
             temptPassword.value = "";
@@ -138,27 +139,76 @@
         identifyPassword.value = "";
     })
 
-    function modifyUserName():void{
-
+    async function modifyUserName():Promise<void>{
+        if(temptUserName.value.length == 0){
+            ElMessage.error("名字不能为空");  
+        }
+        else if(temptUserName.value.length<3||temptUserName.value.length>13){
+            ElMessage.error("请输入大于等于3且小于等于15长度的名字");   
+        }
+        else if(temptUserName.value == userName.value){
+            ElMessage.error("修改后的名字不能与原来的一样");
+        }
+        else{
+            let isOk = await mainStore.changeUserName(temptUserName.value);
+            if(isOk){
+                temptUserName.value = userName.value;
+                modifyIndex.value = -1;
+            }
+        }
     }
 
-    function modifyUserPhoneNumber():void{
-
+    async function modifyUserPhoneNumber():Promise<void>{
+        if(temptUserPhoneNumber.value.length == 0){
+            ElMessage.error('手机号不能为空');
+        }
+        else if(!/^1[0-9]{10}$/.test(temptUserPhoneNumber.value)){
+            ElMessage.error('无效手机号');
+        }
+        else if(temptUserPhoneNumber.value == userPhoneNumber.value){
+            ElMessage.error("修改后的手机号不能与原来的一样");
+        }
+        else{
+            let isOk = await mainStore.changeUserPhoneNumber(temptUserPhoneNumber.value);
+            if(isOk){
+                temptUserPhoneNumber.value = userPhoneNumber.value;
+                modifyIndex.value = -1;
+            }
+        }
     }
 
-    function modifyUserPassword():void{
-
+    async function modifyUserPassword():Promise<void>{
+        if(temptPassword.value.length<6){
+            ElMessage.error('密码过短');
+        }
+        else if(temptPassword.value.length>=15){
+            ElMessage.error('密码过长');
+        }
+        else if(temptPassword.value != identifyPassword.value){
+            ElMessage.error('密码和确认密码不一致');
+        }
+        else{
+            let isOk = await mainStore.changeUserPassword(temptPassword.value);
+            if(isOk){
+                temptUserPhoneNumber.value = "******";
+                modifyIndex.value = -1;
+            }
+        }
     }
     /**以上为修改信息部分**/
     
     /**********挂载触发*********/
     onMounted(()=>{
+        temptUserName.value = userName.value;//临时用户名
+        temptUserPhoneNumber.value = userPhoneNumber.value;//临时用户手机号
+        temptPassword.value = "******";//临时用户手机号
         Bus.on("login",()=>{ 
             temptUserName.value = userName.value;//临时用户名
             temptUserPhoneNumber.value = userPhoneNumber.value;//临时用户手机号
-            temptPassword.value = "1111";//临时用户手机号
+            temptPassword.value = "******";//临时用户手机号
         });
     })
+
     /**********卸载触发*********/
     onUnmounted(()=>{
         Bus.off("login");

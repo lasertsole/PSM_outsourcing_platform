@@ -36,6 +36,13 @@ public class Result<T> {
         this.data = data;
     }
 
+    public static <T> Result<T> success(String msg) {
+        Result<T> result = (Result<T>) new Result<>(true);
+        result.setCode("200");
+        result.setMsg(msg);
+        return result;
+    }
+
     public static <T> Result<T> success(T data, String msg) {
         Result<T> result = new Result<>(data);
         result.setCode("200");

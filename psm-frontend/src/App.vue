@@ -22,6 +22,7 @@
     import LARModel from "components/framework/LARModel.vue";
     import { onMounted, onUnmounted } from "vue";
     import HeaderComponent from "components/framework/HeaderComponent.vue";
+    import { useRouter } from "vue-router";
 
     /**********获取全局变量*********/
     const global = useGlobal();
@@ -61,6 +62,13 @@
     /**********卸载事件********/
     onUnmounted(()=>{
         
+    })
+
+    /*下线时的路由守卫*/
+    const router = useRouter();
+
+    Bus.on("logout", ()=>{//用户下线时跳转到首页
+        router.replace('/index');
     })
 
 </script>

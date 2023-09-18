@@ -226,19 +226,21 @@ const router = createRouter({
 
 /*路由守卫*/
 let UserInfo:any = null;
+
 router.initRouterGuard = function(passUserInfo:any):void{
     UserInfo=passUserInfo;
 }
 
-const powerArr:any[]=[];//登录后才能访问的权限页面
+const powerArr:any[]=["accountModify"];//登录后才能访问的权限页面
 const hadPowerCantArr:any[]=["login","register"];//只有登录后不能访问的权限页面
 
 router.beforeResolve((to, from, next) => {
     
     const {isOnline} = storeToRefs(UserInfo);
-    if(hadPowerCantArr.indexOf(to.name)!=-1&&isOnline.value){//判断用户访问的页面是否在权限页面
+
+    if(powerArr.indexOf(to.name)!=-1&&!isOnline.value || hadPowerCantArr.indexOf(to.name)!=-1&&isOnline.value){//判断用户访问的页面是否越权
         next({
-            path: '/home',
+            path: '/index',
             query: {}
         });
     }

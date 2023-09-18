@@ -29,25 +29,21 @@ public class AccountController {
 
     @RequestMapping(value = "/user/fasterLogin", method = RequestMethod.GET)
     public Result<?> fasterLogin(@RequestHeader("token") String token){
-        AccountVo accountVo = new AccountVo();
         return accountService.fasterLogin(token);
     }
 
-    @RequestMapping(value = "/user/changeUserName", method = RequestMethod.GET)
-    public Result<?> changeUserName(@RequestHeader("token") String token){
-        AccountVo accountVo = new AccountVo();
-        return accountService.fasterLogin(token);
+    @RequestMapping(value = "/user/changeUserName", method = RequestMethod.POST)
+    public Result<?> changeUserName(@RequestHeader("token") String token, @RequestBody accountAto ato){
+        return accountService.changeUserName(token, ato.getUserName());
     }
 
-    @RequestMapping(value = "/user/changeUserPhoneNumber", method = RequestMethod.GET)
-    public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token){
-        AccountVo accountVo = new AccountVo();
-        return accountService.fasterLogin(token);
+    @RequestMapping(value = "/user/changeUserPhoneNumber", method = RequestMethod.POST)
+    public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token, @RequestBody accountAto ato){
+        return accountService.changeUserPhoneNumber(token, ato.getPhoneNumber());
     }
 
-    @RequestMapping(value = "/user/changeUserPassword", method = RequestMethod.GET)
-    public Result<?> changechangeUserPassword(@RequestHeader("token") String token){
-        AccountVo accountVo = new AccountVo();
-        return accountService.fasterLogin(token);
+    @RequestMapping(value = "/user/changeUserPassword", method = RequestMethod.POST)
+    public Result<?> changeUserPassword(@RequestHeader("token") String token, @RequestBody accountAto ato){
+        return accountService.changeUserPassword(token, ato.getPassword());
     }
 }
