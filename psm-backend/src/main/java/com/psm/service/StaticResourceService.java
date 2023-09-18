@@ -28,7 +28,7 @@ public class StaticResourceService {
             for (String string : names) {
                 resultNames.add(fileRelativePosition+string);
             }
-            return Result.success(resultNames, "登录成功");
+            return Result.success(resultNames, "获取封面成功");
         }
         catch (Exception e){
             return Result.error("404", "获取封面失败");

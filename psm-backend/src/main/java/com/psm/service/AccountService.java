@@ -79,7 +79,18 @@ public class AccountService {
         }
     }
 
-    public void register() {
-        System.out.println("dele...");
+    public Result<?> changeUserName() {
+        AccountVo accountVo = new AccountVo();
+        return Result.success(accountVo,"快速登录成功");
+    }
+
+    public Result<?> changeUserPhoneNumber() {
+        AccountVo accountVo = new AccountVo();
+        return Result.success(accountVo,"快速登录成功");
+    }
+
+    public Result<?> changeUserPassword() {
+        AccountVo accountVo = new AccountVo();
+        return Result.success(accountVo,"快速登录成功");
     }
 }

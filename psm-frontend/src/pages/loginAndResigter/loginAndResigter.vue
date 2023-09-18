@@ -26,13 +26,10 @@
     import useGlobal from "global";
     import { onMounted, onUnmounted } from "vue";
     import { useRouter } from "vue-router";
-    import { storeToRefs } from "pinia";
 
      /**********获取全局变量*********/
     const global = useGlobal();
     const Bus = global?.Bus;
-    // const { isOnline } = storeToRefs(global?.UserInfo);
-    // console.log(isOnline);
 
     /**********挂载触发*********/
     const router = useRouter();

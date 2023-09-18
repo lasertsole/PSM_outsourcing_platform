@@ -33,8 +33,20 @@ public class AccountController {
         return accountService.fasterLogin(token);
     }
 
-    @RequestMapping(value = "/user/changeName", method = RequestMethod.GET)
-    public Result<?> changeName(@RequestHeader("token") String token){
+    @RequestMapping(value = "/user/changeUserName", method = RequestMethod.GET)
+    public Result<?> changeUserName(@RequestHeader("token") String token){
+        AccountVo accountVo = new AccountVo();
+        return accountService.fasterLogin(token);
+    }
+
+    @RequestMapping(value = "/user/changeUserPhoneNumber", method = RequestMethod.GET)
+    public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token){
+        AccountVo accountVo = new AccountVo();
+        return accountService.fasterLogin(token);
+    }
+
+    @RequestMapping(value = "/user/changeUserPassword", method = RequestMethod.GET)
+    public Result<?> changechangeUserPassword(@RequestHeader("token") String token){
         AccountVo accountVo = new AccountVo();
         return accountService.fasterLogin(token);
     }

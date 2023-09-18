@@ -1,60 +1,142 @@
 <template>
     <div class="accountModify">
         <ul class="infoBox">
+
             <li>
                 <div class="show">
                     <span class="optionName">昵称</span>
                     <div class="optionValue">
-                        <el-input v-model="userName" placeholder="请输入昵称" clearable/>
+                        <el-input v-model="temptUserName" placeholder="请输入昵称" clearable :disabled="modifyIndex!=0"/>
                     </div>
-                    <span :class="{ modifyButton: true, collasp: modifyIndex==0 }" @click="modifyIndex=0">修改</span>
+                    <span class="modifyButton" @click="modifyIndex=0" v-show="modifyIndex!=0">修改</span>
                 </div>
-                <div :class="{ hide:true, collasp: modifyIndex!=0 }">
-                    <button class="save">保存</button>
-                    <span class="cancel" @click="modifyIndex=-1">取消</span>
-                </div>
+                <transition 
+                    :css="false"
+                    @enter="onEnter"
+                    @leave="onLeave"
+                >
+                    <div class="hide" v-show="modifyIndex==0">
+                        <button class="save">保存</button>
+                        <span class="cancel" @click="modifyIndex=-1">取消</span>
+                    </div>
+                </transition>
             </li>
+
             <li>
                 <div class="show">
                     <span class="optionName">手机号</span>
                     <div class="optionValue">
-                        <el-input v-model="userPhoneNumber" placeholder="请输入手机号" clearable/>
+                        <el-input v-model="temptUserPhoneNumber" placeholder="请输入手机号" clearable :disabled="modifyIndex!=1"/>
                     </div>
-                    <span :class="{ modifyButton: true, collasp: modifyIndex==1 }" @click="modifyIndex=1">修改</span>
+                    <span class="modifyButton" @click="modifyIndex=1" v-show="modifyIndex!=1">修改</span>
                 </div>
-                <div :class="{hide:true, collasp: modifyIndex!=1}">
-                    <button class="save">保存</button>
-                    <span class="cancel" @click="modifyIndex=-1">取消</span>
-                </div>
+                <transition 
+                    :css="false"
+                    @enter="onEnter"
+                    @leave="onLeave"
+                >
+                    <div class="hide" v-show="modifyIndex==1">
+                        <button class="save">保存</button>
+                        <span class="cancel" @click="modifyIndex=-1">取消</span>
+                    </div>
+                </transition>
             </li>
+
             <li>
                 <div class="show">
                     <span class="optionName">登录密码</span>
                     <div class="optionValue">
-                        <el-input v-model="password" placeholder="请输入新的登录密码" clearable type="password" show-password/>
+                        <el-input v-model="temptPassword" placeholder="请输入新的登录密码" clearable type="password" show-password :disabled="modifyIndex!=2"/>
                     </div>
-                    <span :class="{ modifyButton: true, collasp: modifyIndex==2 }" @click="modifyIndex=2">修改</span>
+                    <span class="modifyButton" @click="modifyIndex=2" v-show="modifyIndex!=2">修改</span>
                 </div>
-                <div :class="{hide:true, collasp: modifyIndex!=2}">
-                    <button class="save">保存</button>
-                    <span class="cancel" @click="modifyIndex=-1">取消</span>
-                </div>
+                <transition
+                    :css="false"
+                    @enter="onEnter"
+                    @leave="onLeave"
+                >
+                    <div class="hide" password v-show="modifyIndex==2">
+                        <div class="identifyPassword">
+                            <span class="optionName">登录密码</span>
+                            <el-input v-model="identifyPassword" placeholder="确认新的登录密码" clearable type="password" show-password v-show="modifyIndex==2"/>
+                        </div>
+                        <div>
+                            <button class="save">保存</button>
+                            <span class="cancel" @click="modifyIndex=-1">取消</span>
+                        </div>
+                    </div>
+                </transition>
             </li>
+
         </ul>
     </div>
 </template>
 
 <script setup lang="ts">
-    import { ref } from "vue";
+    import gsap from "gsap";
+    import { ref, onMounted, onUnmounted, watch } from "vue";
     import useGlobal from "global";
+    import { ElMessage } from 'element-plus';
     import { storeToRefs } from "pinia";
 
     const global = useGlobal();
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
     const { userProfile, userName, userPhoneNumber } = storeToRefs(mainStore);
-    const password = ref<string>("1234");
+    const Bus = global?.Bus;
+
+    /**以下为展开合上盒子时的动画特效**/
+    /*详情盒子动画钩子*/
+    let animate:any = undefined;//gsap动画容器
+    let isMouseInBox:boolean = false;//鼠标是否在详情盒子中
+    let animateLock:boolean = false;//动画锁
+    function onEnter(el:any, done:Function):void{
+        animate = gsap.to(el,{
+            opacity:1,
+            duration: .3,//持续时间
+            onStart:()=>{//开始触发函数
+                animateLock=true;
+            },
+            onComplete:()=>{//结束触发函数
+                done();
+                animateLock=false;
+            }
+        });
+    }
+    function onLeave(el:any, done:Function):void{
+        animate = gsap.to(el,{
+            opacity:0,
+            duration: 0,//持续时间
+            onStart:()=>{//开始触发函数
+                animateLock=true;
+            },
+            onComplete:()=>{//结束触发函数
+                done();
+                animateLock=false;
+            }
+        });
+    }
+    /**以上为展开合上盒子时的动画特效**/
+
+
+    /**以下为修改信息部分**/
+    const temptUserName = ref<string>("");//临时用户名
+    const temptUserPhoneNumber = ref<string>("");//临时用户手机号
+    const temptPassword = ref<string>("1111");//临时用户手机号
+    const identifyPassword = ref<string>("");
 
     const modifyIndex = ref<number>(-1);
+
+    watch(modifyIndex,(newValue, oldValue)=>{
+        temptUserName.value = userName.value;
+        temptUserPhoneNumber.value = userPhoneNumber.value;
+        if(newValue!=2){
+            temptPassword.value = "1111";
+        }
+        else{
+            temptPassword.value = "";
+        }
+        identifyPassword.value = "";
+    })
 
     function modifyUserName():void{
 
@@ -67,6 +149,21 @@
     function modifyUserPassword():void{
 
     }
+    /**以上为修改信息部分**/
+    
+    /**********挂载触发*********/
+    onMounted(()=>{
+        Bus.on("login",()=>{ 
+            temptUserName.value = userName.value;//临时用户名
+            temptUserPhoneNumber.value = userPhoneNumber.value;//临时用户手机号
+            temptPassword.value = "1111";//临时用户手机号
+        });
+    })
+    /**********卸载触发*********/
+    onUnmounted(()=>{
+        Bus.off("login");
+    })
+
 </script>
 
 <style lang="scss" scoped>
@@ -80,8 +177,8 @@
         align-items: center;
 
         .infoBox{
-            @include fixedWidth(50%);
-            min-width: 400px;
+            @include fixedWidth(500px);
+            min-width: 350px;
             background-color: white;
             border-radius: 7px;
             display: flex;
@@ -106,18 +203,12 @@
 
                     .optionValue{
                         flex-grow: 1;
-                        &::v-deep(.el-input){
-                            @include fixedRetangle(200px, 21px);
-                        }
                     }
 
                     .modifyButton{
                         display: inline-block;
                         color: #00a8e9;
                         cursor: pointer;
-                        &.collasp{
-                            display: none;
-                        }
                     }
                 }
 
@@ -126,6 +217,24 @@
                     justify-content: center;
                     align-items: center;
                     margin-top: 10px;
+                    opacity: 0;
+
+                    &[password]{
+                        flex-direction: column;
+                        
+                        .identifyPassword{
+                            display: flex;
+                            width: 100%;
+                            justify-content: flex-start;
+                            margin-top: 0px;
+
+                            .optionName{
+                                min-width: 20%;
+                                font-size: 14px;
+                                opacity: 0;
+                            }
+                        }
+                    }
 
                     &.collasp{
                         display: none !important;
@@ -155,6 +264,20 @@
                     }
                 }
 
+                &::v-deep(.el-input){
+                    @include fixedRetangle(200px, 21px);
+                    
+                    &:not(:first-child){
+                        margin-bottom: 10px;
+                    }
+
+                    &.is-disabled{
+                        .el-input__wrapper{
+                            background-color: inherit;
+                            box-shadow: none;
+                        }
+                    }
+                }
             }
         }
     }
