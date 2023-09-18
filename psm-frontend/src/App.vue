@@ -27,12 +27,12 @@
     /**********获取全局变量*********/
     const global = useGlobal();
     const Bus = global?.Bus;//获取事件总线
-    const mainStore = global?.UserInfo;//用户状态信息
-    const { token, userinfo } = storeToRefs(mainStore);
+    const accountInfo = global?.accountInfo;//用户状态信息
+    const { token, userinfo } = storeToRefs(accountInfo);
 
     /**********自动登录*********/
     if(token.value){//如果存在token则自动登录
-        mainStore.fasterLogin(token.value);
+        accountInfo.fasterLogin(token.value);
     };
 
     async function fasterLogin(){//自动登录
@@ -50,7 +50,7 @@
 
     function initUserInfo():void{//如果没有token值则清空账户信息
         if(token.value==undefined){
-            mainStore.removeAccount();
+            accountInfo.removeAccount();
         }
     }
 

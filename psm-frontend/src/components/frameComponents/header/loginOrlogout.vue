@@ -54,8 +54,8 @@
 
     const global = useGlobal();
 
-    const mainStore = global?.UserInfo;//获取用户账号信息的pinia
-    const { isOnline, userProfile, userName } = storeToRefs(mainStore);
+    const accountInfo = global?.accountInfo;//获取用户账号信息的pinia
+    const { isOnline, userProfile, userName } = storeToRefs(accountInfo);
 
     /*显示用户信息*/
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
@@ -135,7 +135,7 @@
 
     /************退出账号事件************/
     function logout():void{
-        mainStore.logOutAccount();
+        accountInfo.logOutAccount();
         hideDetail();
     }
 </script>

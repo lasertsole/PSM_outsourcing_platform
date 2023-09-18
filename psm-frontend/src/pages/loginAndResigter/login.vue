@@ -2,7 +2,7 @@
     <div class="login">
         <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="手机号" v-model="loginAccountData" clearable/>
         <el-input :input-style="{lineHeight:'48px',minHeight:'48px'}" :maxlength="12" placeholder="密码" v-model="loginPasswordData" clearable/>
-        <el-button type="primary" @click="mainStore.loginAccount(loginAccountData, loginPasswordData)">登录</el-button>
+        <el-button type="primary" @click="accountInfo.loginAccount(loginAccountData, loginPasswordData)">登录</el-button>
         <div class="select">
             <router-link to="register">注册新账号</router-link>
             <span>忘记密码</span>
@@ -17,7 +17,7 @@
 
     /**********获取全局变量*********/
     const global = useGlobal();
-    const mainStore = global?.UserInfo;
+    const accountInfo = global?.accountInfo;
 
     /**********用户登录*********/
     const loginAccountData = ref<string>("");//注册账号

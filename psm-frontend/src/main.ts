@@ -7,7 +7,7 @@ import router from '@/router'
 
 //引入pinia临时存储和持久化存储
 import store from '@/stores'
-import { useMainStore, useWS, initGlobal }  from "@/stores/main.js"
+import { accountInfoStore, initGlobal }  from "@/stores/accountInfoStore"
 
 //引入Element-Plus
 import ElementPlus from 'element-plus'
@@ -32,12 +32,8 @@ app.config.globalProperties.serverUrl = "http://"+import.meta.env.VITE_URL;
 app.config.globalProperties.serverWS = "ws://"+import.meta.env.VITE_URL;
 
 //用户信息全局化
-let mainStore = useMainStore();
-app.config.globalProperties.UserInfo = mainStore;
-
-//websocket全局化
-let WS = useWS();
-app.config.globalProperties.WS = WS;
+let accountInfo = accountInfoStore();
+app.config.globalProperties.accountInfo = accountInfo;
 
 //事件总线全局化
 let Bus = mitt();
@@ -47,12 +43,12 @@ app.config.globalProperties.Bus =Bus;
 initGlobal(app.config.globalProperties);
 
 //给路由守卫传用户信息变量
-router.initRouterGuard(mainStore);
+router.initRouterGuard(accountInfo);
 
 //axios请求拦截器
 axios.interceptors.request.use((config)=>{
-	if(mainStore.token){
-		config.headers['token'] = mainStore.token;
+	if(accountInfo.token){
+		config.headers['token'] = accountInfo.token;
 	}
 	return config;
 });

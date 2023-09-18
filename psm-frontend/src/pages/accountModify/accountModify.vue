@@ -80,8 +80,8 @@
     import { ref, onMounted, onUnmounted, watch } from "vue";
 
     const global = useGlobal();
-    const mainStore = global?.UserInfo;//获取用户账号信息的pinia
-    const { userProfile, userName, userPhoneNumber } = storeToRefs(mainStore);
+    const accountInfo = global?.accountInfo;//获取用户账号信息的pinia
+    const { userProfile, userName, userPhoneNumber } = storeToRefs(accountInfo);
     const Bus = global?.Bus;
 
     /**以下为展开合上盒子时的动画特效**/
@@ -150,7 +150,7 @@
             ElMessage.error("修改后的名字不能与原来的一样");
         }
         else{
-            let isOk = await mainStore.changeUserName(temptUserName.value);
+            let isOk = await accountInfo.changeUserName(temptUserName.value);
             if(isOk){
                 temptUserName.value = userName.value;
                 modifyIndex.value = -1;
@@ -169,7 +169,7 @@
             ElMessage.error("修改后的手机号不能与原来的一样");
         }
         else{
-            let isOk = await mainStore.changeUserPhoneNumber(temptUserPhoneNumber.value);
+            let isOk = await accountInfo.changeUserPhoneNumber(temptUserPhoneNumber.value);
             if(isOk){
                 temptUserPhoneNumber.value = userPhoneNumber.value;
                 modifyIndex.value = -1;
@@ -188,7 +188,7 @@
             ElMessage.error('密码和确认密码不一致');
         }
         else{
-            let isOk = await mainStore.changeUserPassword(temptPassword.value);
+            let isOk = await accountInfo.changeUserPassword(temptPassword.value);
             if(isOk){
                 temptUserPhoneNumber.value = "******";
                 modifyIndex.value = -1;

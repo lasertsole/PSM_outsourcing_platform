@@ -4,7 +4,7 @@ import { ElMessage } from "element-plus";
 import { createConnect, disconnect } from "@/socket"; //引入webSocket
 import { accountInfo } from "@/types/stores/accountInfo"
 
-/**********main传入全局变量**********/
+/**********accountInfoStore传入全局变量**********/
 let global:any=undefined;
 export function initGlobal(passGlobal:any):void{
     global=passGlobal;
@@ -19,7 +19,7 @@ let obj:accountInfo={
     isOnline: false,
 };
 
-export const useMainStore = defineStore({
+export const accountInfoStore = defineStore({
     id: 'mainInfo', 
     state: () => (obj),
     //持久化选项
@@ -199,18 +199,5 @@ export const useMainStore = defineStore({
             }
         },
 
-    }
-})
-
-/**********临时性websocket**********/
-let WSConnect: undefined|WebSocket = undefined;
-
-export const useWS = defineStore({
-    id: 'WS', 
-    state: () => ({WSConnect}),
-    actions:{
-        createWSConnect:function(user_id:string){
-            this.WSConnect = createConnect(user_id);
-        }
     }
 })
