@@ -97,7 +97,6 @@ public class AccountService {
     }
 
     public Result<?> changeUserPhoneNumber(String token, String phoneNumber) {
-        AccountVo accountVo = new AccountVo();
         int result = 0;
 
         try {

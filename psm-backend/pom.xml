@@ -39,7 +39,7 @@
                 </executions>
                 <configuration>
                     <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.psm.application</mainClass>
+                    <mainClass>com.psm.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

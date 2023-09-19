@@ -32,21 +32,31 @@
 
 <script setup lang="ts">
     import { optionInfo } from "types/pageType/showcase"
-    import { ref, defineProps, PropType } from "vue"
+    import { ref, defineProps, defineEmits, PropType, watch } from "vue"
 
-    const props = defineProps({bigClass:{type:Array as PropType<optionInfo[]>}, smallClass:{type:Array as PropType<optionInfo[]>}});
+    const props = defineProps({
+        bigClass:{type:Array as PropType<optionInfo[]>}, 
+        smallClass:{type:Array as PropType<optionInfo[]>}
+    });
+
+    const emits = defineEmits(["changeClassifyOption"]);
 
     //大类选项
-    const typeValue = ref<string>('')
+    const typeValue = ref<number>(0);
 
     //小类选项
-    const sortValue = ref<string>('')
+    const sortValue = ref<number>(0);
 
     //档期空闲？
     const isIdle = ref<boolean>(false);
 
     //能否加急
     const canQuicky = ref<boolean>(false);
+
+    //当上述条件变化时向服务器发出请求
+    watch([typeValue, sortValue, isIdle, canQuicky],(newVal, oldVal)=>{
+        emits("changeClassifyOption", newVal);
+    });
 </script>
 
 <style lang="scss" scoped>

@@ -10,8 +10,8 @@
                                 ${paddingRight?'padding-right:'+paddingRight+'px;':''}
                             `"
                             @click="changeTabIndex(index)"
-                            >
-                            <router-link :class="{selected:tabIndex == index}" :to="item.linkTo">{{item.tabName}}</router-link>
+                        >
+                            {{ item.tabName }}
                         </li>
                     </template>
                 </ul>
@@ -25,19 +25,22 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, defineProps, PropType } from "vue";
+    import { ref, defineProps, defineEmits, PropType } from "vue";
     import { tabBarItem } from "@/types/common/tabBarType"
-
-    const tabIndex = ref<number>(0);
-    function changeTabIndex(index:number):void{
-        tabIndex.value=index;
-    }
 
     const props = defineProps({
         tabList:{type:Array as PropType<tabBarItem[]>, required: true},
         paddingLeft:{type:Number, required: false},
         paddingRight:{type:Number, required: false},
     });
+
+    const emits = defineEmits(["changeClassifyIndex"]);
+
+    const tabIndex = ref<number>(0);
+    function changeTabIndex(index:number):void{
+        tabIndex.value=index;
+        emits("changeClassifyIndex", tabIndex.value);
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -57,6 +60,7 @@
                         justify-content: center;
                         align-items: center;
                         padding: 10px;
+                        cursor: pointer;
                         a{
                             color: #707070;
                             &.selected{

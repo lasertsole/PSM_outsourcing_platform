@@ -2,7 +2,7 @@ package com.psm.ato;
 
 import java.io.Serializable;
 
-public class accountAto implements Serializable {
+public class AccountAto implements Serializable {
 
     private String phoneNumber;
 
@@ -35,9 +35,9 @@ public class accountAto implements Serializable {
         this.userName = userName;
     }
 
-    public accountAto() {}
+    public AccountAto() {}
 
-    public accountAto(String phoneNumber, String password) {
+    public AccountAto(String phoneNumber, String password) {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }

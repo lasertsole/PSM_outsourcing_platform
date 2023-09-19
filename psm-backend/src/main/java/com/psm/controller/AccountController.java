@@ -3,7 +3,7 @@ package com.psm.controller;
 import com.psm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.psm.ato.accountAto;
+import com.psm.ato.AccountAto;
 import com.psm.service.AccountService;
 
 @RestController
@@ -13,12 +13,12 @@ public class AccountController {
     AccountService accountService;
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public Result<?> login(@RequestBody accountAto ato){
+    public Result<?> login(@RequestBody AccountAto ato){
         return accountService.login(ato.getPhoneNumber(), ato.getPassword());
     }
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public Result<?> register(@RequestBody accountAto ato){
+    public Result<?> register(@RequestBody AccountAto ato){
         return accountService.register(ato.getPhoneNumber(), ato.getPassword());
     }
 
@@ -28,17 +28,17 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/user/changeUserName", method = RequestMethod.POST)
-    public Result<?> changeUserName(@RequestHeader("token") String token, @RequestBody accountAto ato){
+    public Result<?> changeUserName(@RequestHeader("token") String token, @RequestBody AccountAto ato){
         return accountService.changeUserName(token, ato.getUserName());
     }
 
     @RequestMapping(value = "/user/changeUserPhoneNumber", method = RequestMethod.POST)
-    public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token, @RequestBody accountAto ato){
+    public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token, @RequestBody AccountAto ato){
         return accountService.changeUserPhoneNumber(token, ato.getPhoneNumber());
     }
 
     @RequestMapping(value = "/user/changeUserPassword", method = RequestMethod.POST)
-    public Result<?> changeUserPassword(@RequestHeader("token") String token, @RequestBody accountAto ato){
+    public Result<?> changeUserPassword(@RequestHeader("token") String token, @RequestBody AccountAto ato){
         return accountService.changeUserPassword(token, ato.getPassword());
     }
 }

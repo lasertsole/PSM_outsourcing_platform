@@ -28,12 +28,9 @@ export const showcaseInfoStore = defineStore({
     },
 
     actions:{
-        getShowcaseBoxes: async function(): Promise<void>{
-            let result = await axios.get("api/showcase/getShowcaseBoxes");
+        getShowcaseBoxes: async function(infoArr:any): Promise<void>{
+            let result = await axios.get("api/showcase/getShowcaseBoxes", { params: { primarySort:infoArr[0], middleSort:infoArr[1], lastSort:infoArr[2], isIdle:infoArr[3], canQuicky:infoArr[4] } });
             let data = result.data;
-            if(data.code==200){
-                ElMessage.success("请求成功");
-            }
         }
     }
 })

@@ -18,11 +18,6 @@ import registerVue from '@/pages/loginAndResigter/register.vue'//注册页
 import myShowcase from '@/pages/personInfo/myShowcase.vue'//personInfo的企划页
 import myPlanning from '@/pages/personInfo/myPlanning.vue'//personInfo的企划页
 
-//橱窗页面
-import montageVue from '@/pages/showcase/montage.vue'
-import artVue from '@/pages/showcase/art.vue'
-import translateVue from "@/pages/showcase/translate.vue"
-import captionsVue from '@/pages/showcase/captions.vue'
 //橱窗详情页
 import showcaseDetailInfo from "@/pages/showcaseDetail/showcaseDetailInfo.vue"
 import createPhase from "@/pages/showcaseDetail/createPhase.vue"
@@ -80,38 +75,6 @@ const routes:RouteRecordRaw[] = [
         path: '/showcase',
         name: 'showcase',
         component: showcaseVue,
-        redirect:'/showcase/montage',
-        
-        children:[
-            //剪辑类
-            {
-                path: 'montage',
-                name: "montage",
-                component: montageVue
-            },
-            {
-                path: "/",
-                redirect:'montage',
-            },
-            //美工类
-            {
-                path: 'art',
-                name: "art",
-                component: artVue
-            },
-            //翻译类
-            {
-                path: 'translate',
-                name: "translate",
-                component: translateVue
-            },
-            //字幕类
-            {
-                path: 'captions',
-                name: "captions",
-                component: captionsVue
-            },
-        ]
     },
     //橱窗页详情页
     {
