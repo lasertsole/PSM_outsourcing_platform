@@ -27,16 +27,26 @@
     @import "commonScss";
     .calendar{
         display: block;
-        @include fixedRetangle(100%, 300px);
-        margin-top: 10px;
+        $boxHeight: 280px;
+        @include fixedRetangle(100%, $boxHeight);
+        margin-top: 20px;
         &::v-deep(.el-calendar){
-            @include fixedRetangle(100%, 300px);
+            @include fixedRetangle(100%, $boxHeight);
             border-radius: 6px;
             overflow: hidden;
 
             .el-calendar__header{
                 flex-direction: column;
                 align-items: center;
+                border: none;
+                padding-bottom: 0px;
+
+                .el-button-group{
+                    >button{
+                        border: none;
+                    }
+                }
+
                 >div{
                     padding: 3px 0px;
                 }
@@ -44,8 +54,43 @@
                     font-size: 12px;
                 }
             }
-            .el-calendar-day{
-                height: 30px;
+
+            .el-calendar__body{
+                padding-top: 0px;
+                padding-bottom: 0px;
+
+                .el-calendar-table{
+                    
+                    thead{
+
+                        th{
+                            font-size: 12px;
+                            color: #989898;
+                        }
+                    }
+                    
+                    tbody{
+
+                        td{
+                            border: 1px solid rgba(0,0,0,0);
+                            border-radius: 5px;
+                            overflow: hidden;
+                            
+                            &.is-selected{
+                                background-color: rgba(0,0,0,0);
+                                border-color: #00a8e9;
+                            }
+                            .el-calendar-day{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 30px;
+                                padding: 0px;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

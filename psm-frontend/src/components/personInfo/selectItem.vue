@@ -5,20 +5,28 @@
         </div>
         <ul>
             <li :class="{selected:selectIndex==0}" @click="changeSelectIndex(0)">
-                <img src="icons/bluePlanning.png"/>
-                <div>我的企划</div>
+                <router-link to="/personInfo/myShowcase">
+                    <img src="icons/showcaseCollect.png"/>
+                    <div>我的橱窗</div>
+                </router-link>
             </li>
             <li :class="{selected:selectIndex==1}" @click="changeSelectIndex(1)">
-                <img src="icons/blueDrawer.png"/>
-                <div>我的画师</div>
+                <router-link to="/personInfo">
+                    <img src="icons/bluePlanning.png"/>
+                    <div>我的企划</div>
+                </router-link>
             </li>
             <li :class="{selected:selectIndex==2}" @click="changeSelectIndex(2)">
-                <img src="icons/bluePlanning.png"/>
-                <div>我的稿件</div>
+                <router-link to="/personInfo">
+                    <img src="icons/worksCollect.png"/>
+                    <div>我的作品</div>
+                </router-link>
             </li>
             <li :class="{selected:selectIndex==3}" @click="changeSelectIndex(3)">
-                <img src="icons/blueAnnounce.png"/>
-                <div>系统通知</div>
+                <router-link to="/personInfo">
+                    <img src="icons/blueAnnounce.png"/>
+                    <div>系统通知</div>
+                </router-link>
             </li>
         </ul>
     </div>
@@ -78,9 +86,17 @@
                     font-weight: bold;
                 }
 
-                img{
-                    @include fixedSquare(25px);
-                    margin-right: 10px;
+                a{
+                    display: flex;
+                    color: inherit;
+                    height: 100%;
+                    align-items: center;
+                    flex-grow: 1;
+
+                    img{
+                        @include fixedSquare(25px);
+                        margin-right: 10px;
+                    }
                 }
             }
         }

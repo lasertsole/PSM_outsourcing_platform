@@ -31,7 +31,7 @@
         background-color: white;
         display: flex;
         font-size: 12px;
-        margin-top: 10px;
+        margin-top: 20px;
         align-items: center;
         padding: 15px;
         box-sizing: border-box;

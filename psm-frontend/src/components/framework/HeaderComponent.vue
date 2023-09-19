@@ -3,7 +3,7 @@
         <div class="left">
             <!-- 左侧logo -->
             <logo></logo>
-            <div class="tabBar">
+            <div class="tabBar" v-if="isOnline">
                 <tabBar :tabBarArr="tabBarArr"></tabBar>
             </div>
         </div>
@@ -17,6 +17,8 @@
 
 <script setup lang="ts">
     import {ref} from "vue"
+    import useGlobal from "global";
+    import { storeToRefs } from "pinia";
     import {routerInfo} from "types/componentsType/HeaderComponent"//获取本页面要使用的复合类型
 
     import logo from "components/frameComponents/header/logo.vue"
@@ -24,12 +26,17 @@
     import dropMenu from "components/frameComponents/header/dropMenu.vue"
     import loginOrlogout from "components/frameComponents/header/loginOrlogout.vue"
     
+    const global = useGlobal();
+    const accountInfo = global?.accountInfo;//获取用户账号信息的pinia
+    const { isOnline } = storeToRefs(accountInfo);
+
     const drawer = ref<boolean>(false);//控制菜单下拉框显示与否
     function closeDropMenu():void{//屏幕大于600px时关闭下拉框
         drawer.value = false;
     }
 
     const tabBarArr = ref<routerInfo[]>([
+        {text:"首页", linkTo:"/personInfo"},
         {text:"橱窗", linkTo:"/showcase"},
         {text:"企划", linkTo:"/planning"},
         {text:"作品", linkTo:"/works"},

@@ -14,7 +14,9 @@ import accountModify from "@/pages/accountModify/accountModify.vue"//修改个�
 /*二级路由*/
 //登录注册页
 import loginVue from '@/pages/loginAndResigter/login.vue'//登录页
-import registerVue from '@/pages/loginAndResigter/register.vue'//登录页
+import registerVue from '@/pages/loginAndResigter/register.vue'//注册页
+import myShowcase from '@/pages/personInfo/myShowcase.vue'//personInfo的企划页
+import myPlanning from '@/pages/personInfo/myPlanning.vue'//personInfo的企划页
 
 //橱窗页面
 import montageVue from '@/pages/showcase/montage.vue'
@@ -210,6 +212,25 @@ const routes:RouteRecordRaw[] = [
         path: '/personInfo',
         name: 'personInfo',
         component: personInfo,
+        redirect:'/personInfo/myShowcase',
+        children:[
+            //个人需求页
+            {
+                path: 'myShowcase',
+                name: "myShowcase",
+                component: myShowcase
+            },
+            {
+                path: "/",
+                redirect:'myShowcase',
+            },
+            //个人企划页
+            {
+                path: 'myPlanning',
+                name: "myPlanning",
+                component: myPlanning
+            },
+        ]
     },
     //个人信息修改页
     {
@@ -231,16 +252,22 @@ router.initRouterGuard = function(passUserInfo:any):void{
     UserInfo=passUserInfo;
 }
 
-const powerArr:any[]=["accountModify"];//登录后才能访问的权限页面
-const hadPowerCantArr:any[]=["login","register"];//只有登录后不能访问的权限页面
+const logOutAccessPageArr:any[]=["index", "login", "register"];//不登录能访问的权限页面
+const loginNotAccessPageArr:any[]=["index", "login", "register"];//登录后不能访问的权限页面
 
 router.beforeResolve((to, from, next) => {
     
     const {isOnline} = storeToRefs(UserInfo);
 
-    if(powerArr.indexOf(to.name)!=-1&&!isOnline.value || hadPowerCantArr.indexOf(to.name)!=-1&&isOnline.value){//判断用户访问的页面是否越权
+    if(logOutAccessPageArr.indexOf(to.name)==-1&&!isOnline.value){//未登录用户访问未授权页面
         next({
             path: '/index',
+            query: {}
+        });
+    }
+    else if(loginNotAccessPageArr.indexOf(to.name)!=-1&&isOnline.value){//登录用户访问未授权页面
+        next({
+            path: '/personInfo',
             query: {}
         });
     }

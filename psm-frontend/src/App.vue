@@ -64,8 +64,12 @@
         
     })
 
-    /*下线时的路由守卫*/
+    /**********以下是路由守卫********/
     const router = useRouter();
+
+    Bus.on("login", ()=>{//用户上线时跳转到个人信息页
+        router.replace('/personInfo');
+    })
 
     Bus.on("logout", ()=>{//用户下线时跳转到首页
         router.replace('/index');
