@@ -1,5 +1,5 @@
 <template>
-    <div class="baseNode">
+    <!-- <div class="baseNode">
         <filterBar
             :bigClass="bigClass"
             :smallClass="smallClass"
@@ -17,71 +17,93 @@
                 </itemBox>
             </template>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue";
+    import useGlobal from "global";
+    import { storeToRefs } from "pinia";
+    import { ref, onMounted, onUnmounted } from "vue";
     import { optionInfo } from "@/types/pageType/showcase";
     import itemBox from "@/components/showcase/itemBox.vue";
     import filterBar from "@/components/showcase/filterBar.vue";
     import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
 
-    //过滤器选项
-    const bigClass:optionInfo[] = [
-        {
-            value: '直播切片',
-            label: '直播切片',
-        },
-        {
-            value: '歌曲相关',
-            label: '歌曲相关',
-        },
-        {
-            value: '视频后期',
-            label: '视频后期',
-        },
-    ]
+    // /**********获取全局变量*********/
+    // const global = useGlobal();
+    // const showcaseInfo = global?.showcaseInfo;//用户状态信息
 
-    const smallClass:optionInfo[] = [
-        {
-            value: '按综合',
-            label: '按综合',
-        },
-        {
-            value: '按活跃',
-            label: '按活跃',
-        },
-        {
-            value: '按评论',
-            label: '按评论',
-        },
-    ]
+    // //过滤器选项
+    // const bigClass:optionInfo[] = [
+    //     {
+    //         value: '直播切片',
+    //         label: '直播切片',
+    //     },
+    //     {
+    //         value: '歌曲相关',
+    //         label: '歌曲相关',
+    //     },
+    //     {
+    //         value: '视频后期',
+    //         label: '视频后期',
+    //     },
+    // ]
 
-    const infoArr = ref<itemBoxInfo[]>([
-        {
-            name: "帕斯猫",
-            profile: "images/psmProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-1.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-2.jpg"}
-            ]
-        },
-        {
-            name: "筱曌汐",
-            profile: "images/xiProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-3.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-1.jpg"}
-            ]
-        },
-    ])
+    // const smallClass:optionInfo[] = [
+    //     {
+    //         value: '按综合',
+    //         label: '按综合',
+    //     },
+    //     {
+    //         value: '按活跃',
+    //         label: '按活跃',
+    //     },
+    //     {
+    //         value: '按评论',
+    //         label: '按评论',
+    //     },
+    // ]
+
+    // const infoArr = ref<itemBoxInfo[]>([
+    //     {
+    //         name: "帕斯猫",
+    //         profile: "images/psmProfile.jpg",
+    //         commentNum: 114,
+    //         certificate: "日语N1认证",
+    //         recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
+    //         works:[
+    //             {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-1.jpg"},
+    //             {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-2.jpg"}
+    //         ]
+    //     },
+    //     {
+    //         name: "筱曌汐",
+    //         profile: "images/xiProfile.jpg",
+    //         commentNum: 114,
+    //         certificate: "日语N1认证",
+    //         recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
+    //         works:[
+    //             {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-3.jpg"},
+    //             {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-1.jpg"}
+    //         ]
+    //     },
+    // ])
+
+    // async function getShowcaseBoxes():Promise<void>{
+    //     let result = await showcaseInfo.getShowcaseBoxes();
+    // }
+
+    let flag = false;
+
+    onMounted(()=>{
+        flag=!flag;
+        console.log(flag);
+    })
+
+    onUnmounted(()=>{
+        
+    })
+
 </script>
 
 <style lang="scss" scoped>

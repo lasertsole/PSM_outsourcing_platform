@@ -1,4 +1,4 @@
-export interface accountInfo{
+export interface AccountInfo{
     token?: string | undefined,
     userPhoneNumber?: string | undefined,
     userName?: string | undefined,

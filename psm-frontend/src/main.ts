@@ -1,18 +1,20 @@
-import { createApp } from 'vue'
-import '@/style.css'
-import App from '@/App.vue'
+import { createApp } from 'vue';
+import '@/style.css';
+import App from '@/App.vue';
 
 //引入router
-import router from '@/router'
+import router from '@/router';
 
 //引入pinia临时存储和持久化存储
-import store from '@/stores'
-import { accountInfoStore, initGlobal }  from "@/stores/accountInfoStore"
+import store from '@/stores';
+import { accountInfoStore, initAccountInfo }  from "@/stores/accountInfoStore";
+import { showcaseInfoStore, initShowcaseInfo }  from "@/stores/showcaseInfoStore";
+
 
 //引入Element-Plus
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import { ElMessage } from 'element-plus';
 
 //引入axios
@@ -31,16 +33,20 @@ app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 app.config.globalProperties.serverUrl = "http://"+import.meta.env.VITE_URL;
 app.config.globalProperties.serverWS = "ws://"+import.meta.env.VITE_URL;
 
-//用户信息全局化
+//pinia信息全局化
 let accountInfo = accountInfoStore();
 app.config.globalProperties.accountInfo = accountInfo;
+
+let showcaseInfo = showcaseInfoStore();
+app.config.globalProperties.showcaseInfo = showcaseInfo;
 
 //事件总线全局化
 let Bus = mitt();
 app.config.globalProperties.Bus =Bus;
 
 //给pinia传全局变量
-initGlobal(app.config.globalProperties);
+initAccountInfo(app.config.globalProperties);
+initShowcaseInfo(app.config.globalProperties);
 
 //给路由守卫传用户信息变量
 router.initRouterGuard(accountInfo);

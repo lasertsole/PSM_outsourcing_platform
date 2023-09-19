@@ -1,15 +1,10 @@
 package com.psm.controller;
 
-import com.psm.entity.AccountEntity;
 import com.psm.utils.Result;
-import com.psm.vo.AccountVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.psm.ato.accountAto;
 import com.psm.service.AccountService;
-
-import java.util.List;
 
 @RestController
 public class AccountController {

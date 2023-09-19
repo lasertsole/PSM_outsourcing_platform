@@ -81,6 +81,7 @@ const routes:RouteRecordRaw[] = [
         name: 'showcase',
         component: showcaseVue,
         redirect:'/showcase/montage',
+        
         children:[
             //剪辑类
             {
@@ -118,6 +119,7 @@ const routes:RouteRecordRaw[] = [
         name: 'showcaseDetail',
         component: showcaseDetailVue,
         redirect:'/showcaseDetail/showcaseDetailInfo',
+
         children:[
             //橱窗详情
             {

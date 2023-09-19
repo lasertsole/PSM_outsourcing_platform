@@ -1,17 +1,16 @@
 import axios from "axios"
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
-import { createConnect, disconnect } from "@/socket"; //引入webSocket
-import { accountInfo } from "@/types/stores/accountInfo"
+import { AccountInfo } from "@/types/stores/AccountInfo"
 
 /**********accountInfoStore传入全局变量**********/
 let global:any=undefined;
-export function initGlobal(passGlobal:any):void{
+export function initAccountInfo(passGlobal:any):void{
     global=passGlobal;
 }
 
 /**********持久化存储用户信息**********/
-let obj:accountInfo={
+let infoObj:AccountInfo={
     token: undefined,
     userName: undefined,
     userPhoneNumber: undefined,
@@ -20,8 +19,8 @@ let obj:accountInfo={
 };
 
 export const accountInfoStore = defineStore({
-    id: 'mainInfo', 
-    state: () => (obj),
+    id: 'accountInfo', 
+    state: () => (infoObj),
     //持久化选项
     persist:{ 
         enabled: true,
@@ -44,7 +43,7 @@ export const accountInfoStore = defineStore({
             this.isOnline = false;
         },
 
-        setAccount:function( userInfo:accountInfo ):void{//设置账号信息
+        setAccount:function( userInfo:AccountInfo ):void{//设置账号信息
             this.token = userInfo.token;
             this.userName = userInfo.userName;
             if(this.userName==""){this.userName=undefined;}
@@ -54,7 +53,7 @@ export const accountInfoStore = defineStore({
             this.isOnline = true;
         },
 
-        InfoChange:function( userInfo:accountInfo ):void{//信息修改
+        InfoChange:function( userInfo:AccountInfo ):void{//信息修改
             if(userInfo.token){
                 this.token = userInfo.token;
             }
