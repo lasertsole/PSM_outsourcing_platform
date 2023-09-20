@@ -10,8 +10,7 @@ export enum PrimarySort{
     "字幕类" = 3,
 }
 
-export enum LastSort{
-    "按综合" = 0,
-    "按活跃" = 1,
-    "按评论" = 2,
+export enum SortWay{
+    "按时间" = 0,
+    "按评论" = 1,
 }

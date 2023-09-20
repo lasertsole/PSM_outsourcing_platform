@@ -21,8 +21,6 @@ public class ShowcaseBoxEntity implements Serializable {
 
     private String primarySort;
 
-    private String middleSort;
-
     private String lastSort;
 
     private String isIdle;
@@ -101,14 +99,6 @@ public class ShowcaseBoxEntity implements Serializable {
         this.primarySort = primarySort;
     }
 
-    public String getMiddleSort() {
-        return middleSort;
-    }
-
-    public void setMiddleSort(String middleSort) {
-        this.middleSort = middleSort;
-    }
-
     public String getLastSort() {
         return lastSort;
     }
@@ -145,7 +135,6 @@ public class ShowcaseBoxEntity implements Serializable {
                 ", modify_time='" + modify_time + '\'' +
                 ", commentNum='" + commentNum + '\'' +
                 ", primarySort='" + primarySort + '\'' +
-                ", middleSort='" + middleSort + '\'' +
                 ", lastSort='" + lastSort + '\'' +
                 ", isIdle='" + isIdle + '\'' +
                 ", canQuicky='" + canQuicky + '\'' +

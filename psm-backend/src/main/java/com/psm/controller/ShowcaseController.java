@@ -12,8 +12,8 @@ public class ShowcaseController {
 
     /**获取橱窗盒子摘要**/
     @RequestMapping(value = "/showcase/getShowcaseBoxes", method = RequestMethod.GET)
-    public Result<?> getShowcaseBoxes(@RequestHeader("token") String token, @RequestParam String primarySort, String middleSort, String lastSort, String isIdle, String canQuicky){
-        ShowcaseBoxAto showcaseBoxAto = new ShowcaseBoxAto(primarySort, middleSort, lastSort, isIdle, canQuicky);
+    public Result<?> getShowcaseBoxes(@RequestHeader("token") String token, @RequestParam String primarySort, String lastSort, String sortWay, String isIdle, String canQuicky){
+        ShowcaseBoxAto showcaseBoxAto = new ShowcaseBoxAto(primarySort, lastSort, sortWay, isIdle, canQuicky);
         return showcaseService.getShowcaseBoxes(token, showcaseBoxAto);
     }
 }

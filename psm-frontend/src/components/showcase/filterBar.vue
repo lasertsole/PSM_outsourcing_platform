@@ -31,13 +31,24 @@
 </template>
 
 <script setup lang="ts">
-    import { optionInfo } from "types/pageType/showcase"
+    import { SortWay } from "@/types/pageType/showcase";
+    import { optionInfo } from "types/pageType/showcase";
     import { ref, defineProps, defineEmits, PropType, watch } from "vue"
 
     const props = defineProps({
-        bigClass:{type:Array as PropType<optionInfo[]>}, 
-        smallClass:{type:Array as PropType<optionInfo[]>}
+        bigClass:{type:Array as PropType<optionInfo[]>},
     });
+
+    const smallClass:optionInfo[] = [
+        {
+            label: SortWay[0],
+            value: 0,
+        },
+        {
+            label: SortWay[1],
+            value: 1,
+        }
+    ]
 
     const emits = defineEmits(["changeClassifyOption"]);
 

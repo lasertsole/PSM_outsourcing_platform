@@ -13,9 +13,12 @@ import java.util.List;
 @Repository
 public interface ShowCaseMapper {
 
-    @Select("select * from accountinfo inner join showcaseBox on accountinfo.id=showcaseBox.author_id where token=#{token} and" +
-            " primarySort=#{primarySort} and middleSort=#{middleSort} and lastSort=#{lastSort} and isIdle=#{isIdle} and " +
-            "canQuicky=#{canQuicky} order by showcaseBox.modify_time desc limit 50")
-    public List<ShowcaseBoxEntity> getShowcaseBoxes(String token, String primarySort, String middleSort,
-                                                    String lastSort, String isIdle, String canQuicky);
+    @Select("<script> select * from accountinfo inner join showcaseBox on accountinfo.id=showcaseBox.author_id where token=#{token} and" +
+            " primarySort=#{primarySort} and lastSort=#{lastSort} and isIdle=#{isIdle} and canQuicky=#{canQuicky} order by " +
+            "<when test='sortWay == 0'> showcaseBox.modify_time </when>" +
+            "<when test='sortWay == 1'> showcaseBox.commentNum </when>" +
+            " desc limit 50 </script>")
+    public List<ShowcaseBoxEntity> getShowcaseBoxes(String token, String primarySort, String lastSort, String isIdle, String canQuicky, String sortWay);
+
+
 }

@@ -2,7 +2,7 @@
     <div class="baseNode">
         <filterBar
             :bigClass="bigClass"
-            :smallClass="smallClass"
+            @changeClassifyOption="changeClassifyOption"
         ></filterBar>
         <div class="itemBoxContainer">
             <template v-for="item in infoArr">
@@ -21,40 +21,36 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue";
+    import useGlobal from "global";
+    import { SortWay } from "@/types/pageType/showcase";
     import { optionInfo } from "@/types/pageType/showcase";
     import itemBox from "@/components/showcase/itemBox.vue";
     import filterBar from "@/components/showcase/filterBar.vue";
+    import { ref, defineProps, onMounted, onUnmounted } from "vue";
     import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
+
+    /**********获取父组件传来的变量*********/
+    const props = defineProps({
+        primarySort:{type:Number, required: true}
+    });
+
+    /**********获取全局变量*********/
+    const global = useGlobal();
+    const showcaseInfo = global?.showcaseInfo;//用户状态信息
 
     //过滤器选项
     const bigClass:optionInfo[] = [
         {
-            value: '普通轴',
             label: '普通轴',
+            value: 0,
         },
         {
-            value: '外语轴',
             label: '外语轴',
+            value: 1,
         },
         {
-            value: '特效轴',
             label: '特效轴',
-        },
-    ]
-
-    const smallClass:optionInfo[] = [
-        {
-            value: '按综合',
-            label: '按综合',
-        },
-        {
-            value: '按活跃',
-            label: '按活跃',
-        },
-        {
-            value: '按评论',
-            label: '按评论',
+            value: 2,
         },
     ]
 
@@ -82,6 +78,26 @@
             ]
         },
     ])
+
+    //请求橱窗盒子函数
+    async function getShowcaseBoxes(infoArr=[0,0,0,false,false]):Promise<void>{
+        let result = await showcaseInfo.getShowcaseBoxes(infoArr);
+    }
+
+    //当参数变化时重新请求橱窗盒子
+    async function changeClassifyOption(infoArr:any):Promise<void>{
+        infoArr.unshift(props.primarySort);
+        getShowcaseBoxes(infoArr);
+    }
+
+    onMounted(()=>{
+        getShowcaseBoxes();
+    });
+
+    onUnmounted(()=>{
+        
+    });
+
 </script>
 
 <style lang="scss" scoped>

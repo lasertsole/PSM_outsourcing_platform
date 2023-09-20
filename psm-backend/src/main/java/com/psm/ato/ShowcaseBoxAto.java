@@ -6,9 +6,9 @@ public class ShowcaseBoxAto implements Serializable {
 
     private String primarySort;
 
-    private String middleSort;
-
     private String lastSort;
+
+    private String SortWay;
 
     private String isIdle;
 
@@ -16,13 +16,13 @@ public class ShowcaseBoxAto implements Serializable {
 
     public ShowcaseBoxAto(){};
 
-    public ShowcaseBoxAto(String primarySort, String middleSort, String lastSort, String isIdle, String canQuicky){
+    public ShowcaseBoxAto(String primarySort, String lastSort, String sortWay, String isIdle, String canQuicky) {
         this.primarySort = primarySort;
-        this.middleSort = middleSort;
         this.lastSort = lastSort;
+        SortWay = sortWay;
         this.isIdle = isIdle;
         this.canQuicky = canQuicky;
-    };
+    }
 
     public String getPrimarySort() {
         return primarySort;
@@ -32,20 +32,20 @@ public class ShowcaseBoxAto implements Serializable {
         this.primarySort = primarySort;
     }
 
-    public String getMiddleSort() {
-        return middleSort;
-    }
-
-    public void setMiddleSort(String middleSort) {
-        this.middleSort = middleSort;
-    }
-
     public String getLastSort() {
         return lastSort;
     }
 
     public void setLastSort(String lastSort) {
         this.lastSort = lastSort;
+    }
+
+    public String getSortWay() {
+        return SortWay;
+    }
+
+    public void setSortWay(String sortWay) {
+        SortWay = sortWay;
     }
 
     public String getIsIdle() {
@@ -68,8 +68,8 @@ public class ShowcaseBoxAto implements Serializable {
     public String toString() {
         return "ShowcaseBoxAto{" +
                 "primarySort='" + primarySort + '\'' +
-                ", middleSort='" + middleSort + '\'' +
                 ", lastSort='" + lastSort + '\'' +
+                ", SortWay='" + SortWay + '\'' +
                 ", isIdle='" + isIdle + '\'' +
                 ", canQuicky='" + canQuicky + '\'' +
                 '}';
