@@ -3,17 +3,19 @@
         <div class="author_info">
             <div class="base">
                 <div class="profile">
-                    <img :src="`${profile}`">
+                    <img :src="`${serverUrl+boxInfo.profile}`">
                 </div>
                 <div class="honour">
-                    <div class="name">{{name}}</div>
-                    <div class="commentNum">{{commentNum}}条评论</div>
-                    <div class="certificate">{{certificate}}</div>
+                    <div class="name">{{boxInfo.userName}}</div>
+                    <div class="commentNum">{{boxInfo.commentNum}}条评论</div>
+                    <div class="certificate">
+                        <div v-for="(item, index) in JSON.parse(boxInfo.honor?<string>boxInfo.honor:'[]')">{{item}}</div>
+                    </div>
                 </div>
             </div>
             <div class="recomment">
                 <div class="left">简介:</div>
-                <div class="right">{{recomment}}</div>
+                <div class="right">{{boxInfo.author_brief}}</div>
             </div>
             <div class="interesting">
                 <div class="following">关注</div>
@@ -21,7 +23,7 @@
             </div>
         </div>
         <div class="author_works">
-            <template v-for="subItem in works">
+            <template v-for="subItem in JSON.parse(<string>props.boxInfo.works)">
                 <workBox
                     :abstract="subItem.abstract"
                     :price="subItem.price"
@@ -34,9 +36,14 @@
 </template>
 
 <script setup lang="ts">
+    import useGlobal from "global";
     import {defineProps, ref, PropType} from "vue"
     import workBox from "components/showcase/workBox.vue"
-    const props = defineProps({name:String, profile:String, commentNum:Number, certificate:String, recomment:String, works:{type:Array as PropType<{abstract:string, price:string, imgPath:string}[]>}});
+    import { ShowcaseBoxesInfo } from "@/types/stores/ShowcaseInfo";
+
+    const props = defineProps({boxInfo:{type:Object as PropType<ShowcaseBoxesInfo>, required: true}});
+    const global = useGlobal();
+    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
 </script>
 
 <style lang="scss" scoped>

@@ -6,10 +6,18 @@ export interface ShowcaseWorkInfo{
     workVideoPath: String
 }
 
-export interface ShowcaseBoxInfo{
-    authorName?: string | undefined,
-    commentNum?: String | undefined,
-    honor?: string[] | undefined,
-    brief?: string | undefined,
-    works?: ShowcaseWorkInfo[] | undefined,
+export interface ShowcaseBoxesInfo{
+    id?:String,
+    userName?:string,
+    honor?:string,
+    author_brief?:string,
+    profile?:string,
+    author_id?:String,
+    commentNum?:String,
+    works?:String,
+    modify_time?: String,
+    primarySort?: String,
+    lastSort?: String,
+    isIdle?: String,
+    canQuick?: String,
 }

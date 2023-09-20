@@ -66,7 +66,7 @@ public class AccountService {
             else if(list.get(0).getStatus()=="2"){
                 return Result.error("403","账号封禁中");
             }
-            else if(list.get(0).getStatus()=="2"){
+            else if(list.get(0).getStatus()=="3"){
                 return Result.error("410","账号已注销");
             }
             else{

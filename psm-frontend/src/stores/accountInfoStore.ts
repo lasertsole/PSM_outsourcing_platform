@@ -75,7 +75,6 @@ export const accountInfoStore = defineStore({
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
             if(data.code==200){
-                ElMessage.success(data.msg);
                 data = data?.data;
                 this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知

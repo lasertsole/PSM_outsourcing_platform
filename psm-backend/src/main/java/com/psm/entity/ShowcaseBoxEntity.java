@@ -7,6 +7,8 @@ public class ShowcaseBoxEntity implements Serializable {
 
     private String userName;
 
+    private String profile;
+
     private String honor;
 
     private String author_brief;
@@ -41,6 +43,14 @@ public class ShowcaseBoxEntity implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getId() {
@@ -128,6 +138,7 @@ public class ShowcaseBoxEntity implements Serializable {
         return "ShowcaseBoxEntity{" +
                 "id='" + id + '\'' +
                 ", userName='" + userName + '\'' +
+                ", profile='" + profile + '\'' +
                 ", honor='" + honor + '\'' +
                 ", author_brief='" + author_brief + '\'' +
                 ", author_id='" + author_id + '\'' +

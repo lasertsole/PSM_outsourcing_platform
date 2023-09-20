@@ -5,12 +5,13 @@
             <span class="price">￥{{price}}</span>
         </div>
         <div class="bottom">
-            <img :src="`${imgPath}`">
+            <img :src="`${serverUrl+imgPath}`">
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+    import useGlobal from "global";
     import { defineProps } from "vue"
     import { useRouter } from "vue-router";
     const props = defineProps({abstract:String, price:String, imgPath:String});
@@ -20,6 +21,9 @@
     function jumpToShowcaseDetail():void{
         router.replace({ name: 'showcaseDetail',query:{username:"fuck u"}});
     }
+
+    const global = useGlobal();
+    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
 </script>
 
 <style lang="scss" scoped>
