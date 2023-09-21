@@ -13,9 +13,11 @@ import java.util.List;
 @Repository
 public interface ShowCaseMapper {
 
-    @Select("<script> select showcaseBox.id as id,userName,profile,honor,author_brief,author_id,works,showcaseBox.modify_time as" +
-            " modify_time,commentNum,primarySort,lastSort,isIdle,canQuicky from accountinfo inner join showcaseBox on " +
-            "accountinfo.id=showcaseBox.author_id where primarySort=#{primarySort} and lastSort=#{lastSort}" +
+    @Select("<script> select showcaseBox.id as id,userName,profile,honor,author_brief,showcaseBox.author_id as author_id," +
+            "works,showcaseBox.modify_time as modify_time,commentNum,primarySort,lastSort,isIdle,canQuicky,price,type,imgPath," +
+            "videoPath,abstractInfo from accountinfo inner join showcaseBox on accountinfo.id=showcaseBox.author_id" +
+            " left join itemBox on accountinfo.id=itemBox.author_id" +
+            " where primarySort=#{primarySort} and lastSort=#{lastSort}" +
             "<when test='isIdle'> and isIdle=#{isIdle}</when>" +
             "<when test='canQuicky'> and canQuicky=#{canQuicky} </when>" +
             "order by" +

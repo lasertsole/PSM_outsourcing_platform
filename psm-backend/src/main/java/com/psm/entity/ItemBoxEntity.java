@@ -8,20 +8,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShowcaseBoxEntity implements Serializable {
+public class ItemBoxEntity implements Serializable {
     private String id;
-    private String userName;
-    private String profile;
-    private String honor;
-    private String author_brief;
     private String author_id;
-    private String works;
-    private String modify_time;
-    private String commentNum;
-    private String primarySort;
-    private String lastSort;
-    private String isIdle;
-    private String canQuicky;
     private String price;
     private String type;
     private String imgPath;

@@ -1,14 +1,15 @@
-package com.psm.entity;
+package com.psm.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ShowcaseBoxEntity implements Serializable {
+@AllArgsConstructor
+public class ShowcaseBoxVo implements Serializable{
     private String id;
     private String userName;
     private String profile;
@@ -22,9 +23,4 @@ public class ShowcaseBoxEntity implements Serializable {
     private String lastSort;
     private String isIdle;
     private String canQuicky;
-    private String price;
-    private String type;
-    private String imgPath;
-    private String videoPath;
-    private String abstractInfo;
 }

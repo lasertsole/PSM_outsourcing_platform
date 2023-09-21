@@ -29,8 +29,8 @@
 
     function resetVideo():void{//鼠标移除时重置
         if(video.value&&video.value.networkState==1){//video标签挂载完成并且视频加载完成时
-            video.value.pause();
             video.value.currentTime = 0;
+            video.value.pause();
         }
     }
 

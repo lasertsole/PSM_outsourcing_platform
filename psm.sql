@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 22/09/2023 00:03:20
+ Date: 22/09/2023 06:06:02
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `accountinfo`  (
 -- Records of accountinfo
 -- ----------------------------
 INSERT INTO `accountinfo` VALUES (00000000000000000000000000000105, '19820482808', '181540785', '帕斯猫', '/images/Profile/defaultProfile.jpg', '842220194', '1128925627', '2023-09-19 14:26:55', '2023-09-21 19:02:46', 1, '[\"日语N1\", \"初级教师资格证\", \"中级教师资格证\", \"高级教师资格证\"]');
-INSERT INTO `accountinfo` VALUES (00000000000000000000000000000106, '19820482807', '443553273', '汐', '/images/Profile/xiProfile.jpg', '498039096', '1223258725', '2023-09-21 00:40:11', '2023-09-21 20:04:16', 1, '[\"高级教师资格证\"]');
+INSERT INTO `accountinfo` VALUES (00000000000000000000000000000106, '19820482807', '443553273', '汐123', '/images/Profile/xiProfile.jpg', '498039096', '1223258725', '2023-09-21 00:40:11', '2023-09-22 01:05:25', 1, '[\"高级教师资格证\"]');
 
 -- ----------------------------
 -- Table structure for itembox
@@ -56,15 +56,19 @@ CREATE TABLE `itembox`  (
   `type` int UNSIGNED NOT NULL COMMENT '盒子类型：0为橱窗页作品盒子，1为企划页的需求盒子，2为作品页的作品盒子',
   `imgPath` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '图片地址',
   `videoPath` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '视频地址',
-  `abstract` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '概要描述',
+  `abstractInfo` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '概要描述',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `itemBox&author_id Link Account&id`(`author_id` ASC) USING BTREE,
   CONSTRAINT `itemBox&author_id Link Account&id` FOREIGN KEY (`author_id`) REFERENCES `accountinfo` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of itembox
 -- ----------------------------
+INSERT INTO `itembox` VALUES (00000000000000000000000000000001, 00000000000000000000000000000105, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000002, 00000000000000000000000000000105, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000003, 00000000000000000000000000000106, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000004, 00000000000000000000000000000106, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴');
 
 -- ----------------------------
 -- Table structure for showcasebox
