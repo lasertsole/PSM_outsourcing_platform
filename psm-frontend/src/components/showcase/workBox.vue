@@ -5,7 +5,10 @@
             <span class="price">￥{{price}}</span>
         </div>
         <div class="bottom">
-            <img :src="`${serverUrl+imgPath}`">
+            <videoBox
+                :imgPath="`${serverUrl+imgPath}`"
+                :videoPath="`${serverUrl+videoPath}`">
+            </videoBox>
         </div>
     </div>
 </template>
@@ -14,7 +17,8 @@
     import useGlobal from "global";
     import { defineProps } from "vue"
     import { useRouter } from "vue-router";
-    const props = defineProps({abstract:String, price:String, imgPath:String});
+    import videoBox from "@/components/common/videoBox.vue"
+    const props = defineProps({abstract:String, price:String, imgPath:String, videoPath:String});
 
     /*点击橱窗盒子的作品盒子后页面跳转*/
     const router = useRouter();

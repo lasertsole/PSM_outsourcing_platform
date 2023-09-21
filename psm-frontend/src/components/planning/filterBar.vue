@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
     import { optionInfo } from "types/pageType/showcase"
-    import { ref, defineProps, PropType } from "vue"
+    import { defineProps, PropType } from "vue"
 
     const props = defineProps(
         {bigClass:{type:Array as PropType<optionInfo[]>}, 

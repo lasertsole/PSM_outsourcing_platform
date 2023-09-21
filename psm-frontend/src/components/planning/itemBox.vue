@@ -42,7 +42,7 @@
 
     const router = useRouter();
     function toDetailPage(link:string):void{
-        router.replace({path:link,query:""});
+        router.replace({path:link, query:""});
     }
 </script>
 

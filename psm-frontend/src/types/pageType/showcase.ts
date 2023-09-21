@@ -12,5 +12,5 @@ export enum PrimarySort{
 
 export enum SortWay{
     "按时间" = 0,
-    "按评论" = 1,
+    "按评论数" = 1,
 }

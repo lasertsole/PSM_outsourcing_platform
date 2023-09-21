@@ -9,7 +9,7 @@
                     <div class="name">{{boxInfo.userName}}</div>
                     <div class="commentNum">{{boxInfo.commentNum}}条评论</div>
                     <div class="certificate">
-                        <div v-for="(item, index) in JSON.parse(boxInfo.honor?<string>boxInfo.honor:'[]')">{{item}}</div>
+                        <div v-for="(item, index) in JSON.parse(boxInfo.honor?<string>boxInfo.honor:'[]').slice(0,2)">{{item}}</div>
                     </div>
                 </div>
             </div>
@@ -28,6 +28,7 @@
                     :abstract="subItem.abstract"
                     :price="subItem.price"
                     :imgPath="subItem.imgPath"
+                    :videoPath="subItem.videoPath"
                 >
                 </workBox>
             </template>
