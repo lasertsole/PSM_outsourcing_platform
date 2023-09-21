@@ -10,13 +10,13 @@ public class ShowcaseBoxAto implements Serializable {
 
     private String SortWay;
 
-    private String isIdle;
+    private Boolean isIdle;
 
-    private String canQuicky;
+    private Boolean canQuicky;
 
     public ShowcaseBoxAto(){};
 
-    public ShowcaseBoxAto(String primarySort, String lastSort, String sortWay, String isIdle, String canQuicky) {
+    public ShowcaseBoxAto(String primarySort, String lastSort, String sortWay, Boolean isIdle, Boolean canQuicky) {
         this.primarySort = primarySort;
         this.lastSort = lastSort;
         SortWay = sortWay;
@@ -48,19 +48,19 @@ public class ShowcaseBoxAto implements Serializable {
         SortWay = sortWay;
     }
 
-    public String getIsIdle() {
+    public Boolean getIsIdle() {
         return isIdle;
     }
 
-    public void setIsIdle(String isIdle) {
+    public void setIsIdle(Boolean isIdle) {
         this.isIdle = isIdle;
     }
 
-    public String getCanQuicky() {
+    public Boolean getCanQuicky() {
         return canQuicky;
     }
 
-    public void setCanQuicky(String canQuicky) {
+    public void setCanQuicky(Boolean canQuicky) {
         this.canQuicky = canQuicky;
     }
 

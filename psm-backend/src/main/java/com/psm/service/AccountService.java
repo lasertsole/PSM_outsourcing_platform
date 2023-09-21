@@ -45,7 +45,7 @@ public class AccountService {
         password = String.valueOf(Math.abs((password+salt).hashCode()));
         String token = String.valueOf(Math.abs((phoneNumber+password+new Date().toString().hashCode()).hashCode()));
         String userName = "新用户"+String.valueOf(Math.abs((salt+salt+token).hashCode()));
-        String profile = "/images/defaultProfile/defaultProfile.jpg";
+        String profile = "/images/Profile/defaultProfile.jpg";
         int status = 1;
         try{
             accountMapper.addNewAccount(phoneNumber, password, userName, profile, salt, token);

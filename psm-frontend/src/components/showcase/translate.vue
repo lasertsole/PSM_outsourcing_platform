@@ -7,12 +7,7 @@
         <div class="itemBoxContainer">
             <template v-for="item in infoArr">
                 <itemBox
-                    :name = "item.name"
-                    :profile = "item.profile"
-                    :commentNum = "item.commentNum"
-                    :certificate = "item.certificate"
-                    :recomment = "item.recomment"
-                    :works = "item.works"
+                    :boxInfo="item"
                 >
                 </itemBox>
             </template>
@@ -26,7 +21,7 @@
     import itemBox from "@/components/showcase/itemBox.vue";
     import filterBar from "@/components/showcase/filterBar.vue";
     import { ref, defineProps, onMounted, onUnmounted } from "vue";
-    import { itemBoxInfo } from "@/types/componentsType/itemBoxComponent";
+    import { ShowcaseBoxesInfo } from "@/types/stores/ShowcaseInfo";
 
     /**********获取父组件传来的变量*********/
     const props = defineProps({
@@ -53,41 +48,19 @@
         },
     ]
 
-    const infoArr = ref<itemBoxInfo[]>([
-        {
-            name: "帕斯猫",
-            profile: "images/psmProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-1.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-2.jpg"}
-            ]
-        },
-        {
-            name: "筱曌汐",
-            profile: "images/xiProfile.jpg",
-            commentNum: 114,
-            certificate: "日语N1认证",
-            recomment: "加急需要提前联系 价格需要*2 特急*2.5 要发票*3",
-            works:[
-                {abstract:"直播歌切 带普轴", price:"200-300", imgPath:"Carousel/bg-3.jpg"},
-                {abstract:"直播歌切 带普轴", price:"400-500", imgPath:"Carousel/bg-1.jpg"}
-            ]
-        },
-    ])
+    const infoArr = ref<ShowcaseBoxesInfo[]>([]);
 
     //请求橱窗盒子函数
-    async function getShowcaseBoxes(infoArr=[0,0,0,false,false]):Promise<void>{
-        let result = await showcaseInfo.getShowcaseBoxes(infoArr);
-    }
+    async function getShowcaseBoxes(paramsArr=[0,0,0,false,false]):Promise<void>{
+        let result:ShowcaseBoxesInfo[] = await showcaseInfo.getShowcaseBoxes(paramsArr);
+        infoArr.value = result;
+    };
 
     //当参数变化时重新请求橱窗盒子
-    async function changeClassifyOption(infoArr:any):Promise<void>{
-        infoArr.unshift(props.primarySort);
-        getShowcaseBoxes(infoArr);
-    }
+    async function changeClassifyOption(paramsArr:any):Promise<void>{
+        paramsArr.unshift(props.primarySort);
+        getShowcaseBoxes(paramsArr);
+    };
 
     onMounted(()=>{
         getShowcaseBoxes();
