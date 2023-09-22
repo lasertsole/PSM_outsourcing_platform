@@ -31,8 +31,8 @@ public class ShowcaseService {
 
             showcaseBoxEntityList.forEach(item ->{
                 /*给showcaseBoxEntityList去重*/
-                if(!authorIDList.contains(item.getAuthor_id())){//判断authorID是否在authorIDList内
-                    authorIDList.add(item.getAuthor_id());//若authorIDList没有该authorID，则加入数组
+                if(!authorIDList.contains(item.getAuthorID())){//判断authorID是否在authorIDList内
+                    authorIDList.add(item.getAuthorID());//若authorIDList没有该authorID，则加入数组
 
                     ShowcaseBoxVo showcaseBoxVo = new ShowcaseBoxVo();
                     BeanUtils.copyProperties(item,showcaseBoxVo);
@@ -40,14 +40,14 @@ public class ShowcaseService {
                     showcaseBoxVoList.add(showcaseBoxVo);
                 };
 
-                int index = authorIDList.indexOf(item.getAuthor_id());
+                int index = authorIDList.indexOf(item.getAuthorID());
 
                 ItemBoxVo itemBoxVo = new ItemBoxVo();
                 BeanUtils.copyProperties(item,itemBoxVo);
 
                 /*将works加工成json格式*/
-                String itemBoxVoToString = "{\"id\":\"" + itemBoxVo.getId()//获取itemBoxVo的json格式的toString
-                        +"\",\"author_id\":\"" + itemBoxVo.getAuthor_id()
+                String itemBoxVoToString = "{\"ID\":\"" + itemBoxVo.getID()//获取itemBoxVo的json格式的toString
+                        +"\",\"authorID\":\"" + itemBoxVo.getAuthorID()
                         +"\",\"price\":\"" + itemBoxVo.getPrice()
                         +"\",\"type\":\"" + itemBoxVo.getType()
                         +"\",\"imgPath\":\"" + itemBoxVo.getImgPath()

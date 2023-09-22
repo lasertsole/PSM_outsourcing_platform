@@ -10,12 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShowcaseBoxVo implements Serializable{
-    private String id;
+    private String ID;
     private String userName;
     private String profile;
     private String honor;
-    private String author_brief;
-    private String author_id;
+    private String authorBrief;
+    private String authorID;
     private String works;
     private String modify_time;
     private String commentNum;

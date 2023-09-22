@@ -15,7 +15,7 @@
             </div>
             <div class="recomment">
                 <div class="left">简介:</div>
-                <div class="right">{{boxInfo.author_brief}}</div>
+                <div class="right">{{boxInfo.authorBrief}}</div>
             </div>
             <div class="interesting">
                 <div class="following">关注</div>
@@ -25,7 +25,7 @@
         <div class="author_works">
             <template v-for="subItem in JSON.parse(<string>props.boxInfo.works)">
                 <workBox
-                    :abstract="subItem.abstract"
+                    :abstractInfo="subItem.abstractInfo"
                     :price="subItem.price"
                     :imgPath="subItem.imgPath"
                     :videoPath="subItem.videoPath"

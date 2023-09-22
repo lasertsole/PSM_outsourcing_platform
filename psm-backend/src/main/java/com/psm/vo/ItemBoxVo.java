@@ -10,8 +10,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemBoxVo implements Serializable {
-    private String id;
-    private String author_id;
+    private String ID;
+    private String authorID;
     private String price;
     private String type;
     private String imgPath;

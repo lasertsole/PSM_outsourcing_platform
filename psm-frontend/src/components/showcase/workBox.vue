@@ -1,7 +1,7 @@
 <template>
     <div class="workBox" @click="jumpToShowcaseDetail()">
         <div class="top">
-            <span class="abstract">{{abstract}}</span>
+            <span class="abstract">{{abstractInfo}}</span>
             <span class="price">￥{{price}}</span>
         </div>
         <div class="bottom">
@@ -19,7 +19,7 @@
     import { useRouter } from "vue-router";
     import videoBox from "@/components/common/videoBox.vue"
     
-    const props = defineProps({abstract:String, price:String, imgPath:String, videoPath:String});
+    const props = defineProps({abstractInfo:String, price:String, imgPath:String, videoPath:String});
 
     /*点击橱窗盒子的作品盒子后页面跳转*/
     const router = useRouter();

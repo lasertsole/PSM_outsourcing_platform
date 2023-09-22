@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountEntity implements Serializable {
-    private String id;
+    private String ID;
     private String phoneNumber;
     private String password;
     private String userName;

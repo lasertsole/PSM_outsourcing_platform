@@ -39,8 +39,8 @@
             let videoDom = video.value;
             let videoDomWidth = videoDom.getBoundingClientRect().width;
             let biasLeft = event.clientX-videoDom.getBoundingClientRect().left;//鼠标相对于dom的位置
-            if(biasLeft<0){biasLeft=0;}//限制偏差范围
-            else if(biasLeft>videoDomWidth){biasLeft=videoDomWidth;}
+            if(biasLeft<0){resetVideo();}//限制偏差范围
+            else if(biasLeft>videoDomWidth){resetVideo();}
             video.value.currentTime = biasLeft/videoDomWidth*video.value.duration;
         }
     }
