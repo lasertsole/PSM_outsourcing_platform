@@ -4,7 +4,7 @@
         <div class="wrapper">
             <div class="content">
                 <router-view v-slot="{ Component }">
-                    <keep-alive>
+                    <keep-alive exclude="showcaseDetail">
                         <component :is="Component"/>
                     </keep-alive>
                 </router-view>
@@ -22,7 +22,7 @@
     import LARModel from "components/framework/LARModel.vue";
     import { onMounted, onUnmounted } from "vue";
     import HeaderComponent from "components/framework/HeaderComponent.vue";
-    import { useRouter } from "vue-router";
+    import { useRouter, useRoute } from "vue-router";
 
     /**********获取全局变量*********/
     const global = useGlobal();
@@ -75,6 +75,8 @@
         router.replace('/index');
     })
 
+    /**控制页面是否被keepalive缓存,由路由表中的meta控制**/
+    const route = useRoute();
 </script>
 
 <style lang="scss" scoped>

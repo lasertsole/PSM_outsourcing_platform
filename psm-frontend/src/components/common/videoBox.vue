@@ -21,21 +21,30 @@
     const video = ref();//获取视频dom
 
     /**以下是视频dom控制方法**/
+    let loadDone:boolean = false;
+    onMounted(()=>{//确保视频加载完成才能操作
+        video.value.oncanplay = function(){
+            if(video.value){
+                loadDone=true;
+            }
+        };
+    });
+
     function playVideo():void{//鼠标放入时播放
-        if(video.value&&video.value.networkState==1){//video标签挂载完成并且视频加载完成时
+        if(video.value&&loadDone){//video标签挂载完成并且视频加载完成时
             video.value.play()
         }
     }
 
     function resetVideo():void{//鼠标移除时重置
-        if(video.value&&video.value.networkState==1){//video标签挂载完成并且视频加载完成时
+        if(video.value&&loadDone){//video标签挂载完成并且视频加载完成时
             video.value.currentTime = 0;
             video.value.pause();
         }
     }
 
     function changeVideoProgress(event:any):void{//改变视频播放进度
-        if(video.value&&video.value.networkState==1){//video标签挂载完成并且视频加载完成时
+        if(video.value&&loadDone){//video标签挂载完成并且视频加载完成时
             let videoDom = video.value;
             let videoDomWidth = videoDom.getBoundingClientRect().width;
             let biasLeft = event.clientX-videoDom.getBoundingClientRect().left;//鼠标相对于dom的位置

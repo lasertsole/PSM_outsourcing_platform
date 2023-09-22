@@ -27,6 +27,16 @@ export const showcaseInfoStore = defineStore({
                 return data;
             }
             return null;
+        },
+
+        getShowcaseBoxDetail: async function(ID:string): Promise<ShowcaseBoxesInfo[]|null>{
+            let result = await axios.get("api/showcase/getShowcaseBoxDetail", { params: { ID } });
+            let data = result.data;
+            if(data.code==200){
+                data = data?.data;
+                return data;
+            }
+            return null;
         }
     }
 })

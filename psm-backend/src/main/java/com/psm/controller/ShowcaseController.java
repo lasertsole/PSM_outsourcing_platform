@@ -16,4 +16,10 @@ public class ShowcaseController {
         ShowcaseBoxAto showcaseBoxAto = new ShowcaseBoxAto(primarySort, lastSort, sortWay, isIdle, canQuicky);
         return showcaseService.getShowcaseBoxes(token, showcaseBoxAto);
     }
+
+    /**获取橱窗盒子详情**/
+    @RequestMapping(value = "/showcase/getShowcaseBoxDetail", method = RequestMethod.GET)
+    public Result<?> getShowcaseBoxDetail(@RequestHeader("token") String token, @RequestParam String ID){
+        return showcaseService.getShowcaseBoxDetail(ID);
+    }
 }

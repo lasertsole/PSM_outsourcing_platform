@@ -8,12 +8,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.psm.entity.ShowcaseBoxEntity;
+import com.psm.entity.showcaseDetailEntity;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ShowcaseService {
-
     @Autowired
     private ShowCaseMapper showCaseMapper;
 
@@ -46,13 +46,14 @@ public class ShowcaseService {
                 BeanUtils.copyProperties(item,itemBoxVo);
 
                 /*将works加工成json格式*/
-                String itemBoxVoToString = "{\"ID\":\"" + itemBoxVo.getID()//获取itemBoxVo的json格式的toString
+                String itemBoxVoToString = "{\"ID\":\"" + item.getWorkID()//获取itemBoxVo的json格式的toString
                         +"\",\"authorID\":\"" + itemBoxVo.getAuthorID()
                         +"\",\"price\":\"" + itemBoxVo.getPrice()
                         +"\",\"type\":\"" + itemBoxVo.getType()
                         +"\",\"imgPath\":\"" + itemBoxVo.getImgPath()
                         +"\",\"videoPath\":\"" + itemBoxVo.getVideoPath()
                         +"\",\"abstractInfo\":\"" + itemBoxVo.getAbstractInfo()
+                        +"\",\"modifyTime\":\"" + item.getWorkModifyTime()
                         + "\"}";
                 ShowcaseBoxVo base = showcaseBoxVoList.get(index);
                 String baseWorks = base.getWorks();
@@ -70,7 +71,17 @@ public class ShowcaseService {
             });
             return Result.success(showcaseBoxVoList,"获取橱窗盒子成功");
         }catch (Exception e){
-            return Result.error("304","获取橱窗盒子时发生错误");
+            return Result.error("500","获取橱窗盒子时发生错误");
+        }
+    }
+
+    public Result<?> getShowcaseBoxDetail(String ID){
+        try {
+            List<showcaseDetailEntity> list = showCaseMapper.getShowcaseBoxDetail(ID);
+            return Result.success( list.get(0),"获取橱窗详情成功" );
+        }
+        catch (Exception e){
+            return Result.error("500","获取橱窗详情时发生错误" );
         }
     }
 }

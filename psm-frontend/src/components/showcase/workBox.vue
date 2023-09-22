@@ -19,16 +19,19 @@
     import { useRouter } from "vue-router";
     import videoBox from "@/components/common/videoBox.vue"
     
-    const props = defineProps({abstractInfo:String, price:String, imgPath:String, videoPath:String});
+    const props = defineProps({ID:String, abstractInfo:String, price:String, imgPath:String, videoPath:String});
+
+    /**********获取全局变量*********/
+    const global = useGlobal();
+    const showcaseInfo = global?.showcaseInfo;//用户状态信息
+    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
 
     /*点击橱窗盒子的作品盒子后页面跳转*/
     const router = useRouter();
     function jumpToShowcaseDetail():void{
-        router.replace({ name: 'showcaseDetail',query:{username:"fuck u"}});
+        router.replace({ name: 'showcaseDetail',query:{ID:props.ID}});
     }
 
-    const global = useGlobal();
-    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
 </script>
 
 <style lang="scss" scoped>

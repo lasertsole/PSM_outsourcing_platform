@@ -25,6 +25,7 @@
         <div class="author_works">
             <template v-for="subItem in JSON.parse(<string>props.boxInfo.works)">
                 <workBox
+                    :ID="subItem.ID"
                     :abstractInfo="subItem.abstractInfo"
                     :price="subItem.price"
                     :imgPath="subItem.imgPath"

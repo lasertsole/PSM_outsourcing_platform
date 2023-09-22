@@ -1,10 +1,14 @@
 <template>
-    <div class="showcaseDetail">
+    <div class="showcaseDetail" @mousewheel="controlPictureInpicture" ref="rootDom">
         <div class="page">
             <!-- 左栏 -->
             <div class="leftBar">
-                <div class="runningPic">
-                    <album></album>
+                <div class="runningVideo">
+                    <videoControllBox
+                        :imgPath="serverUrl+params?.imgPath"
+                        :videoPath="serverUrl+params?.videoPath"
+                        ref="videoControllBoxDom"
+                    ></videoControllBox>
                 </div>
                 <div class="tabBar">
                     <tabBar :tabList="tabList"></tabBar>
@@ -25,30 +29,24 @@
                 <div class="summary">
                     <!-- 橱窗标题 -->
                     <div class="title">
-                        <span class="text">虚拟主播直播封面</span>
-                        <span class="tap">美工</span>
+                        <span class="text">{{ params?.abstractInfo }}</span>
                     </div>
 
                     <!-- 用户信息 -->
                     <div class="userInfo">
                         <!-- 用户头像 -->
-                        <div class="userProfile" :style="`background-image: url(${`http://frp-few.top:26246/media/userProfile/default.png`});`"></div>
+                        <div class="userProfile" :style="`background-image: url(${serverUrl+params?.profile});`"></div>
                         
                         <!-- 用户文字信息 -->
                         <div class="userText">
                             <!-- 用户名字 -->
-                            <div class="userName">帕斯猫</div>
+                            <div class="userName">{{ params?.userName }}</div>
 
                             <!-- 用户荣誉 -->
                             <div class="userHonor">
                                 <!-- 评论数量 -->
                                 <div class="commendNum">
-                                    {{ 123 }}条评论
-                                </div>
-
-                                <!-- 用户评分 -->
-                                <div class="userRate">
-                                    {{10.0}}
+                                    {{ params?.commentNum }}条评论
                                 </div>
                             </div>
                         </div>
@@ -64,18 +62,6 @@
                             <div class="value"><span class="moneyToken">￥</span>{{100}}</div>
                         </div>
 
-                        <!-- 已售数量 -->
-                        <div class="sold">
-                            <div class="key">已售</div>
-                            <div class="value">{{2}}件</div>
-                        </div>
-
-                        <!-- 库存 -->
-                        <div class="inventory">
-                            <div class="key">库存</div>
-                            <div class="value">{{3}}/{{3}}</div>
-                        </div>
-
                         <!-- 截稿日期 -->
                         <div class="deadline">
                             <div class="key">截稿时间</div>
@@ -86,10 +72,10 @@
                     <!-- 动作按钮 -->
                     <div class="motionButton">
                         <!-- 购买按钮 -->
-                        <div class="boughtBotton">购买</div>
+                        <div class="boughtBotton">立即沟通</div>
 
                         <!-- 收藏按钮 -->
-                        <div class="collectionBotton">收藏</div>
+                        <div class="collectionBotton">收藏橱窗</div>
                     </div>
                 </div>
             </div>
@@ -98,12 +84,12 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue"
+    import { ref, onMounted } from "vue"
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
-    import album from "@/components/common/album.vue";
     import { tabBarItem } from "@/types/common/tabBarType"
+    import videoControllBox from "@/components/common/videoControllBox.vue";
     import tabBar from "@/components/common/tabBar.vue"
 
     /**获取全局变量**/
@@ -112,10 +98,25 @@
     /**获取获取用户信息**/
     const mainStore = global?.UserInfo;//获取用户账号信息的pinia
     const { userinfo } = storeToRefs(mainStore);
+    const showcaseInfo = global?.showcaseInfo;//用户状态信息
     const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
 
     /**获取路由传参**/
     const route = useRoute();
+
+    const params = ref<any>();
+    async function getShowcaseBoxDetail(){
+        let result = await showcaseInfo.getShowcaseBoxDetail(route.query.ID);
+        if(result){
+            params.value = result;
+            console.log(result);
+        }
+    }
+
+    /**挂载时请求数据**/
+    onMounted(()=>{
+        getShowcaseBoxDetail();
+    });
 
     /**二级路由切换**/
     const tabList = ref<tabBarItem[]>([
@@ -124,16 +125,48 @@
         {tabName:"橱窗评价",linkTo:"/showcaseDetail/commendOfShowcase"},
     ]);
 
+    /**以下为鼠标滚动事件**/
+    const videoControllBoxDom = ref();//获取视频控制盒子的dom
+    const rootDom = ref();//页面根节点的dom
+    let root:any;
+    let videoControl:any;
+    let video:any;
+    let videoHeight:number;
+    let videoOffsetHeight:number;
+    let remoteBetween:number;
+
+    onMounted(()=>{
+        root = rootDom.value;
+        videoControl = videoControllBoxDom.value.videoControllBox;//初始化视频控制盒子dom
+        video = videoControllBoxDom.value.video;//初始化视频dom
+        videoHeight = video.getBoundingClientRect().height;
+        videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
+        remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
+    })
+
+    function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
+        if(videoControllBoxDom.value&&videoControllBoxDom.value.video){
+            if(root.scrollTop>remoteBetween&&!video.paused){
+                video.requestPictureInPicture();
+            }
+            else if(document.pictureInPictureElement){
+                document.exitPictureInPicture();
+            }
+        }
+    }
+
 </script>
 
 <style lang="scss" scoped>
     @use "sass:math";
     @import "commonScss";
+
     .showcaseDetail{
         width: 100%;
         min-height: 100%;
-        background-color: #ededed;
-        padding: 30px 80px 30px 80px;
+        background-color: white;
+        $paddingCol: 30px;
+        padding: $paddingCol 80px $paddingCol 80px;
         display: flex;
         flex-wrap: wrap;//使page填满整个容器的关键属性
         justify-content: center;
@@ -141,21 +174,22 @@
         box-sizing: border-box;
         .page{
             @include fixedWidth(1000px);
-            background-color: white;
             padding: 20px;
             display: flex;
             justify-content: space-between;
 
             .leftBar{
                 @include fixedRetangle(60%, 100%);
-                .runningPic{
+                .runningVideo{
                     height: 300px;
                 }
                 .tabBar{
+                    background-color: white;
                     margin-top: 20px;
                     display:flex;
                     flex-direction: column;
-                    position: relative;
+                    position: sticky;
+                    top: -$paddingCol;
                     &::v-deep(.classify){
                         position: relative;
                         z-index: 1;
@@ -193,17 +227,6 @@
                             font-weight: bold;
                             color: #707070;
                         }
-
-                        .tap{
-                            font-size: 12px;
-                            font-weight: bold;
-                            color: #00aee0;
-                            padding: 0px 5px;
-                            margin-left: 10px;
-                            border: #00aee0 1px solid;
-                            background-color: cyan;
-                            border-radius: 4px;
-                        }
                     }
 
                     .userInfo{
@@ -230,10 +253,6 @@
                                 .commendNum{
                                     color: #707070;
                                 }
-                                .userRate{
-                                    margin-left: 5px;
-                                    color: #fb7299;
-                                }
                             }
                         }
                     }
@@ -250,12 +269,6 @@
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
-                            .key{
-
-                            }
-                            .value{
-
-                            }
                         }
                         .showcaseValue{
                             .key{
@@ -273,18 +286,20 @@
 
                     .motionButton{
                         display: flex;
+                        flex-direction: column;
                         justify-content: space-around;
-                        margin-top: 35px;
+                        margin-top: 10px;
                         color: white;
-                        font-weight: bold;
                         >*{
+                            @include fixedHeight(34px);
                             display: flex;
                             justify-content: center;
+                            align-items: center;
                             padding: 0px 20px;
                             border-radius: 4px;
-                        }
-                        >*{
+                            margin-top: 15px;
                             cursor:pointer;
+                            font-size: 14px;
                         }
                         .boughtBotton{
                             background-color: #00a8e9;

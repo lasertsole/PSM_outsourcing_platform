@@ -18,4 +18,5 @@ public class AccountEntity implements Serializable {
     private String salt;
     private String token;
     private String status;
+    private String commentNum;
 }
