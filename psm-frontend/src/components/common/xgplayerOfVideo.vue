@@ -1,14 +1,15 @@
 <template>
-    <div class="videoBox"
+    <div :class="{videoBox:true, PIPController}"
         @mouseenter="mouseenterVideoBox"
         @mouseleave="mouseleavevideoBox"
+        ref="videoControllBox"
     >
         <transition 
             :css="false"
             @enter="onEnter"
             @leave="onLeave"
         >
-            <img class="coverImg" v-show="mockShow" :src="imgPath">
+            <div class="coverImg" v-show="mockShow" :style="`background-image:url(${imgPath})`"></div>
         </transition>
         <div class="videoContainer">
             <div ref="videoPlayer"></div>
@@ -22,7 +23,7 @@
     import 'xgplayer/dist/index.min.css';
     import { ref, onMounted, defineProps, defineExpose } from "vue";
 
-    const props = defineProps({imgPath:String, videoPath:String});
+    const props = defineProps({imgPath:String, videoPath:String, PIPController:Boolean});
 
     /*以下为控制动画效果*/
     function mouseenterVideoBox():void{//鼠标移入视频控制盒子事件
@@ -86,16 +87,17 @@
                 1.5,
                 2
             ],
-            "pip": true,
+            "cssFullscreen":false,
             "volume": 1
         }
 
         player  = new Player(config);
     });
 
+    const videoControllBox = ref();//获取视频控制盒子的dom
     defineExpose({
-        player
-    })
+        videoControllBox
+    });//将视频标签暴露出去
 </script>
   
 <style lang="scss" scoped>
@@ -109,6 +111,7 @@
             position: absolute;
             z-index: 1;
             object-fit: cover;
+            background-size: 100% 100%;
         }
         
         .videoContainer{
@@ -124,8 +127,22 @@
 
                 .xgplayer-poster{
                     @include fullInParent();
-                    object-fit: contain;
+                    object-fit: cover;
+                    background-size: 100% 100%;
                 }
+            }
+        }
+
+        &.PIPController{
+            position: fixed;
+            z-index: 10;
+            right: 100px;
+            bottom: 100px;
+            @include fixedRetangle(320px, 180px);
+
+            .xgplayer-poster{
+                @include fullInParent();
+                object-fit: contain;
             }
         }
     }

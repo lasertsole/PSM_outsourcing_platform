@@ -1,18 +1,19 @@
 <template>
-    <div class="showcaseDetail" ref="rootDom">
+    <div class="showcaseDetail"
+        ref="rootDom"
+        @mousewheel="controlPictureInpicture"
+    >
         <div class="page">
             <!-- 左栏 -->
             <div class="leftBar">
-                <div class="runningVideo">
-                    <!-- <videoControllBox
-                        :imgPath="serverUrl+params?.imgPath"
-                        :videoPath="serverUrl+params?.videoPath"
-                        ref="videoControllBoxDom"
-                    ></videoControllBox> -->
+                <div class="runningVideo"
+                    ref="videoControllBoxDom"
+                >
                     <xgplayerOfVideo
                         v-if="result"
                         :imgPath="serverUrl+params?.imgPath"
                         :videoPath="serverUrl+params?.videoPath"
+                        :PIPController="PIPController"
                     >
                     </xgplayerOfVideo>
                 </div>
@@ -136,30 +137,29 @@
     const rootDom = ref();//页面根节点的dom
     let root:any;
     let videoControl:any;
-    let video:any;
     let videoHeight:number;
     let videoOffsetHeight:number;
     let remoteBetween:number;
 
-    // onMounted(()=>{
-    //     root = rootDom.value;
-    //     videoControl = videoControllBoxDom.value.videoControllBox;//初始化视频控制盒子dom
-    //     video = videoControllBoxDom.value.video;//初始化视频dom
-    //     videoHeight = video.getBoundingClientRect().height;
-    //     videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
-    //     remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
-    // })
+    onMounted(()=>{
+        root = rootDom.value;
+        videoControl = videoControllBoxDom.value;//初始化视频控制盒子dom
+        videoHeight = videoControl.getBoundingClientRect().height;
+        videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
+        remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
+    })
 
-    // function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
-    //     if(videoControllBoxDom.value&&videoControllBoxDom.value.video){
-    //         if(root.scrollTop>remoteBetween&&!video.paused){
-    //             video.requestPictureInPicture();
-    //         }
-    //         else if(document.pictureInPictureElement){
-    //             document.exitPictureInPicture();
-    //         }
-    //     }
-    // }
+    const PIPController = ref<boolean>(false);//画中画控制器
+    function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
+        if(root.scrollTop>remoteBetween){
+            PIPController.value=true;
+            console.log(PIPController.value);
+        }
+        else{
+            PIPController.value=false;
+            console.log(PIPController.value);
+        }
+    }
 
 </script>
 
