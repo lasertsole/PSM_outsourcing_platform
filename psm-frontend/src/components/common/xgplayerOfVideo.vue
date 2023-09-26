@@ -2,6 +2,7 @@
     <div :class="{videoBox:true, PIPController}"
         @mouseenter="mouseenterVideoBox"
         @mouseleave="mouseleavevideoBox"
+        @mousedown="PIPDrag"
         ref="videoControllBox"
     >
         <transition 
@@ -21,7 +22,7 @@
     import gsap from "gsap";
     import Player from 'xgplayer';
     import 'xgplayer/dist/index.min.css';
-    import { ref, onMounted, defineProps, defineExpose } from "vue";
+    import { ref, onMounted, defineProps } from "vue";
 
     const props = defineProps({imgPath:String, videoPath:String, PIPController:Boolean});
 
@@ -32,7 +33,7 @@
         }
     }
 
-    function mouseleavevideoBox():void{//鼠标移出视频控制盒子事件
+    function mouseleavevideoBox():void{
         if(player.ended||player.state==4){
             mockShow.value = true;
         }
@@ -94,10 +95,44 @@
         player  = new Player(config);
     });
 
-    const videoControllBox = ref();//获取视频控制盒子的dom
-    defineExpose({
-        videoControllBox
-    });//将视频标签暴露出去
+    /**以下是画中画拖拽部分**/
+    const videoControllBox = ref<HTMLElement>();
+    let videoControllBoxDom:HTMLElement;
+
+    const boxRight = ref<string>("50px");//画中画距离盒子右边距离
+    const boxBottom = ref<string>("50px");//画中画距离盒子底端距离
+    
+    onMounted(()=>{
+        if(videoControllBox.value instanceof HTMLElement){
+            videoControllBoxDom=videoControllBox.value;
+        }
+    });
+
+    function PIPDrag(event:any):void{//拖拽视频盒子
+        if(props.PIPController){
+            event = event || window.event;
+            let al:number = event.clientX - videoControllBoxDom.offsetLeft; //求出鼠标到盒子距离
+            let at:number = event.clientY - videoControllBoxDom.offsetTop; //求出鼠标到盒子距离
+            let biasLeft:number;
+            let biasTop:number;
+            let windowWidth = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+            let windowHeight = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+            document.onmousemove = function(event){
+                event = event || window.event;
+                biasLeft = event.clientX - al;
+                biasTop = event.clientY - at ;
+                boxRight.value = windowWidth - biasLeft - parseInt(getComputedStyle(videoControllBoxDom).width) + "px";
+                boxBottom.value = windowHeight - biasTop - parseInt(getComputedStyle(videoControllBoxDom).height) + "px";
+            }
+
+            document.onmouseup = function(){
+                //取消事件
+                this.onmousemove = null; 
+                this.onmouseup = null;
+            }
+        }
+    }
+    /**以上是画中画拖拽部分**/
 </script>
   
 <style lang="scss" scoped>
@@ -136,9 +171,11 @@
         &.PIPController{
             position: fixed;
             z-index: 10;
-            right: 100px;
-            bottom: 100px;
-            @include fixedRetangle(320px, 180px);
+            $boxWidth: 320px;
+            $boxHeight: 180px;
+            right: v-bind(boxRight);
+            bottom: v-bind(boxBottom);
+            @include fixedRetangle($boxWidth, $boxHeight);
 
             .xgplayer-poster{
                 @include fullInParent();

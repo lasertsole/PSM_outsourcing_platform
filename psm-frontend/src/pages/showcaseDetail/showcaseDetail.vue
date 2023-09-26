@@ -153,11 +153,9 @@
     function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
         if(root.scrollTop>remoteBetween){
             PIPController.value=true;
-            console.log(PIPController.value);
         }
         else{
             PIPController.value=false;
-            console.log(PIPController.value);
         }
     }
 
