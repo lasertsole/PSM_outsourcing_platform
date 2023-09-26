@@ -1,5 +1,5 @@
 <template>
-    <div :class="{videoBox:true, PIPController}"
+    <div :class="{videoBox:true, PIPController, disabled}"
         @mouseenter="mouseenterVideoBox"
         @mouseleave="mouseleavevideoBox"
         @mousedown="PIPDrag"
@@ -101,6 +101,8 @@
 
     const boxRight = ref<string>("50px");//画中画距离盒子右边距离
     const boxBottom = ref<string>("50px");//画中画距离盒子底端距离
+
+    const disabled = ref<boolean>(false);//在移动过程中画中画不可点击
     
     onMounted(()=>{
         if(videoControllBox.value instanceof HTMLElement){
@@ -118,6 +120,7 @@
             let windowWidth = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
             let windowHeight = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
             document.onmousemove = function(event){
+                disabled.value=true;
                 event = event || window.event;
                 biasLeft = event.clientX - al;
                 biasTop = event.clientY - at ;
@@ -127,6 +130,7 @@
 
             document.onmouseup = function(){
                 //取消事件
+                disabled.value=false;
                 this.onmousemove = null; 
                 this.onmouseup = null;
             }
@@ -177,9 +181,11 @@
             bottom: v-bind(boxBottom);
             @include fixedRetangle($boxWidth, $boxHeight);
 
-            .xgplayer-poster{
-                @include fullInParent();
-                object-fit: contain;
+            &.disabled{
+                cursor: move;
+                &::v-deep(.xgplayer){            
+                    pointer-events: none;
+                }
             }
         }
     }
