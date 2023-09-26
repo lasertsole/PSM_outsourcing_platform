@@ -23,7 +23,8 @@
     "swiper": "^8.4.7",
     "vue": "^3.2.45",
     "vue-awesome-swiper": "^5.0.1",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "xgplayer": "^3.0.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

@@ -1,14 +1,20 @@
 <template>
-    <div class="showcaseDetail" @mousewheel="controlPictureInpicture" ref="rootDom">
+    <div class="showcaseDetail" ref="rootDom">
         <div class="page">
             <!-- 左栏 -->
             <div class="leftBar">
                 <div class="runningVideo">
-                    <videoControllBox
+                    <!-- <videoControllBox
                         :imgPath="serverUrl+params?.imgPath"
                         :videoPath="serverUrl+params?.videoPath"
                         ref="videoControllBoxDom"
-                    ></videoControllBox>
+                    ></videoControllBox> -->
+                    <xgplayerOfVideo
+                        v-if="result"
+                        :imgPath="serverUrl+params?.imgPath"
+                        :videoPath="serverUrl+params?.videoPath"
+                    >
+                    </xgplayerOfVideo>
                 </div>
                 <div class="tabBar">
                     <tabBar :tabList="tabList"></tabBar>
@@ -89,7 +95,7 @@
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
     import { tabBarItem } from "@/types/common/tabBarType"
-    import videoControllBox from "@/components/common/videoControllBox.vue";
+    import xgplayerOfVideo from "@/components/common/xgplayerOfVideo.vue";
     import tabBar from "@/components/common/tabBar.vue"
 
     /**获取全局变量**/
@@ -105,11 +111,11 @@
     const route = useRoute();
 
     const params = ref<any>();
+    const result = ref<any>();
     async function getShowcaseBoxDetail(){
-        let result = await showcaseInfo.getShowcaseBoxDetail(route.query.ID);
-        if(result){
-            params.value = result;
-            console.log(result);
+        result.value = await showcaseInfo.getShowcaseBoxDetail(route.query.ID);
+        if(result.value){
+            params.value = result.value;
         }
     }
 
@@ -135,25 +141,25 @@
     let videoOffsetHeight:number;
     let remoteBetween:number;
 
-    onMounted(()=>{
-        root = rootDom.value;
-        videoControl = videoControllBoxDom.value.videoControllBox;//初始化视频控制盒子dom
-        video = videoControllBoxDom.value.video;//初始化视频dom
-        videoHeight = video.getBoundingClientRect().height;
-        videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
-        remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
-    })
+    // onMounted(()=>{
+    //     root = rootDom.value;
+    //     videoControl = videoControllBoxDom.value.videoControllBox;//初始化视频控制盒子dom
+    //     video = videoControllBoxDom.value.video;//初始化视频dom
+    //     videoHeight = video.getBoundingClientRect().height;
+    //     videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
+    //     remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
+    // })
 
-    function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
-        if(videoControllBoxDom.value&&videoControllBoxDom.value.video){
-            if(root.scrollTop>remoteBetween&&!video.paused){
-                video.requestPictureInPicture();
-            }
-            else if(document.pictureInPictureElement){
-                document.exitPictureInPicture();
-            }
-        }
-    }
+    // function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
+    //     if(videoControllBoxDom.value&&videoControllBoxDom.value.video){
+    //         if(root.scrollTop>remoteBetween&&!video.paused){
+    //             video.requestPictureInPicture();
+    //         }
+    //         else if(document.pictureInPictureElement){
+    //             document.exitPictureInPicture();
+    //         }
+    //     }
+    // }
 
 </script>
 
