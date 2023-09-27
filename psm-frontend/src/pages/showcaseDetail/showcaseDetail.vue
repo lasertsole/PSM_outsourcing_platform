@@ -17,30 +17,19 @@
                     >
                     </xgplayerOfVideo>
                 </div>
-                <!-- <div class="tabBar">
+
+                <div class="tabBar" ref="tabBarDiv">
                     <tabBar 
                         :tabList="tabList"
                         @changeClassifyIndex="changeClassifyIndex"
                     ></tabBar>
                     <div class="report">举报橱窗</div>
-                </div> -->
-                <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" :lazy="true">
-                    <el-tab-pane label="User" name="first">User</el-tab-pane>
-                    <el-tab-pane label="Config" name="second">Config</el-tab-pane>
-                    <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-                    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
-                </el-tabs>
-                <!-- <div class="detailBox">
-                    <div v-if="classifyIndex == 0">
-                        <showcaseDetail :article="`0`"></showcaseDetail>
-                    </div>
-                    <div v-else-if="classifyIndex == 1">
-                        <createPhase :article="`1`"></createPhase>
-                    </div>
-                    <div v-else>
-                        <commendOfShowcase :article="`2`"></commendOfShowcase>
-                    </div>
-                </div> -->
+                </div>
+                <div class="detailBox" ref="detailBox">
+                    <showcaseDetailInfo :article="`0`"></showcaseDetailInfo>
+                    <createPhase :article="`1`"></createPhase>
+                    <commendOfShowcase :article="`2`"></commendOfShowcase>
+                </div>
             </div>
 
             <!-- 右栏 -->
@@ -104,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted } from "vue";
+    import { ref, onMounted, watch } from "vue";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
@@ -113,7 +102,7 @@
     import tabBar from "@/components/common/tabBar.vue";
     import type { TabsPaneContext } from 'element-plus'
 
-    import showcaseDetail from "@/components/showcaseDetail/showcaseDetailInfo.vue";
+    import showcaseDetailInfo from "@/components/showcaseDetail/showcaseDetailInfo.vue";
     import createPhase from "@/components/showcaseDetail/createPhase.vue";
     import commendOfShowcase from "@/components/showcaseDetail/commendOfShowcase.vue";
 
@@ -149,9 +138,10 @@
     }
 
     /**以下为鼠标滚动事件**/
-    const videoControllBoxDom = ref();//获取视频控制盒子的dom
-    const rootDom = ref();//页面根节点的dom
+    const videoControllBoxDom = ref<HTMLElement>();//获取视频控制盒子的dom
+    const rootDom = ref<HTMLElement>();//页面根节点的dom
     let root:any;
+    const scrollTopNum = ref<number>(0);//记录root滚动距离
     let videoControl:any;
     let videoHeight:number;
     let videoOffsetHeight:number;
@@ -167,7 +157,8 @@
 
     const PIPController = ref<boolean>(false);//画中画控制器
     function controlPictureInpicture():void{//当视频在播放时向下拉可进入画中画模式
-        if(root.scrollTop>remoteBetween){
+        scrollTopNum.value=root.scrollTop;
+        if(scrollTopNum.value>remoteBetween){
             PIPController.value=true;
         }
         else{
@@ -175,16 +166,40 @@
         }
     }
 
+    const detailBox = ref<HTMLElement>();
+    const tabBarDiv = ref<HTMLElement>();
+    let detailBoxDom:HTMLElement;//详情信息栏的dom
+    let tabBarDom:HTMLElement;//切页栏的dom
+    let detailBoxChildrenDoms:NodeList;//detailBoxDom的子dom列表
+    let childrenDomsRemoteTopList:number[]=[];//记录子dom列表距顶高度
+
+    onMounted(()=>{
+        if(tabBarDiv.value instanceof HTMLElement){
+            tabBarDom=tabBarDiv.value;
+            if(detailBox.value instanceof HTMLElement){
+                detailBoxDom=detailBox.value;
+                detailBoxChildrenDoms=detailBoxDom.childNodes;
+                detailBoxChildrenDoms.forEach((item, index)=>{
+                    childrenDomsRemoteTopList.push((<any>item).getBoundingClientRect().y-tabBarDom.getBoundingClientRect().height-root.getBoundingClientRect().y);
+                })
+            }
+        }
+    })
+
+    watch(scrollTopNum, (newValue, oldValue)=>{
+        console.log(newValue>childrenDomsRemoteTopList[0]);
+    })
+
     /**详细信息部分**/
     const activeName = ref('first');
     const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
     };
-    // const tabList = ref<tabBarItem[]>([
-    //     {tabName:"橱窗详情",index:0},
-    //     {tabName:"创作阶段",index:1},
-    //     {tabName:"橱窗评价",index:2},
-    // ]);
+    const tabList = ref<tabBarItem[]>([
+        {tabName:"橱窗详情",index:0},
+        {tabName:"创作阶段",index:1},
+        {tabName:"橱窗评价",index:2},
+    ]);
 
 </script>
 
@@ -213,6 +228,7 @@
                 @include fixedRetangle(60%, 100%);
                 .runningVideo{
                     height: 300px;
+
                 }
                 .tabBar{
                     background-color: white;
@@ -220,7 +236,8 @@
                     display:flex;
                     flex-direction: column;
                     position: sticky;
-                    top: -$paddingCol;
+                    z-index: 10;
+                    top: -$paddingCol - 1px;
                     &::v-deep(.classify){
                         position: relative;
                         z-index: 1;
@@ -241,6 +258,9 @@
                     @include fixedRetangle(100%, 1000px);
                     display: flex;
                     flex-direction: column;
+                    overflow: hidden;
+                    z-index: 5;
+                    position: sticky;
                 }
             }
 

@@ -5,6 +5,7 @@
                 <ul>
                     <template v-for="item,index in tabList">
                         <li
+                            :class="{selected:tabIndex==index}"
                             :style="`
                                 ${paddingLeft?'padding-left:'+paddingLeft+'px;':''}
                                 ${paddingRight?'padding-right:'+paddingRight+'px;':''}
@@ -61,11 +62,9 @@
                         align-items: center;
                         padding: 10px;
                         cursor: pointer;
-                        a{
-                            color: #707070;
-                            &.selected{
-                                color: #00a8e9;
-                            }
+                        color: #707070;
+                        &.selected{
+                            color: #00a8e9;
                         }
                     }
                 }

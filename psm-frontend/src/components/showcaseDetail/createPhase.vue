@@ -1,6 +1,8 @@
 <template>
     <div class="content">
-        <div>
+        <div class="topBar">
+            <div class="icon"></div>
+            <span>创作阶段</span> 
         </div>
         <div class="progressBar">
             <progressBar
@@ -32,7 +34,29 @@
         padding:10px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+
+        .topBar{
+            height: 20px;
+            box-sizing: content-box;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #ececec;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            color: #4a4a4a;
+
+            .icon{
+                @include fixedSquare(20px);
+                background-image: url(icons/createPhase.svg);
+                background-size: 100%;
+                background-position: center;
+                margin-right: 10px;
+            }
+        }
+
         .progressBar{
             @include fixedWidth(450px);
         }
