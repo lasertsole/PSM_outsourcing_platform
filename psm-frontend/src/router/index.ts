@@ -81,28 +81,6 @@ const routes:RouteRecordRaw[] = [
         path: '/showcaseDetail',
         name: 'showcaseDetail',
         component: showcaseDetailVue,
-        redirect:'/showcaseDetail/showcaseDetailInfo',
-
-        children:[
-            //橱窗详情
-            {
-                path: 'showcaseDetailInfo',
-                name: "showcaseDetailInfo",
-                component: showcaseDetailInfo
-            },
-            //创作阶段
-            {
-                path: "createPhase",
-                name: "createPhase",
-                component: createPhase
-            },
-            //橱窗评价
-            {
-                path: 'commendOfShowcase',
-                name: "commendOfShowcase",
-                component: commendOfShowcase
-            },
-        ]
     },
     //企划页
     {

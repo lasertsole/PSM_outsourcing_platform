@@ -17,17 +17,30 @@
                     >
                     </xgplayerOfVideo>
                 </div>
-                <div class="tabBar">
-                    <tabBar :tabList="tabList"></tabBar>
+                <!-- <div class="tabBar">
+                    <tabBar 
+                        :tabList="tabList"
+                        @changeClassifyIndex="changeClassifyIndex"
+                    ></tabBar>
                     <div class="report">举报橱窗</div>
-                </div>
-                <div class="detailBox">
-                    <router-view v-slot="{ Component }">
-                        <keep-alive>
-                            <component :is="Component"/>
-                        </keep-alive>
-                    </router-view>
-                </div>
+                </div> -->
+                <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" :lazy="true">
+                    <el-tab-pane label="User" name="first">User</el-tab-pane>
+                    <el-tab-pane label="Config" name="second">Config</el-tab-pane>
+                    <el-tab-pane label="Role" name="third">Role</el-tab-pane>
+                    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+                </el-tabs>
+                <!-- <div class="detailBox">
+                    <div v-if="classifyIndex == 0">
+                        <showcaseDetail :article="`0`"></showcaseDetail>
+                    </div>
+                    <div v-else-if="classifyIndex == 1">
+                        <createPhase :article="`1`"></createPhase>
+                    </div>
+                    <div v-else>
+                        <commendOfShowcase :article="`2`"></commendOfShowcase>
+                    </div>
+                </div> -->
             </div>
 
             <!-- 右栏 -->
@@ -91,13 +104,18 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted } from "vue"
+    import { ref, onMounted } from "vue";
     import useGlobal from "@/global";
     import { storeToRefs } from "pinia";
     import { useRoute } from "vue-router";
-    import { tabBarItem } from "@/types/common/tabBarType"
+    import { tabBarItem } from "@/types/common/tabBarType";
     import xgplayerOfVideo from "@/components/common/xgplayerOfVideo.vue";
-    import tabBar from "@/components/common/tabBar.vue"
+    import tabBar from "@/components/common/tabBar.vue";
+    import type { TabsPaneContext } from 'element-plus'
+
+    import showcaseDetail from "@/components/showcaseDetail/showcaseDetailInfo.vue";
+    import createPhase from "@/components/showcaseDetail/createPhase.vue";
+    import commendOfShowcase from "@/components/showcaseDetail/commendOfShowcase.vue";
 
     /**获取全局变量**/
     const global = useGlobal();
@@ -125,12 +143,10 @@
         getShowcaseBoxDetail();
     });
 
-    /**二级路由切换**/
-    const tabList = ref<tabBarItem[]>([
-        {tabName:"橱窗详情",linkTo:"/showcaseDetail/showcaseDetailInfo"},
-        {tabName:"创作阶段",linkTo:"/showcaseDetail/createPhase"},
-        {tabName:"橱窗评价",linkTo:"/showcaseDetail/commendOfShowcase"},
-    ]);
+    const classifyIndex = ref<number>(0);
+    function changeClassifyIndex(index: number):void{
+        classifyIndex.value = index;
+    }
 
     /**以下为鼠标滚动事件**/
     const videoControllBoxDom = ref();//获取视频控制盒子的dom
@@ -158,6 +174,17 @@
             PIPController.value=false;
         }
     }
+
+    /**详细信息部分**/
+    const activeName = ref('first');
+    const handleClick = (tab: TabsPaneContext, event: Event) => {
+        console.log(tab, event)
+    };
+    // const tabList = ref<tabBarItem[]>([
+    //     {tabName:"橱窗详情",index:0},
+    //     {tabName:"创作阶段",index:1},
+    //     {tabName:"橱窗评价",index:2},
+    // ]);
 
 </script>
 

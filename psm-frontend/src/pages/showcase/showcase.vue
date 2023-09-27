@@ -40,7 +40,6 @@
     ]);
 
     const classifyIndex = ref<number>(0);
-    
     function changeClassifyIndex(index: number):void{
         classifyIndex.value = index;
     }
