@@ -4,27 +4,18 @@
             <div class="icon"></div>
             <span>创作阶段</span> 
         </div>
-        <div class="progressBar">
-            <pre>
-                1
-                2
-                3
-                4
-                5
-            </pre>
-        </div>
+        <div class="content">{{ info.text }}</div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import progressBar from "components/common/progressBar.vue"
-    import { phaseArr } from "@/types/common/phaseArr"
+    import { defineProps, PropType } from "vue";
+    import { showcaseDetailInfo } from "types/componentsType/showacaseDetailComponent";
 
-    const phase:phaseArr[] = [
-        {name:"草稿阶段",positionNum:0},
-        {name:"初步定稿",positionNum:50},
-        {name:"确认收稿",positionNum:100},
-    ]
+    /**********获取父组件传来的变量*********/
+    const props = defineProps({
+        info:{type:Object as PropType<showcaseDetailInfo>, required: true, default:{text:""}}
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -32,7 +23,7 @@
     @import "commonScss";
     .content{
         flex-grow: 1;
-        padding:10px;
+        padding: 0px 10px;
         display: flex;
         flex-direction: column;
 

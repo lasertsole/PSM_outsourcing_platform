@@ -1,20 +1,15 @@
 <template>
     <div class="content">
-        <pre>
-            1
-            2
-            3
-            4
-            5
-        </pre>
+        {{ info.text }}
     </div>
 </template>
 
 <script setup lang="ts">
-    import { ref, defineProps } from "vue";
+    import { defineProps, PropType } from "vue";
+    import { showcaseDetailInfo } from "types/componentsType/showacaseDetailComponent";
     /**********获取父组件传来的变量*********/
     const props = defineProps({
-        article:{type:String, required: true}
+        info:{type:Object as PropType<showcaseDetailInfo>, required: true, default:{text:""}}
     });
 </script>
 

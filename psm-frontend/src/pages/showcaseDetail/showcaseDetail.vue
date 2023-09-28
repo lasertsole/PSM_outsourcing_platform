@@ -27,8 +27,8 @@
                     <div class="report">举报橱窗</div>
                 </div>
                 <div class="detailBox" ref="detailBox">
-                    <showcaseDetailInfo :article="`0`"></showcaseDetailInfo>
-                    <createPhase :article="`1`"></createPhase>
+                    <showcaseDetailInfo :info="params?.mainInfo&&JSON.parse(params.mainInfo).detail"></showcaseDetailInfo>
+                    <createPhase :info="params?.mainInfo&&JSON.parse(params.mainInfo).phrase"></createPhase>
                     <commendOfShowcase :article="`2`"></commendOfShowcase>
                 </div>
             </div>
@@ -82,7 +82,7 @@
 
     const params = ref<any>();
     const result = ref<any>();
-    async function getShowcaseBoxDetail(){
+    async function getShowcaseBoxDetail():Promise<any>{
         result.value = await showcaseInfo.getShowcaseBoxDetail(route.query.ID);
         if(result.value){
             params.value = result.value;
@@ -90,9 +90,8 @@
     }
 
     /**挂载时请求数据**/
-    onMounted(()=>{
-        getShowcaseBoxDetail();
-    });
+    let promise:Promise<void>;
+    promise = getShowcaseBoxDetail();//向服务器请求数据
 
     /**以下为鼠标滚动事件**/
     const videoControllBoxDom = ref<HTMLElement>();//获取视频控制盒子的dom
@@ -105,11 +104,13 @@
     let remoteBetween:number;
 
     onMounted(()=>{
-        root = rootDom.value;
-        videoControl = videoControllBoxDom.value;//初始化视频控制盒子dom
-        videoHeight = videoControl.getBoundingClientRect().height;
-        videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
-        remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
+        promise.then(()=>{
+            root = rootDom.value;
+            videoControl = videoControllBoxDom.value;//初始化视频控制盒子dom
+            videoHeight = videoControl.getBoundingClientRect().height;
+            videoOffsetHeight = videoControl.getBoundingClientRect().y+videoHeight;
+            remoteBetween = videoOffsetHeight-root.getBoundingClientRect().y;
+        });
     })
 
     const PIPController = ref<boolean>(false);//画中画控制器
@@ -136,28 +137,30 @@
     let childrenDomsRemoteTopList:number[]=[];//记录子dom列表的锚定距离
 
     onMounted(()=>{
-        if(tabBarDiv.value instanceof HTMLElement){
-            tabBarDom=tabBarDiv.value;
-            if(detailBox.value instanceof HTMLElement){
-                detailBoxDom=detailBox.value;
-                detailBoxChildrenDoms=detailBoxDom.childNodes;
-                detailBoxChildrenDoms.forEach((item, index)=>{
-                    childrenDomsRemoteTopList.push((<any>item).getBoundingClientRect().y-tabBarDom.getBoundingClientRect().height-root.getBoundingClientRect().y);
-                })
+        promise.then(()=>{
+            if(tabBarDiv.value instanceof HTMLElement){
+                tabBarDom=tabBarDiv.value;
+                if(detailBox.value instanceof HTMLElement){
+                    detailBoxDom=detailBox.value;
+                    detailBoxChildrenDoms=detailBoxDom.childNodes;
+                    detailBoxChildrenDoms.forEach((item, index)=>{
+                        childrenDomsRemoteTopList.push((<any>item).getBoundingClientRect().y-tabBarDom.getBoundingClientRect().height-root.getBoundingClientRect().y);
+                    })
+                }
             }
-        }
-    })
 
-    watch(scrollTopNum, (newValue, oldValue)=>{
-        if(newValue<childrenDomsRemoteTopList[1]){
-            classifyIndex.value = 0;
-        }
-        else if(newValue<childrenDomsRemoteTopList[2]){
-            classifyIndex.value = 1;
-        }
-        else{
-            classifyIndex.value = 2;
-        }
+            watch(scrollTopNum, (newValue, oldValue)=>{
+                if(newValue<childrenDomsRemoteTopList[1]){
+                    classifyIndex.value = 0;
+                }
+                else if(newValue<childrenDomsRemoteTopList[2]){
+                    classifyIndex.value = 1;
+                }
+                else{
+                    classifyIndex.value = 2;
+                }
+            })
+        });
     })
     
     const classifyIndex = ref<number>(0);
