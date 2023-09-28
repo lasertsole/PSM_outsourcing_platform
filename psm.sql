@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 23/09/2023 04:24:04
+ Date: 28/09/2023 21:48:23
 */
 
 SET NAMES utf8mb4;
@@ -69,10 +69,10 @@ CREATE TABLE `itembox`  (
 -- ----------------------------
 -- Records of itembox
 -- ----------------------------
-INSERT INTO `itembox` VALUES (00000000000000000000000000000001, 00000000000000000000000000000105, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-22 18:35:46', NULL);
-INSERT INTO `itembox` VALUES (00000000000000000000000000000002, 00000000000000000000000000000105, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-22 18:35:46', NULL);
-INSERT INTO `itembox` VALUES (00000000000000000000000000000003, 00000000000000000000000000000106, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-22 18:35:46', NULL);
-INSERT INTO `itembox` VALUES (00000000000000000000000000000004, 00000000000000000000000000000106, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-22 18:35:46', NULL);
+INSERT INTO `itembox` VALUES (00000000000000000000000000000001, 00000000000000000000000000000105, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-28 21:37:07', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000002, 00000000000000000000000000000105, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-28 21:37:14', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000003, 00000000000000000000000000000106, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-28 21:37:16', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000004, 00000000000000000000000000000106, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-28 21:37:19', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
 
 -- ----------------------------
 -- Table structure for showcasebox
@@ -87,6 +87,7 @@ CREATE TABLE `showcasebox`  (
   `lastSort` int UNSIGNED NOT NULL COMMENT '小分类标签，具体内容不确定',
   `isIdle` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否档期空闲，0为否，1为是',
   `canQuicky` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否可加急，0为否，1为是',
+  `introduce` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `showcaseBox&authorID link Account&ID`(`authorID` ASC) USING BTREE,
   CONSTRAINT `showcaseBox&authorID link Account&ID` FOREIGN KEY (`authorID`) REFERENCES `accountinfo` (`ID`) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -95,8 +96,8 @@ CREATE TABLE `showcasebox`  (
 -- ----------------------------
 -- Records of showcasebox
 -- ----------------------------
-INSERT INTO `showcasebox` VALUES (00000000000000000000000000000007, '\r\n加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000105, '2023-09-22 22:35:54', 0, 0, b'0', b'1');
-INSERT INTO `showcasebox` VALUES (00000000000000000000000000000008, '加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000106, '2023-09-22 22:35:51', 0, 0, b'1', b'0');
+INSERT INTO `showcasebox` VALUES (00000000000000000000000000000007, '\r\n加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000105, '2023-09-27 22:14:34', 0, 0, b'0', b'1', '安好:擅长古民值男/各种图组少女灶。\r\n    [请说明一下外或年龄偏好 同人大欢连!\r\n不接:真人J纯文宇设/大叔/正太 车队(等不起反馈是一款我的问题)\r\n张吉成增的间只有营单背看1带点水彩的厚流《西古风设定会更水影一点)笔教多且乱，请确本可以楼受例围啦!!!《走价了会比双朝编节一表表:封面上面两张对比下面两张这样)\r\n9连胜:色脑照理不大改! 不大改!不大改!有要说! !谢市谢谢谢谢谢\r\n喜欢的设定会多画一点我是升梅使)跌认复杂的设定可以赁化，或餐+30\r\n请给获清明确的无据条的立脸! !! 者能看的参!  谢谢谢谢谢谢谢谢谢谢');
+INSERT INTO `showcasebox` VALUES (00000000000000000000000000000008, '加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000106, '2023-09-27 22:14:37', 0, 0, b'1', b'0', '安好:擅长古民值男/各种图组少女灶。\r\n    [请说明一下外或年龄偏好 同人大欢连!\r\n不接:真人J纯文宇设/大叔/正太 车队(等不起反馈是一款我的问题)\r\n张吉成增的间只有营单背看1带点水彩的厚流《西古风设定会更水影一点)笔教多且乱，请确本可以楼受例围啦!!!《走价了会比双朝编节一表表:封面上面两张对比下面两张这样)\r\n9连胜:色脑照理不大改! 不大改!不大改!有要说! !谢市谢谢谢谢谢\r\n喜欢的设定会多画一点我是升梅使)跌认复杂的设定可以赁化，或餐+30\r\n请给获清明确的无据条的立脸! !! 者能看的参!  谢谢谢谢谢谢谢谢谢谢');
 
 -- ----------------------------
 -- Table structure for showcasecomment
@@ -114,7 +115,7 @@ CREATE TABLE `showcasecomment`  (
   INDEX `showcaseComment&targetID link Account&ID`(`targetID` ASC) USING BTREE,
   CONSTRAINT `showcaseComment&sourceID link Account&ID` FOREIGN KEY (`sourceID`) REFERENCES `accountinfo` (`ID`) ON DELETE SET NULL ON UPDATE RESTRICT,
   CONSTRAINT `showcaseComment&targetID link Account&ID` FOREIGN KEY (`targetID`) REFERENCES `accountinfo` (`ID`) ON DELETE SET NULL ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of showcasecomment

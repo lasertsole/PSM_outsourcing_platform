@@ -1,4 +1,4 @@
 export interface phaseArr{
-    name:string,
-    positionNum:number,
+    percentage:string,
+    text:string,
 }

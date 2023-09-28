@@ -4,18 +4,25 @@
             <div class="icon"></div>
             <span>创作阶段</span> 
         </div>
-        <div class="content">{{ info.text }}</div>
+        <div class="content">
+            <phaseArr
+                :itemArr="info?.itemArr"
+            ></phaseArr>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
     import { defineProps, PropType } from "vue";
-    import { showcaseDetailInfo } from "types/componentsType/showacaseDetailComponent";
+    import { createPhase } from "types/componentsType/showacaseDetailComponent";
+    import phaseArr from "@/components/common/phaseArr.vue";
 
     /**********获取父组件传来的变量*********/
     const props = defineProps({
-        info:{type:Object as PropType<showcaseDetailInfo>, required: true, default:{text:""}}
+        info:{type:Object as PropType<createPhase>, required: true, default:{text:""}}
     });
+
+    console.log(props.info.itemArr);
 </script>
 
 <style lang="scss" scoped>

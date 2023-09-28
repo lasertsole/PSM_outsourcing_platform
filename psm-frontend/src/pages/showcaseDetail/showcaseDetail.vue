@@ -61,7 +61,6 @@
     import { tabBarItem } from "@/types/common/tabBarType";
     import xgplayerOfVideo from "@/components/common/xgplayerOfVideo.vue";
     import tabBar from "@/components/common/tabBar.vue";
-    import type { TabsPaneContext } from 'element-plus'
 
     import showcaseDetailInfo from "@/components/showcaseDetail/showcaseDetailInfo.vue";
     import createPhase from "@/components/showcaseDetail/createPhase.vue";
@@ -91,7 +90,9 @@
 
     /**挂载时请求数据**/
     let promise:Promise<void>;
-    promise = getShowcaseBoxDetail();//向服务器请求数据
+    onMounted(()=>{
+        promise = getShowcaseBoxDetail();//向服务器请求数据
+    });
 
     /**以下为鼠标滚动事件**/
     const videoControllBoxDom = ref<HTMLElement>();//获取视频控制盒子的dom
