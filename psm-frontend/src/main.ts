@@ -18,10 +18,10 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import { ElMessage } from 'element-plus';
 
 //引入axios
-import axios from 'axios'
+import axios from 'axios';
 
 //引入事件总线mitt
-import mitt from 'mitt'
+import mitt from 'mitt';
 
 const app = createApp(App);
 

@@ -85,10 +85,25 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!--Bean构建简化-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!--Bean构建简化-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- graphql:包含了默认配置、graphql-java 和 graphql-java-tools，可以简化配置 -->
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>11.0.0</version>
         </dependency>
 
     </dependencies>
