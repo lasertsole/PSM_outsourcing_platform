@@ -26,13 +26,14 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, defineProps, defineEmits, PropType } from "vue";
+    import { ref, defineProps, defineEmits, PropType, watchEffect } from "vue";
     import { tabBarItem } from "@/types/common/tabBarType"
 
     const props = defineProps({
         tabList:{type:Array as PropType<tabBarItem[]>, required: true},
         paddingLeft:{type:Number, required: false},
         paddingRight:{type:Number, required: false},
+        focusIndex:{type:Number, required: false, default: 0},
     });
 
     const emits = defineEmits(["changeClassifyIndex"]);
@@ -42,6 +43,10 @@
         tabIndex.value=index;
         emits("changeClassifyIndex", tabIndex.value);
     }
+
+    watchEffect(()=>{
+        tabIndex.value = props.focusIndex;
+    })
 </script>
 
 <style lang="scss" scoped>

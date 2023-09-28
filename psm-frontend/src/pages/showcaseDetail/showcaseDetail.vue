@@ -22,6 +22,7 @@
                     <tabBar 
                         :tabList="tabList"
                         @changeClassifyIndex="changeClassifyIndex"
+                        :focusIndex="classifyIndex"
                     ></tabBar>
                     <div class="report">举报橱窗</div>
                 </div>
@@ -132,11 +133,6 @@
         getShowcaseBoxDetail();
     });
 
-    const classifyIndex = ref<number>(0);
-    function changeClassifyIndex(index: number):void{
-        classifyIndex.value = index;
-    }
-
     /**以下为鼠标滚动事件**/
     const videoControllBoxDom = ref<HTMLElement>();//获取视频控制盒子的dom
     const rootDom = ref<HTMLElement>();//页面根节点的dom
@@ -171,7 +167,7 @@
     let detailBoxDom:HTMLElement;//详情信息栏的dom
     let tabBarDom:HTMLElement;//切页栏的dom
     let detailBoxChildrenDoms:NodeList;//detailBoxDom的子dom列表
-    let childrenDomsRemoteTopList:number[]=[];//记录子dom列表距顶高度
+    let childrenDomsRemoteTopList:number[]=[];//记录子dom列表的锚定距离
 
     onMounted(()=>{
         if(tabBarDiv.value instanceof HTMLElement){
@@ -187,8 +183,22 @@
     })
 
     watch(scrollTopNum, (newValue, oldValue)=>{
-        console.log(newValue>childrenDomsRemoteTopList[0]);
+        if(newValue<=childrenDomsRemoteTopList[1]){
+            classifyIndex.value = 0;
+        }
+        else if(newValue<=childrenDomsRemoteTopList[2]){
+            classifyIndex.value = 1;
+        }
+        else{
+            classifyIndex.value = 2;
+        }
     })
+    
+    const classifyIndex = ref<number>(0);
+    function changeClassifyIndex(index: number):void{
+        root.scrollTop = childrenDomsRemoteTopList[index];
+        controlPictureInpicture()
+    }
 
     /**详细信息部分**/
     const activeName = ref('first');
