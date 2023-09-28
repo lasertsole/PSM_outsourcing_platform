@@ -4,6 +4,7 @@ import com.psm.utils.Result;
 import com.psm.ato.ShowcaseBoxAto;
 import com.psm.vo.ItemBoxVo;
 import com.psm.vo.ShowcaseBoxVo;
+import com.psm.vo.ShowcaseDetailBoxVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,17 +72,19 @@ public class ShowcaseService {
             });
             return Result.success(showcaseBoxVoList,"获取橱窗盒子成功");
         }catch (Exception e){
-            return Result.error("500","获取橱窗盒子时发生错误");
+            return Result.error("500","获取橱窗盒子时发生错误:"+e.toString());
         }
     }
 
     public Result<?> getShowcaseBoxDetail(String ID){
         try {
             List<showcaseDetailEntity> list = showCaseMapper.getShowcaseBoxDetail(ID);
-            return Result.success( list.get(0),"获取橱窗详情成功" );
+            ShowcaseDetailBoxVo showcaseDetailBoxVo = new ShowcaseDetailBoxVo();
+            BeanUtils.copyProperties(list.get(0),showcaseDetailBoxVo);
+            return Result.success( showcaseDetailBoxVo,"获取橱窗详情成功" );
         }
         catch (Exception e){
-            return Result.error("500","获取橱窗详情时发生错误" );
+            return Result.error("500","获取橱窗详情时发生错误:"+e.toString());
         }
     }
 }

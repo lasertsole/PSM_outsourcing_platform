@@ -75,7 +75,7 @@ public class AccountService {
                 return Result.success(accountVo,"快速登录成功");
             }
         }catch (Exception e){
-            return Result.error("500","登录时发生错误");
+            return Result.error("500","登录时发生错误:"+e.toString());
         }
     }
 
@@ -92,7 +92,7 @@ public class AccountService {
                 return Result.success("修改名字成功");
             }
         }catch (Exception e){
-            return Result.error("500","修改名字时发生错误。");
+            return Result.error("500","修改名字时发生错误:"+e.toString());
         }
     }
 
@@ -108,7 +108,7 @@ public class AccountService {
                 return Result.success("修改成功");
             }
         }catch (Exception e){
-            return Result.error("500","修改手机号时发生错误。");
+            return Result.error("500","修改手机号时发生错误:"+e.toString());
         }
     }
 
@@ -137,7 +137,7 @@ public class AccountService {
                 }
             }
         }catch (Exception e){
-            return Result.error("500", "修改密码时发生程序错误");
+            return Result.error("500", "修改密码时发生程序错误:"+e.toString());
         }
     }
 }

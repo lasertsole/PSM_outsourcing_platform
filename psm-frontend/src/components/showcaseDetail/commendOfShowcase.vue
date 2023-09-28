@@ -2,7 +2,7 @@
     <div class="contentArr">
         <div class="topBar">
             <div class="icon"></div>
-            <span>创作阶段</span> 
+            <span>橱窗评价</span> 
         </div>
         <template v-for="(item,index) in commendArr">
             <comment
@@ -104,7 +104,6 @@
         padding:10px;
         display: flex;
         flex-direction: column;
-        overflow: auto;
         
         &::v-deep(.commend:not(:last-of-type)){
             margin-bottom: 13px;

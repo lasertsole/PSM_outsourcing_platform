@@ -5,12 +5,13 @@
             <span>创作阶段</span> 
         </div>
         <div class="progressBar">
-            <progressBar
-                :progressNum="50"
-                :progressMax="100"
-                :progressTime="700"
-                :progressPhase="phase"
-            ></progressBar>
+            <pre>
+                1
+                2
+                3
+                4
+                5
+            </pre>
         </div>
     </div>
 </template>
@@ -55,10 +56,6 @@
                 background-position: center;
                 margin-right: 10px;
             }
-        }
-
-        .progressBar{
-            @include fixedWidth(450px);
         }
     }
 </style>

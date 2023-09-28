@@ -1,4 +1,4 @@
-package com.psm.entity;
+package com.psm.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class showcaseDetailEntity {
+public class ShowcaseDetailBoxVo {
     private String ID;
     private String authorID;
     private String price;
