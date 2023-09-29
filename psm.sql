@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 28/09/2023 21:48:23
+ Date: 30/09/2023 03:12:43
 */
 
 SET NAMES utf8mb4;
@@ -115,7 +115,7 @@ CREATE TABLE `showcasecomment`  (
   INDEX `showcaseComment&targetID link Account&ID`(`targetID` ASC) USING BTREE,
   CONSTRAINT `showcaseComment&sourceID link Account&ID` FOREIGN KEY (`sourceID`) REFERENCES `accountinfo` (`ID`) ON DELETE SET NULL ON UPDATE RESTRICT,
   CONSTRAINT `showcaseComment&targetID link Account&ID` FOREIGN KEY (`targetID`) REFERENCES `accountinfo` (`ID`) ON DELETE SET NULL ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of showcasecomment
