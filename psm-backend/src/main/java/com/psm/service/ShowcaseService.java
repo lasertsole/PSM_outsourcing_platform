@@ -47,26 +47,36 @@ public class ShowcaseService {
                 BeanUtils.copyProperties(item,itemBoxVo);
 
                 /*将works加工成json格式*/
-                String itemBoxVoToString = "{\"ID\":\"" + item.getWorkID()//获取itemBoxVo的json格式的toString
-                        +"\",\"authorID\":\"" + itemBoxVo.getAuthorID()
-                        +"\",\"price\":\"" + itemBoxVo.getPrice()
-                        +"\",\"type\":\"" + itemBoxVo.getType()
-                        +"\",\"imgPath\":\"" + itemBoxVo.getImgPath()
-                        +"\",\"videoPath\":\"" + itemBoxVo.getVideoPath()
-                        +"\",\"abstractInfo\":\"" + itemBoxVo.getAbstractInfo()
-                        +"\",\"modifyTime\":\"" + item.getWorkModifyTime()
-                        + "\"}";
+                StringBuffer itemBoxVoToString = new StringBuffer();
+                itemBoxVoToString.append("{\"ID\":\"");
+                itemBoxVoToString.append(item.getWorkID());
+                itemBoxVoToString.append("\",\"authorID\":\"");
+                itemBoxVoToString.append(itemBoxVo.getAuthorID());
+                itemBoxVoToString.append("\",\"price\":\"");
+                itemBoxVoToString.append(itemBoxVo.getPrice());
+                itemBoxVoToString.append("\",\"type\":\"");
+                itemBoxVoToString.append(itemBoxVo.getType());
+                itemBoxVoToString.append("\",\"imgPath\":\"");
+                itemBoxVoToString.append(itemBoxVo.getImgPath());
+                itemBoxVoToString.append("\",\"videoPath\":\"");
+                itemBoxVoToString.append(itemBoxVo.getVideoPath());
+                itemBoxVoToString.append("\",\"abstractInfo\":\"");
+                itemBoxVoToString.append(itemBoxVo.getAbstractInfo());
+                itemBoxVoToString.append("\",\"modifyTime\":\"");
+                itemBoxVoToString.append(item.getWorkModifyTime());
+                itemBoxVoToString.append("\"}");
+
                 ShowcaseBoxVo base = showcaseBoxVoList.get(index);
                 String baseWorks = base.getWorks();
 
                 if(baseWorks.charAt(baseWorks.length()-2)=='['){
                     StringBuilder sb = new StringBuilder(baseWorks);
-                    sb.insert(baseWorks.length()-1,itemBoxVoToString);
+                    sb.insert(baseWorks.length()-1,itemBoxVoToString.toString());
                     base.setWorks(sb.toString());
                 }
                 else{
                     StringBuilder sb = new StringBuilder(baseWorks);
-                    sb.insert(baseWorks.length()-1,","+itemBoxVoToString);
+                    sb.insert(baseWorks.length()-1,","+itemBoxVoToString.toString());
                     base.setWorks(sb.toString());
                 }
             });
