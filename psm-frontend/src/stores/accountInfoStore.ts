@@ -1,7 +1,8 @@
 import axios from "axios"
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
-import { AccountInfo } from "@/types/stores/AccountInfo"
+import { AccountInfo } from "@/types/stores/AccountInfo";
+import { grapQL } from "@/graphQL"
 
 /**********accountInfoStore传入全局变量**********/
 let global:any=undefined;
@@ -71,7 +72,7 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        fasterLogin: async function() {//自动登录
+        fasterLogin: async function():Promise<void>{//自动登录
             let result = await axios.get("api/user/fasterLogin");
             let data = result.data;
             if(data.code==200){
@@ -79,6 +80,11 @@ export const accountInfoStore = defineStore({
                 this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
+
+            grapQL({
+                query: "mutation {\n\tcreateEvent(name: \"Swimming\")\n}",
+                variables: null
+            });
         },
 
         loginAccount: async function(phoneNumber:string,password:string):Promise<void>{//登录账号
@@ -168,7 +174,7 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserPassword: async function(password:string) {
+        changeUserPassword: async function(password:string):Promise<boolean> {
             let result = await axios.post("api/user/changeUserPassword",{password});
             let data = result.data;
             if(data.code==200){
