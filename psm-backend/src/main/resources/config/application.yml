@@ -2,3 +2,12 @@
 spring:
   profiles:
     active: dev
+
+#后端版本
+version: "1.1.1"
+
+#令牌颁发者
+Token:
+  issuer: moye
+  userID: 3132225629
+  secret: a9Sd'?*vA

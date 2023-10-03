@@ -17,9 +17,6 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#后端版本
-version: "1.1.1"
-
 #服务器地址及端口
 server:
   port: 8000

@@ -34,6 +34,16 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!--springboot构建器-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
 	<!--依赖项-->
 	<dependencies>
 		<!--web开发的起步依赖-->
@@ -82,22 +92,19 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!--密码加密-->
+		<!--用于用户密码加密的依赖-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
 
-	</dependencies>
+		<!--生成token的依赖-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.18.3</version>
+		</dependency>
 
-	<!--springboot构建器-->
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+	</dependencies>
 
 </project>
