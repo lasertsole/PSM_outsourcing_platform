@@ -80,11 +80,6 @@ export const accountInfoStore = defineStore({
                 this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
-
-            grapQL({
-                query: "mutation {\n\tcreateEvent(name: \"Swimming\")\n}",
-                variables: null
-            });
         },
 
         loginAccount: async function(phoneNumber:string,password:string):Promise<void>{//登录账号
@@ -105,6 +100,7 @@ export const accountInfoStore = defineStore({
             }
             else{
                 let result = await axios.post("api/user/login",{phoneNumber, password});
+
                 let data = result.data;
                 if(data.code == 200){
                     ElMessage.success(data.msg);
@@ -133,6 +129,23 @@ export const accountInfoStore = defineStore({
             }
             else{
                 let result = await axios.post("api/user/register",{phoneNumber,password});
+
+                // let result = await grapQL({
+                //     query: `mutation {
+                //         register(
+                //             acountInput:{
+                //                 phoneNumber:"${phoneNumber}"
+                //                 password:"${password}"
+                //         }){
+                //             status
+                //             phoneNumber
+                //             userName
+                //             profile
+                //             token
+                //         }
+                //     }`
+                // });
+
                 let data = result.data;
                 if(data.code==200){
                     ElMessage.success(data.msg);

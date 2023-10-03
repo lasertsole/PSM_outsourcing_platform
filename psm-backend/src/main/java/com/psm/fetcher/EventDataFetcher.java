@@ -9,9 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 @DgsComponent
-public class EvenDataFetcher {
+public class EventDataFetcher {
+
     @DgsQuery
     public List<String> events(){
+        return Arrays.asList("Reading book", "Watch Movie", "Cooking");
+    }
+
+    @DgsQuery
+    public List<String> testArr(){
         return Arrays.asList("Reading book", "Watch Movie", "Cooking");
     }
 
@@ -19,4 +25,7 @@ public class EvenDataFetcher {
     public String createEvent(@InputArgument String name){
         return name + "Created";
     }
+
+//    @DgsMutation
+//    public String register(@InputArgument String){}
 }

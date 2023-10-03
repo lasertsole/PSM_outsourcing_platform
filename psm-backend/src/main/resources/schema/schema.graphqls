@@ -1,7 +1,22 @@
 type Query{
     events:[String!]
+    testArr:[String!]
 }
 
 type Mutation{
     createEvent(name: String):String
+    register(acountInput: AccountInput):Account!
+}
+
+type Account{
+    status: String!
+    phoneNumber: String!
+    userName: String!
+    profile: String!
+    token: String!
+}
+
+input AccountInput{
+    phoneNumber: String!
+    password: String!
 }
