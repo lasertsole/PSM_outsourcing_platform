@@ -48,23 +48,23 @@ public class ShowcaseService {
 
                 /*将works加工成json格式*/
                 StringBuffer itemBoxVoToString = new StringBuffer();
-                itemBoxVoToString.append("{\"ID\":\"");
-                itemBoxVoToString.append(item.getWorkID());
-                itemBoxVoToString.append("\",\"authorID\":\"");
-                itemBoxVoToString.append(itemBoxVo.getAuthorID());
-                itemBoxVoToString.append("\",\"price\":\"");
-                itemBoxVoToString.append(itemBoxVo.getPrice());
-                itemBoxVoToString.append("\",\"type\":\"");
-                itemBoxVoToString.append(itemBoxVo.getType());
-                itemBoxVoToString.append("\",\"imgPath\":\"");
-                itemBoxVoToString.append(itemBoxVo.getImgPath());
-                itemBoxVoToString.append("\",\"videoPath\":\"");
-                itemBoxVoToString.append(itemBoxVo.getVideoPath());
-                itemBoxVoToString.append("\",\"abstractInfo\":\"");
-                itemBoxVoToString.append(itemBoxVo.getAbstractInfo());
-                itemBoxVoToString.append("\",\"modifyTime\":\"");
-                itemBoxVoToString.append(item.getWorkModifyTime());
-                itemBoxVoToString.append("\"}");
+                itemBoxVoToString.append("{\"ID\":\"")
+                                 .append(item.getWorkID())
+                                 .append("\",\"authorID\":\"")
+                                 .append(itemBoxVo.getAuthorID())
+                                 .append("\",\"price\":\"")
+                                 .append(itemBoxVo.getPrice())
+                                 .append("\",\"type\":\"")
+                                 .append(itemBoxVo.getType())
+                                 .append("\",\"imgPath\":\"")
+                                 .append(itemBoxVo.getImgPath())
+                                 .append("\",\"videoPath\":\"")
+                                 .append(itemBoxVo.getVideoPath())
+                                 .append("\",\"abstractInfo\":\"")
+                                 .append(itemBoxVo.getAbstractInfo())
+                                 .append("\",\"modifyTime\":\"")
+                                 .append(item.getWorkModifyTime())
+                                 .append("\"}");
 
                 ShowcaseBoxVo base = showcaseBoxVoList.get(index);
                 String baseWorks = base.getWorks();
