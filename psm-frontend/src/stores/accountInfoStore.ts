@@ -128,23 +128,23 @@ export const accountInfoStore = defineStore({
                 ElMessage.error('密码过长');
             }
             else{
-                let result = await axios.post("api/user/register",{phoneNumber,password});
+                // let result = await axios.post("api/user/register",{phoneNumber,password});
 
-                // let result = await grapQL({
-                //     query: `mutation {
-                //         register(
-                //             acountInput:{
-                //                 phoneNumber:"${phoneNumber}"
-                //                 password:"${password}"
-                //         }){
-                //             status
-                //             phoneNumber
-                //             userName
-                //             profile
-                //             token
-                //         }
-                //     }`
-                // });
+                let result = await grapQL({
+                    query: `mutation {
+                        register(
+                            acountInput:{
+                                phoneNumber:"${phoneNumber}"
+                                password:"${password}"
+                        }){
+                            status
+                            phoneNumber
+                            userName
+                            profile
+                            token
+                        }
+                    }`
+                });
 
                 let data = result.data;
                 if(data.code==200){

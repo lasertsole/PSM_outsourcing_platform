@@ -6,9 +6,6 @@ import com.netflix.graphql.dgs.InputArgument;
 import com.psm.mapper.AccountMapper;
 import com.psm.type.Account;
 import com.psm.type.AccountInput;
-import com.psm.utils.Result;
-import com.psm.vo.AccountVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
