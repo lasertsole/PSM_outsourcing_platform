@@ -1,12 +1,9 @@
-package com.psm.context;
+package com.psm.custom;
 
 import com.netflix.graphql.dgs.context.DgsCustomContextBuilderWithRequest;
 import com.psm.entity.AccountEntity;
 import com.psm.mapper.AccountMapper;
-import com.psm.utils.Result;
-import com.psm.vo.AccountVo;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
