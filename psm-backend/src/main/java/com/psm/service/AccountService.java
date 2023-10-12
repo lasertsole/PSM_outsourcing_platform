@@ -40,22 +40,6 @@ public class AccountService {
         }
     }
 
-    public Result<?> register(String phoneNumber, String password) {
-        String salt = String.valueOf(Math.abs(new Date().toString().hashCode()));
-        password = String.valueOf(Math.abs((password+salt).hashCode()));
-        String token = String.valueOf(Math.abs((phoneNumber+password+new Date().toString().hashCode()).hashCode()));
-        String userName = "新用户"+String.valueOf(Math.abs((salt+salt+token).hashCode()));
-        String profile = "/images/Profile/defaultProfile.jpg";
-        int status = 1;
-        try{
-            accountMapper.addNewAccount(phoneNumber, password, userName, profile, salt, token);
-            AccountVo accountVo = new AccountVo(String.valueOf(status), phoneNumber, userName, profile, token);
-            return Result.success(accountVo,"注册成功");
-        }catch (Exception e){
-            return Result.error("409","注册失败，用户已存在");
-        }
-    }
-
     public Result<?> fasterLogin(String token) {
         List<AccountEntity> list;
         try{

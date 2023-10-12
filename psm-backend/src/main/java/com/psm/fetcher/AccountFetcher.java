@@ -3,39 +3,44 @@ package com.psm.fetcher;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
+import com.psm.custom.GraphQLException;
+import com.psm.entity.AccountEntity;
 import com.psm.mapper.AccountMapper;
-import com.psm.type.Account;
-import com.psm.type.AccountInput;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
 @DgsComponent
-public class AccountDataFetcher {
+public class AccountFetcher {
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;//用于加密密码
 
-    public AccountDataFetcher(AccountMapper accountMapper, PasswordEncoder passwordEncoder){//springboot自动注入依赖
+    public AccountFetcher(AccountMapper accountMapper, PasswordEncoder passwordEncoder){//springboot自动注入依赖
         this.accountMapper = accountMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
     @DgsMutation
-    public Account register(@InputArgument AccountInput acountInput){
+    public AccountEntity register(@InputArgument String phoneNumber, @InputArgument String password){
         String salt = String.valueOf(Math.abs(new Date().toString().hashCode()));
-        String password = acountInput.getPassword();
         password = passwordEncoder.encode(password+salt);
-        String phoneNumber = acountInput.getPhoneNumber();
         String token = passwordEncoder.encode(phoneNumber+password+new Date().toString());
         String userName = "新用户"+String.valueOf(Math.abs((salt+salt+token).hashCode()));
         String profile = "/images/Profile/defaultProfile.jpg";
         int status = 1;
         try{
-            accountMapper.addNewAccount(phoneNumber, password, userName, profile, salt, token);
-            Account account = new Account(String.valueOf(status), phoneNumber, userName, profile, token);
-            return account;
+            AccountEntity accountEntity = new AccountEntity();
+            accountEntity.setPhoneNumber(phoneNumber);
+            accountEntity.setPassword(password);
+            accountEntity.setUserName(userName);
+            accountEntity.setProfile(profile);
+            accountEntity.setSalt(salt);
+            accountEntity.setToken(token);
+            accountEntity.setStatus(String.valueOf(status));
+            accountMapper.addNewAccount(accountEntity);
+            return accountEntity;
         }catch (Exception e){
-            throw new RuntimeException(e.toString());
+            throw new GraphQLException("409", "手机号已被注册");
         }
     }
 }

@@ -12,6 +12,7 @@ export function initAccountInfo(passGlobal:any):void{
 
 /**********持久化存储用户信息**********/
 let infoObj:AccountInfo={
+    ID: undefined,
     token: undefined,
     userName: undefined,
     userPhoneNumber: undefined,
@@ -45,6 +46,7 @@ export const accountInfoStore = defineStore({
         },
 
         setAccount:function( userInfo:AccountInfo ):void{//设置账号信息
+            this.ID = userInfo.ID;
             this.token = userInfo.token;
             this.userName = userInfo.userName;
             if(this.userName==""){this.userName=undefined;}
@@ -128,15 +130,13 @@ export const accountInfoStore = defineStore({
                 ElMessage.error('密码过长');
             }
             else{
-                // let result = await axios.post("api/user/register",{phoneNumber,password});
-
                 let result = await grapQL({
                     query: `mutation {
                         register(
-                            acountInput:{
-                                phoneNumber:"${phoneNumber}"
-                                password:"${password}"
-                        }){
+                            phoneNumber:"${phoneNumber}"
+                            password:"${password}"
+                        ){
+                            ID
                             status
                             phoneNumber
                             userName
@@ -147,10 +147,10 @@ export const accountInfoStore = defineStore({
                 });
 
                 let data = result.data;
-                if(data.code==200){
-                    ElMessage.success(data.msg);
-                    data=data.data;
-                    this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
+                if(!data.error){
+                    ElMessage.success("注册成功");
+                    data=data.data.register;
+                    this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                     global.Bus.emit("login");//广播用户上线通知
                 }
             }

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.psm.ato.AccountAto;
 import com.psm.service.AccountService;
-import com.psm.utils.TokenUitil;
 
 @RestController
 public class AccountController {
@@ -16,11 +15,6 @@ public class AccountController {
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public Result<?> login(@RequestBody AccountAto ato){
         return accountService.login(ato.getPhoneNumber(), ato.getPassword());
-    }
-
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public Result<?> register(@RequestBody AccountAto ato){
-        return accountService.register(ato.getPhoneNumber(), ato.getPassword());
     }
 
     @RequestMapping(value = "/user/fasterLogin", method = RequestMethod.GET)

@@ -6,10 +6,11 @@ type Query{
 
 type Mutation{
     createEvent(name: String):String
-    register(acountInput: AccountInput):Account!
+    register(phoneNumber: String, password: String):Account!
 }
 
 type Account{
+    ID: String!
     status: String!
     phoneNumber: String!
     userName: String!

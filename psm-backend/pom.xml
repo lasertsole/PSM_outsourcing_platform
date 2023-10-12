@@ -72,6 +72,13 @@
 			<version>2.1.0</version>
 		</dependency>
 
+<!--		&lt;!&ndash; mybatis-plus起步依赖 &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>com.baomidou</groupId>-->
+<!--			<artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--			<version>3.5.3.2</version>-->
+<!--		</dependency>-->
+
 		<!--redis起步依赖-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

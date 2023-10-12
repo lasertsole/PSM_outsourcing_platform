@@ -1,19 +1,18 @@
 package com.psm.mapper;
 
 import com.psm.entity.AccountEntity;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
 @Repository
-public interface AccountMapper {
+public interface AccountMapper{
     @Insert("insert into accountinfo(phoneNumber, password, userName, profile, salt, token ) values (#{phoneNumber}, #{password}, #{userName}, #{profile},  #{salt}, #{token})")
-    public int addNewAccount(String phoneNumber,String password, String userName, String profile, String salt, String token);
+    @Options(useGeneratedKeys = true, keyProperty = "ID")
+    public int addNewAccount(AccountEntity accountEntity);
+
     @Select("select * from accountinfo")
     public List<AccountEntity> findAll();
 

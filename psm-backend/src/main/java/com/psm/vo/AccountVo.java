@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountVo implements Serializable {
+    private String ID;
     private String status;
     private String phoneNumber;
     private String userName;
