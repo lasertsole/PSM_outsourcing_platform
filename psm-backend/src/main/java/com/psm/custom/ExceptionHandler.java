@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class ExceptionHandler implements DataFetcherExceptionHandler {
     @Override
     public CompletableFuture<DataFetcherExceptionHandlerResult> handleException(DataFetcherExceptionHandlerParameters handlerParameters) {
-        if (handlerParameters.getException() instanceof DgsException) {
+        if (handlerParameters.getException() instanceof GraphQLException) {
             GraphQLError graphqlError = TypedGraphQLError.newInternalErrorBuilder()
                     .message(handlerParameters.getException().getMessage())//获取异常信息
                     .path(handlerParameters.getPath()).build();

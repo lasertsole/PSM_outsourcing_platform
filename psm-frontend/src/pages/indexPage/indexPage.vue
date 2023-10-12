@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
     import { ref, computed } from "vue";
-    import axios from "axios";
     import useGlobal from "global";
+    import { grapQL } from "@/graphQL"
     import { storeToRefs } from "pinia";
     import carousel from "components/indexPage/carousel.vue"
 
@@ -29,8 +29,12 @@
 
     const carouselArr = ref<string[]>([]);
     (async function getFrontCover():Promise<void>{//首页获取设置轮播图
-        let result = await axios.get("api/getFrontCover");
-        carouselArr.value= result.data.data;
+        let result = await grapQL({
+            query: `{
+                FrontCover
+            }`
+        });
+        carouselArr.value= result.data.data.FrontCover;
     })();//setup时自调用一次，然后因为keepalive不会再次调用
 
     const carouselProcessArr = computed(()=>{

@@ -1,4 +1,5 @@
 type Query{
+    FrontCover:[String!]
     events:[String!]
     testArr:[String!]
 }

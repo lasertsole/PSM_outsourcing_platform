@@ -59,18 +59,18 @@ axios.interceptors.request.use((config)=>{
 	return config;
 });
 
-//axios响应拦截器
-axios.interceptors.response.use((res)=>{
-	if(res.data.code!="200"){
-		ElMessage({
-		showClose: true,
-		message: res.data.msg,
-		type: 'error'
-	  });
-	  return Promise.reject(res.data);
-	}
-	return res;
-});
+// //axios响应拦截器
+// axios.interceptors.response.use((res)=>{
+// 	if(res.data.code!="200"){
+// 		ElMessage({
+// 		showClose: true,
+// 		message: res.data.msg,
+// 		type: 'error'
+// 	  });
+// 	  return Promise.reject(res.data);
+// 	}
+// 	return res;
+// });
 
 //虚拟节点挂载到app节点
 app.mount('#app')
