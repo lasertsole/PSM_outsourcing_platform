@@ -25,24 +25,22 @@ public class AuthContextBuilder implements DgsCustomContextBuilderWithRequest {
     //fetcher前认证
     @Override
     public Object build(@Nullable Map map, @Nullable HttpHeaders httpHeaders, @Nullable WebRequest webRequest) {
-        AuthContext authContext = new AuthContext();
 
         //判断请求头是否含有Token字段
         if (!httpHeaders.containsKey(AUTHORIZATION_HEADER)){
-            authContext.setTokenInvaild(true);
-            return authContext;
+            return new GraphQLException("401", "用户未提供token");
         }
 
         String token = httpHeaders.getFirst(AUTHORIZATION_HEADER);
         List<AccountEntity> list = accountMapper.findByToken(token);
 
-        if(list.size()==0||list.get(0).getStatus()!="1"){
-            authContext.setTokenInvaild(true);
-            return authContext;
+        if(list.size()==0){
+            return new GraphQLException("401", "无效token");
+        }
+        else if (!list.get(0).getStatus().equals("1")) {
+            return new GraphQLException("403", "账号不可用");
         }
 
-        System.out.println(token);
-
-        return token;
+        return list.get(0);
     }
 }

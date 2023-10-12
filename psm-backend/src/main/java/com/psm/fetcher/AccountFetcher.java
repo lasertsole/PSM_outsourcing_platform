@@ -4,13 +4,16 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.context.DgsContext;
 import com.psm.custom.GraphQLException;
 import com.psm.entity.AccountEntity;
 import com.psm.mapper.AccountMapper;
 import com.psm.utils.Result;
 import com.psm.vo.AccountVo;
+import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.Date;
 
@@ -69,6 +72,17 @@ public class AccountFetcher {
             return accountEntity;
         }else{
             throw new GraphQLException("401", "密码错误，登录失败");
+        }
+    }
+
+    @DgsQuery
+    public AccountEntity fasterLogin(DataFetchingEnvironment dfe){
+        Object object =DgsContext.getCustomContext(dfe);
+        if (object instanceof GraphQLException){
+            throw (GraphQLException)object;
+        }
+        else {
+            return (AccountEntity)object;
         }
     }
 }

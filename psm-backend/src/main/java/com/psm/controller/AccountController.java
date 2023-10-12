@@ -12,11 +12,6 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(value = "/user/fasterLogin", method = RequestMethod.GET)
-    public Result<?> fasterLogin(@RequestHeader("token") String token){
-        return accountService.fasterLogin(token);
-    }
-
     @RequestMapping(value = "/user/changeUserName", method = RequestMethod.POST)
     public Result<?> changeUserName(@RequestHeader("token") String token, @RequestBody AccountAto ato){
         return accountService.changeUserName(token, ato.getUserName());

@@ -1,12 +1,10 @@
 type Query{
     FrontCover:[String!]
-    events:[String!]
-    testArr:[String!]
     login(phoneNumber: String, password: String):Account!
+    fasterLogin:Account!
 }
 
 type Mutation{
-    createEvent(name: String):String
     register(phoneNumber: String, password: String):Account!
 }
 

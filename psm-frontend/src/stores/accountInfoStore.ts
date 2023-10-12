@@ -75,11 +75,22 @@ export const accountInfoStore = defineStore({
         },
 
         fasterLogin: async function():Promise<void>{//自动登录
-            let result = await axios.get("api/user/fasterLogin");
+            let result = await grapQL({
+                query: `query {
+                    fasterLogin{
+                        ID
+                        status
+                        phoneNumber
+                        userName
+                        profile
+                        token
+                    }
+                }`
+            });
             let data = result.data;
-            if(data.code==200){
-                data = data?.data;
-                this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
+            if(!data.error){
+                data = data.data.fasterLogin;
+                this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
         },

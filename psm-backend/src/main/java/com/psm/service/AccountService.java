@@ -15,29 +15,6 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    public Result<?> fasterLogin(String token) {
-        List<AccountEntity> list;
-        try{
-            list = accountMapper.findByToken(token);
-            if (list.size()==0){
-                return Result.error("404","token对应的用户不存在");
-            }
-            else if(list.get(0).getStatus()=="2"){
-                return Result.error("403","账号封禁中");
-            }
-            else if(list.get(0).getStatus()=="3"){
-                return Result.error("410","账号已注销");
-            }
-            else{
-                AccountVo accountVo = new AccountVo();
-                BeanUtils.copyProperties(list.get(0), accountVo);
-                return Result.success(accountVo,"快速登录成功");
-            }
-        }catch (Exception e){
-            return Result.error("500","登录时发生错误:"+e.toString());
-        }
-    }
-
     public Result<?> changeUserName(String token, String userName) {
         AccountVo accountVo = new AccountVo();
         int result = 0;
