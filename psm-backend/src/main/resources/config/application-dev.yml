@@ -12,10 +12,11 @@ spring:
 
 #mysql数据库连接配置
   datasource:
-    url: jdbc:mysql:///psm?serverTimezone=UTC
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql:///psm?serverTimezone=UTC
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
 
 #服务器地址及端口
 server:

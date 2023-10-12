@@ -30,5 +30,4 @@ public interface AccountMapper{
 
     @Update("update accountinfo set password=#{password} where token=#{token}")
     public int updatePassword(String token, String password);
-
 }
