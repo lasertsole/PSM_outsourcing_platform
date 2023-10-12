@@ -2,6 +2,7 @@ type Query{
     FrontCover:[String!]
     events:[String!]
     testArr:[String!]
+    login(phoneNumber: String, password: String):Account!
 }
 
 type Mutation{

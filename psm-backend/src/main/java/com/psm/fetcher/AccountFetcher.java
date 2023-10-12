@@ -2,10 +2,14 @@ package com.psm.fetcher;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import com.psm.custom.GraphQLException;
 import com.psm.entity.AccountEntity;
 import com.psm.mapper.AccountMapper;
+import com.psm.utils.Result;
+import com.psm.vo.AccountVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
@@ -41,6 +45,30 @@ public class AccountFetcher {
             return accountEntity;
         }catch (Exception e){
             throw new GraphQLException("409", "手机号已被注册");
+        }
+    }
+
+    @DgsQuery
+    public AccountEntity login(@InputArgument String phoneNumber, @InputArgument String password){
+        AccountEntity accountEntity;
+        try {
+            accountEntity = accountMapper.findByPhone(phoneNumber).get(0);
+        } catch (Exception e) {
+            throw new GraphQLException("404", "账号不存在，登录失败");
+        }
+
+        if(accountEntity.getPassword().equals(String.valueOf(Math.abs((password+accountEntity.getSalt()).hashCode())))){
+            switch (Integer.parseInt(accountEntity.getStatus())){
+                case 2:
+                    throw new GraphQLException("403", "账号已被封禁");
+                case 3:
+                    throw new GraphQLException("410", "账号已注销");
+                default:break;
+            };
+
+            return accountEntity;
+        }else{
+            throw new GraphQLException("401", "密码错误，登录失败");
         }
     }
 }

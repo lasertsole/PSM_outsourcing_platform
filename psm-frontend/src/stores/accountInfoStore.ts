@@ -101,13 +101,27 @@ export const accountInfoStore = defineStore({
                 ElMessage.error('密码过长');
             }
             else{
-                let result = await axios.post("api/user/login",{phoneNumber, password});
+                let result = await grapQL({
+                    query: `query {
+                        login(
+                            phoneNumber:"${phoneNumber}"
+                            password:"${password}"
+                        ){
+                            ID
+                            status
+                            phoneNumber
+                            userName
+                            profile
+                            token
+                        }
+                    }`
+                });
 
                 let data = result.data;
-                if(data.code == 200){
-                    ElMessage.success(data.msg);
-                    data = data.data;
-                    this.setAccount({token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline:true});
+                if(!data.error){
+                    ElMessage.success("登录成功");
+                    data = data.data.login;
+                    this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                     global.Bus.emit("login");//广播用户上线通知
                 }
             }

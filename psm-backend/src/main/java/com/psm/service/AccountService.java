@@ -15,31 +15,6 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    public Result<?> login(String phoneNumber, String password) {
-        AccountEntity accountEntity;
-        try {
-            accountEntity = accountMapper.findByPhone(phoneNumber).get(0);
-        } catch (Exception e) {
-            return Result.error("404", "账号不存在，登录失败");
-        }
-
-        if(accountEntity.getPassword().equals(String.valueOf(Math.abs((password+accountEntity.getSalt()).hashCode())))){
-            switch (Integer.parseInt(accountEntity.getStatus())){
-                case 2:
-                    return Result.error("403", "账号已被封禁");
-                case 3:
-                    return Result.error("410", "账号已注销");
-                default:break;
-            };
-
-            AccountVo accountVo = new AccountVo();
-            BeanUtils.copyProperties(accountEntity, accountVo);
-            return Result.success(accountVo, "登录成功");
-        }else{
-            return Result.error("401", "密码错误，登录失败");
-        }
-    }
-
     public Result<?> fasterLogin(String token) {
         List<AccountEntity> list;
         try{
