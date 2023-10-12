@@ -15,23 +15,6 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    public Result<?> changeUserName(String token, String userName) {
-        AccountVo accountVo = new AccountVo();
-        int result = 0;
-
-        try {
-            result = accountMapper.updateUserName(token, userName);
-            if(result!=1){
-                return Result.error("304", "修改名字未成功");
-            }
-            else{
-                return Result.success("修改名字成功");
-            }
-        }catch (Exception e){
-            return Result.error("500","修改名字时发生错误:"+e.toString());
-        }
-    }
-
     public Result<?> changeUserPhoneNumber(String token, String phoneNumber) {
         int result = 0;
 

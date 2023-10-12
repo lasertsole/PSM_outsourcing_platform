@@ -6,6 +6,7 @@ type Query{
 
 type Mutation{
     register(phoneNumber: String, password: String):Account!
+    changeUserName(userName: String):Boolean
 }
 
 type Account{

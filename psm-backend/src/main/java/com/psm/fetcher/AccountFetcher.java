@@ -85,4 +85,27 @@ public class AccountFetcher {
             return (AccountEntity)object;
         }
     }
+
+    @DgsMutation
+    public Boolean changeUserName(String userName, DataFetchingEnvironment dfe){
+        Object object =DgsContext.getCustomContext(dfe);
+        if (object instanceof GraphQLException){
+            throw (GraphQLException)object;
+        }
+
+        try {
+            int result = 0;
+
+            AccountEntity accountEntity = (AccountEntity)object;
+            result = accountMapper.updateUserName(accountEntity.getToken(), userName);
+            if(result!=1){
+                throw new GraphQLException("304", "修改名字未成功");
+            }
+            else{
+                return true;
+            }
+        }catch (Exception e){
+            throw new GraphQLException("500","修改名字时发生程序错误");
+        }
+    }
 }

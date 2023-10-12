@@ -187,10 +187,15 @@ export const accountInfoStore = defineStore({
         },
 
         changeUserName: async function(userName:string):Promise<boolean>{//用户设置名字
-            let result = await axios.post("api/user/changeUserName",{userName});
+            let result = await grapQL({
+                query: `mutation {
+                    changeUserName(userName:"${userName}")
+                }`
+            });
+            
             let data = result.data;
-            if(data.code==200){
-                ElMessage.success("修改成功");
+            if(!data.error){
+                ElMessage.success("修改名字成功");
                 this.InfoChange({userName});
                 return true;
             }

@@ -12,11 +12,6 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(value = "/user/changeUserName", method = RequestMethod.POST)
-    public Result<?> changeUserName(@RequestHeader("token") String token, @RequestBody AccountAto ato){
-        return accountService.changeUserName(token, ato.getUserName());
-    }
-
     @RequestMapping(value = "/user/changeUserPhoneNumber", method = RequestMethod.POST)
     public Result<?> changeUserPhoneNumber(@RequestHeader("token") String token, @RequestBody AccountAto ato){
         return accountService.changeUserPhoneNumber(token, ato.getPhoneNumber());
