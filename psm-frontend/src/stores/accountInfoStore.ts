@@ -88,7 +88,7 @@ export const accountInfoStore = defineStore({
                 }`
             });
             let data = result.data;
-            if(!data.error){
+            if(!data.errors){
                 data = data.data.fasterLogin;
                 this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                 global.Bus.emit("login","");//广播用户上线通知
@@ -129,7 +129,7 @@ export const accountInfoStore = defineStore({
                 });
 
                 let data = result.data;
-                if(!data.error){
+                if(!data.errors){
                     ElMessage.success("登录成功");
                     data = data.data.login;
                     this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
@@ -172,7 +172,7 @@ export const accountInfoStore = defineStore({
                 });
 
                 let data = result.data;
-                if(!data.error){
+                if(!data.errors){
                     ElMessage.success("注册成功");
                     data=data.data.register;
                     this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
@@ -194,7 +194,7 @@ export const accountInfoStore = defineStore({
             });
             
             let data = result.data;
-            if(!data.error){
+            if(!data.errors){
                 ElMessage.success("修改名字成功");
                 this.InfoChange({userName});
                 return true;
@@ -205,10 +205,15 @@ export const accountInfoStore = defineStore({
         },
 
         changeUserPhoneNumber: async function(userPhoneNumber:string):Promise<boolean>{//用户设置名字
-            let result = await axios.post("api/user/changeUserPhoneNumber",{phoneNumber:userPhoneNumber});
+            let result = await grapQL({
+                query: `mutation {
+                    changeUserPhoneNumber(userPhoneNumber:"${userPhoneNumber}")
+                }`
+            });
+
             let data = result.data;
-            if(data.code==200){
-                ElMessage.success("修改成功");
+            if(!data.errors){
+                ElMessage.success("修改手机号码成功");
                 this.InfoChange({userPhoneNumber});
                 return true;
             }
@@ -217,11 +222,16 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserPassword: async function(password:string):Promise<boolean> {
-            let result = await axios.post("api/user/changeUserPassword",{password});
+        changeUserPassword: async function(userPassword:string):Promise<boolean> {
+            let result = await grapQL({
+                query: `mutation {
+                    changeUserPassword(userPassword:"${userPassword}")
+                }`
+            });
+
             let data = result.data;
-            if(data.code==200){
-                ElMessage.success("修改成功");
+            if(!data.errors){
+                ElMessage.success("修改密码成功");
                 return true;
             }
             else{

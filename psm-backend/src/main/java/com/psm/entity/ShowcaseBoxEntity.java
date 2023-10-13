@@ -8,14 +8,13 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShowcaseBoxEntity implements Serializable {
+public class ShowcaseBoxEntity{
     private String ID;
     private String userName;
     private String profile;
     private String honor;
     private String authorBrief;
     private String authorID;
-    private String modify_time;
     private String commentNum;
     private String primarySort;
     private String lastSort;

@@ -1,6 +1,6 @@
 import axios from "axios"
+import { grapQL } from "@/graphQL"
 import { defineStore } from "pinia";
-import { ElMessage } from "element-plus";
 import { ShowcaseBoxesInfo } from "@/types/stores/ShowcaseInfo"
 
 /**********showcaseInfoStore传入全局变量**********/
@@ -20,20 +20,70 @@ export const showcaseInfoStore = defineStore({
 
     actions:{
         getShowcaseBoxes: async function(infoArr:any): Promise<ShowcaseBoxesInfo[]|null>{
-            let result = await axios.get("api/showcase/getShowcaseBoxes", { params: { primarySort:infoArr[0], lastSort:infoArr[1], sortWay:infoArr[2], isIdle:infoArr[3], canQuicky:infoArr[4] } });
+            let result = await grapQL({
+                query: `query {
+                    getShowcaseBoxes(
+                        showcaseBoxParams:{
+                          primarySort:"${infoArr[0]}"
+                          lastSort:"${infoArr[1]}"
+                          sortWay: "${infoArr[2]}"
+                          isIdle:${infoArr[3]}
+                          canQuicky:${infoArr[4]}
+                        }
+                      )
+                      {
+                        ID
+                        userName
+                        profile
+                        honor
+                        authorBrief
+                        authorID
+                        commentNum
+                        primarySort
+                        lastSort
+                        isIdle
+                        canQuicky
+                        works
+                      }
+                    }`
+            });
+
             let data = result.data;
-            if(data.code==200){
-                data = data?.data;
+            if(!data.errors){
+                data = data.data.getShowcaseBoxes;
                 return data;
             }
             return null;
         },
 
         getShowcaseBoxDetail: async function(ID:string): Promise<ShowcaseBoxesInfo[]|null>{
-            let result = await axios.get("api/showcase/getShowcaseBoxDetail", { params: { ID } });
+            let result = await grapQL({
+                query: `query {
+                            getShowcaseBoxDetail(
+                                ID:"${ID}"
+                            ){
+                                ID
+                                authorID
+                                price
+                                imgPath
+                                videoPath
+                                    abstractInfo
+                                modifyTime
+                                mainInfo
+                                profile
+                                userName
+                                commentNum
+                                primarySort
+                                lastSort
+                                isIdle
+                                canQuicky
+                            }
+                        }`
+            });
+
             let data = result.data;
-            if(data.code==200){
-                data = data?.data;
+            if(!data.errors){
+                data = data.data.getShowcaseBoxDetail;
                 return data;
             }
             return null;

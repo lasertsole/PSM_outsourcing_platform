@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
-    private String status;
+    private String ID;
     private String phoneNumber;
+    private String password;
     private String userName;
     private String profile;
+    private String salt;
     private String token;
+    private String status;
+    private String commentNum;
 }

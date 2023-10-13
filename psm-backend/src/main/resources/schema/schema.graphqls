@@ -1,12 +1,20 @@
 type Query{
+    #Account
     FrontCover:[String!]
     login(phoneNumber: String, password: String):Account!
     fasterLogin:Account!
+
+    #showcase
+    getShowcaseBoxes(showcaseBoxParams: ShowcaseBoxParamsInput):[ShowcaseBox!]
+    getShowcaseBoxDetail(ID: String):ShowcaseDetailBox
 }
 
 type Mutation{
+    #Account
     register(phoneNumber: String, password: String):Account!
     changeUserName(userName: String):Boolean
+    changeUserPhoneNumber(userPhoneNumber: String):Boolean
+    changeUserPassword(userPassword: String):Boolean
 }
 
 type Account{
@@ -18,7 +26,43 @@ type Account{
     token: String!
 }
 
-input AccountInput{
-    phoneNumber: String!
-    password: String!
+type ShowcaseBox{
+    ID: String!
+    userName: String!
+    profile: String!
+    honor: String!
+    authorBrief: String!
+    authorID: String!
+    works: String!
+    commentNum: String!
+    primarySort: String!
+    lastSort: String!
+    isIdle: String!
+    canQuicky: String!
+}
+
+input ShowcaseBoxParamsInput{
+    primarySort: String!
+    lastSort: String!
+    sortWay: String!
+    isIdle: Boolean!
+    canQuicky: Boolean!
+}
+
+type ShowcaseDetailBox{
+    ID: String!
+    authorID: String!
+    price: String!
+    imgPath: String!
+    videoPath: String!
+    abstractInfo: String!
+    modifyTime: String!
+    mainInfo: String!
+    profile: String!
+    userName: String!
+    commentNum: String!
+    primarySort: String!
+    lastSort: String!
+    isIdle: String!
+    canQuicky: String!
 }

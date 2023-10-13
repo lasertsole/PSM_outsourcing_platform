@@ -1,15 +1,13 @@
-package com.psm.vo;
+package com.psm.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemBoxVo implements Serializable {
+public class ItemBox {
     private String ID;
     private String authorID;
     private String price;

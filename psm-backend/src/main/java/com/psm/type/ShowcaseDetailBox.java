@@ -1,4 +1,4 @@
-package com.psm.vo;
+package com.psm.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShowcaseDetailBoxVo {
+public class ShowcaseDetailBox {
     private String ID;
     private String authorID;
     private String price;
