@@ -15,4 +15,5 @@ public class ItemBox {
     private String imgPath;
     private String videoPath;
     private String abstractInfo;
+    private String modifyTime;
 }

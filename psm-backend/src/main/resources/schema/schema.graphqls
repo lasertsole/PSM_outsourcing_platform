@@ -26,6 +26,25 @@ type Account{
     token: String!
 }
 
+input ShowcaseBoxParamsInput{
+    primarySort: String!
+    lastSort: String!
+    sortWay: String!
+    isIdle: Boolean!
+    canQuicky: Boolean!
+}
+
+type ItemBox{
+    ID: String!
+    authorID: String!
+    price: String!
+    type: String!
+    imgPath: String!
+    videoPath: String!
+    abstractInfo: String!
+    modifyTime: String!
+}
+
 type ShowcaseBox{
     ID: String!
     userName: String!
@@ -39,14 +58,6 @@ type ShowcaseBox{
     lastSort: String!
     isIdle: String!
     canQuicky: String!
-}
-
-input ShowcaseBoxParamsInput{
-    primarySort: String!
-    lastSort: String!
-    sortWay: String!
-    isIdle: Boolean!
-    canQuicky: Boolean!
 }
 
 type ShowcaseDetailBox{
