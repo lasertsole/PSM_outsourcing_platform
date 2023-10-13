@@ -31,7 +31,7 @@ public class ShowcaseFetcher {
         IdentiUitil.IdentiToken(dfe);//判断是否为登录状态
 
         try{
-            List<ShowcaseBoxEntity> showcaseBoxEntityList = showCaseMapper.getTestBoxes(showcaseBoxParams.getPrimarySort(), showcaseBoxParams.getLastSort(),
+            List<ShowcaseBoxEntity> showcaseBoxEntityList = showCaseMapper.getShowcaseBoxes(showcaseBoxParams.getPrimarySort(), showcaseBoxParams.getLastSort(),
                     showcaseBoxParams.getIsIdle(), showcaseBoxParams.getCanQuicky(), showcaseBoxParams.getSortWay());
 
             List<ShowcaseBox> showcaseBoxList = new ArrayList<>();
