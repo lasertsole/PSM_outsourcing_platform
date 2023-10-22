@@ -3,7 +3,9 @@ package com.psm.utils;
 import com.netflix.graphql.dgs.context.DgsContext;
 import com.psm.custom.GraphQLException;
 import graphql.schema.DataFetchingEnvironment;
+import org.springframework.stereotype.Component;
 
+@Component
 public class IdentiUitil {
     public static Object IdentiToken(DataFetchingEnvironment dfe){
         Object object = DgsContext.getCustomContext(dfe);

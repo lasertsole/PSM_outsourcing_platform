@@ -1,9 +1,12 @@
 package com.psm.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Component
 public class DateUitil {
     public static String getByPattern(String pattern){//获取指定格式的日期和时间
         return new SimpleDateFormat(pattern).format(new Date());

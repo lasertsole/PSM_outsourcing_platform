@@ -52,6 +52,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!--Aop代理-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
 		<!--DGS graphQL-->
 		<dependency>
 			<groupId>com.netflix.graphql.dgs</groupId>

@@ -4,10 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.psm.utils.YmlUtil;
-
+import org.springframework.stereotype.Component;
 import java.util.Date;
 
+@Component
 public class TokenUitil {
     static private final String ISSUER = YmlUtil.getValue("Token.issuer");
     static private final String USER_ID = YmlUtil.getValue("Token.userID");

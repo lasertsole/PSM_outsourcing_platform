@@ -11,3 +11,6 @@ Token:
   issuer: moye
   userID: 3132225629
   secret: a9Sd'?*vA
+
+#需要跳过身份验证的方法
+SkipIdentify: register,login,fasterLogin
