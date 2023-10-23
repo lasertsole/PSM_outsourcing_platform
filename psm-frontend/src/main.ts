@@ -14,15 +14,15 @@ import { showcaseInfoStore, initShowcaseInfo }  from "@/stores/showcaseInfoStore
 //引入Element-Plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { ElMessage } from 'element-plus';
 
 //引入apollo-client
-import { ApolloClient, InMemoryCache, ApolloLink, HttpLink } from '@apollo/client/core'
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
+import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client/core';
 
 //引入事件总线mitt
 import mitt from 'mitt';
-
 const app = createApp(App);
 
 app.use(router);
@@ -30,9 +30,8 @@ app.use(store);
 app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 
 /*apollo-client配置*/
-const httpLink = new HttpLink({
-	uri: 'api/graphql',
-});
+//支持文件上传的链接方式
+const uploadLink = createUploadLink({uri: 'api/graphql'});
 
 //apollo-link请求拦截器
 const authLink = new ApolloLink((operation:any, forward:any) => {
@@ -56,7 +55,7 @@ const resLink = new ApolloLink((operation:any, forward:any) => {
 
 const cache = new InMemoryCache()
 export const apolloClient = new ApolloClient({
-	link:authLink.concat(resLink).concat(httpLink),
+	link:authLink.concat(resLink).concat(uploadLink),
 	cache,
 })
 
