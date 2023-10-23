@@ -18,7 +18,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import { ElMessage } from 'element-plus';
 
 //引入apollo-client
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, InMemoryCache, ApolloLink, HttpLink } from '@apollo/client/core'
 
 //引入事件总线mitt
 import mitt from 'mitt';
@@ -29,30 +29,35 @@ app.use(router);
 app.use(store);
 app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
 
-//apollo-client配置
-export const apolloClient = new ApolloClient({
+/*apollo-client配置*/
+const httpLink = new HttpLink({
 	uri: 'api/graphql',
+});
 
-	request:(operation:any)=>{
-		if(accountInfo.token){
-			operation.setContext({
-				headers:{
-					Token:accountInfo.token
-				}
-			})
-		}
-	},
+//apollo-link请求拦截器
+const authLink = new ApolloLink((operation:any, forward:any) => {
+	operation.setContext({ headers:{
+		Token:accountInfo.token
+	} });
+	return forward(operation);
+});
 
-	onError:({ graphQLErrors, networkError })=>{
-		if (graphQLErrors) {
-			graphQLErrors.forEach((item:{message:string}) => {
+//apollo-link响应拦截器
+const resLink = new ApolloLink((operation:any, forward:any) => {
+	return forward(operation).map((res:any)=>{
+		if(res.errors){
+			res.errors.forEach((item:any)=>{
 				ElMessage.error(item.message);
 			});
 		}
-		if (networkError) {
-			ElMessage.error("网络状况不佳,请检查网络连接");
-		}
-	}
+		return res;
+	});
+});
+
+const cache = new InMemoryCache()
+export const apolloClient = new ApolloClient({
+	link:authLink.concat(resLink).concat(httpLink),
+	cache,
 })
 
 //apollo-client信息全局化

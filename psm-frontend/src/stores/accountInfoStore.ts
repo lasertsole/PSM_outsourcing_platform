@@ -241,7 +241,15 @@ export const accountInfoStore = defineStore({
         },
 
         changeUserProfile: async function(params:any):Promise<void>{//用户设置头像
-            console.log(params);
+            // let result = await apolloClient.mutate({
+            //     mutation: gql`mutation ($img:Upload!) {
+            //         changeUserProfile(userProfile:$img)
+            //     }`,
+            //     variables:{img:formData.get("file")},
+            //     context: {
+            //         hasUpload: true, // Important!
+            //     },
+            // });
         },
 
     }

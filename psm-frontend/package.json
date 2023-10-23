@@ -11,9 +11,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "apollo-boost": "^0.4.9",
+    "@apollo/client": "^3.8.6",
+    "apollo-upload-client": "^18.0.0",
     "element-plus": "^2.3.1",
     "graphql": "^15.8.0",
+    "graphql-tag": "^2.12.6",
     "gsap": "^3.11.5",
     "mitt": "^3.0.0",
     "pinia": "^2.0.33",
@@ -21,7 +23,7 @@
     "sass": "^1.60.0",
     "swiper": "^8.4.7",
     "vue": "^3.2.45",
-    "vue-apollo": "^3.1.1",
+    "vue-apollo": "^3.0.0-alpha.3",
     "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6",
     "xgplayer": "^3.0.9"
