@@ -40,6 +40,10 @@
 @mixin fullInParent {
 	@include fixedSquare(100%);
 }
+/* 固定充满父容器的圆形 */
+@mixin fullInParentCircle {
+	@include fixedCircle(100%)
+}
 /* 放置背景图片的环境配置 */
 @mixin backgroundImgCondition(){
 	background-repeat: no-repeat;

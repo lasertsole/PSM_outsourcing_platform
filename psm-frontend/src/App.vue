@@ -15,10 +15,8 @@
 </template>
 
 <script setup lang="ts">
-    import axios from "axios";
     import useGlobal from "global"
     import { storeToRefs } from "pinia";
-    import { ElMessage } from "element-plus";
     import LARModel from "components/framework/LARModel.vue";
     import { onMounted, onUnmounted } from "vue";
     import HeaderComponent from "components/framework/HeaderComponent.vue";
@@ -34,19 +32,6 @@
     if(token.value){//如果存在token则自动登录
         accountInfo.fasterLogin(token.value);
     };
-
-    async function fasterLogin(){//自动登录
-        let result = await axios.get("api/user/fasterLogin");
-        let data = result.data;
-        if(data.status==1){
-            ElMessage.success(data.msg);
-            token.value = result.data.token;
-            userinfo.value = result.data.userinfo;
-        }
-        else{
-            ElMessage.error(data.msg);
-        }
-    }
 
     function initUserInfo():void{//如果没有token值则清空账户信息
         if(token.value==undefined){

@@ -17,8 +17,8 @@ import 'element-plus/dist/index.css';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import { ElMessage } from 'element-plus';
 
-//引入axios
-import axios from 'axios';
+//引入apollo-client
+import ApolloClient from 'apollo-boost';
 
 //引入事件总线mitt
 import mitt from 'mitt';
@@ -28,6 +28,35 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(ElementPlus,{locale: zhCn,});//使用中国版element-plus
+
+//apollo-client配置
+export const apolloClient = new ApolloClient({
+	uri: 'api/graphql',
+
+	request:(operation:any)=>{
+		if(accountInfo.token){
+			operation.setContext({
+				headers:{
+					Token:accountInfo.token
+				}
+			})
+		}
+	},
+
+	onError:({ graphQLErrors, networkError })=>{
+		if (graphQLErrors) {
+			graphQLErrors.forEach((item:{message:string}) => {
+				ElMessage.error(item.message);
+			});
+		}
+		if (networkError) {
+			ElMessage.error("网络状况不佳,请检查网络连接");
+		}
+	}
+})
+
+//apollo-client信息全局化
+app.config.globalProperties.apolloClient = apolloClient;
 
 //服务器地址全局化
 app.config.globalProperties.serverUrl = "http://"+import.meta.env.VITE_URL;
@@ -50,26 +79,6 @@ initShowcaseInfo(app.config.globalProperties);
 
 //给路由守卫传用户信息变量
 router.initRouterGuard(accountInfo);
-
-//axios请求拦截器
-axios.interceptors.request.use((config)=>{
-	if(accountInfo.token){
-		config.headers['token'] = accountInfo.token;
-	}
-	return config;
-});
-
-//axios响应拦截器
-axios.interceptors.response.use((res)=>{
-	if(res.data.errors){
-		let errors: Object[];
-		res.data.errors.forEach((item:{message:string}) => {
-			ElMessage.error(item.message);
-		});
-	  return Promise.reject(res.data);
-	}
-	return res;
-});
 
 //虚拟节点挂载到app节点
 app.mount('#app')

@@ -1,7 +1,14 @@
 <template>
     <div class="accountModify">
         <ul class="infoBox">
-
+            <li class="profile">
+                <div class="circle">
+                    <uploadProfile
+                        :profile="profile"
+                    >
+                    </uploadProfile>
+                </div>
+            </li>
             <li>
                 <div class="show">
                     <span class="optionName">昵称</span>
@@ -77,12 +84,19 @@
     import useGlobal from "global";
     import { storeToRefs } from "pinia";
     import { ElMessage } from 'element-plus';
-    import { ref, onMounted, onUnmounted, watch } from "vue";
+    import uploadProfile from "@/components/accountModify/uploadProfile.vue";
+    import { ref, onMounted, onUnmounted, watch, ComputedRef, computed } from "vue";
 
     const global = useGlobal();
     const accountInfo = global?.accountInfo;//获取用户账号信息的pinia
     const { userProfile, userName, userPhoneNumber } = storeToRefs(accountInfo);
     const Bus = global?.Bus;
+
+    /**获取用户头像**/
+    const serverUrl:string = global?.serverUrl;//从环境变量中获取服务器地址
+    const profile:ComputedRef<string> = computed(()=>{//获取头像
+        return serverUrl+userProfile.value;
+    })
 
     /**以下为展开合上盒子时的动画特效**/
     /*详情盒子动画钩子*/
@@ -236,8 +250,22 @@
 
             li{
                 padding: 30px;
-                &:not(:last-child){
+                &:not(:last-child,:first-child){
                     border-bottom: 1px solid #ececec;
+                }
+
+                &.profile{
+                    display: flex;
+                    justify-content: center;
+                    padding: 0px;
+                    position: relative;
+                    height: 50px;
+                
+                    .circle{
+                        position: absolute;
+                        @include fixedCircle(100px);
+                        top: -40px;
+                    }
                 }
 
                 .show{

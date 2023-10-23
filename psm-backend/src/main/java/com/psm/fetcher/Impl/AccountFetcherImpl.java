@@ -1,9 +1,6 @@
 package com.psm.fetcher.Impl;
 
-import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsMutation;
-import com.netflix.graphql.dgs.DgsQuery;
-import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.*;
 import com.psm.custom.GraphQLException;
 import com.psm.entity.AccountEntity;
 import com.psm.fetcher.AccountFetcher;
@@ -13,6 +10,7 @@ import com.psm.type.Account;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -215,5 +213,12 @@ public class AccountFetcherImpl implements AccountFetcher {
         }catch (Exception e){
             throw new GraphQLException("20032", "修改密码时发生程序错误");
         }
+    }
+
+    @DgsMutation
+    @IdentifyToken
+    public Boolean changeUserProfile(@InputArgument MultipartFile userProfile, @RequestHeader("Token") String token){
+        System.out.println(userProfile);
+        return true;
     }
 }

@@ -1,13 +1,14 @@
-import axios from "axios"
+import gql from 'graphql-tag'
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
 import { AccountInfo } from "@/types/stores/AccountInfo";
-import { grapQL } from "@/graphQL"
 
 /**********accountInfoStore传入全局变量**********/
 let global:any=undefined;
+let apolloClient:any;
 export function initAccountInfo(passGlobal:any):void{
     global=passGlobal;
+    apolloClient=global?.apolloClient;
 }
 
 /**********持久化存储用户信息**********/
@@ -75,8 +76,8 @@ export const accountInfoStore = defineStore({
         },
 
         fasterLogin: async function():Promise<void>{//自动登录
-            let result = await grapQL({
-                query: `query {
+            let result = await apolloClient.query({
+                query: gql`query {
                     fasterLogin{
                         ID
                         status
@@ -89,7 +90,7 @@ export const accountInfoStore = defineStore({
             });
             let data = result.data;
             if(!data.errors){
-                data = data.data.fasterLogin;
+                data = data.fasterLogin;
                 this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                 global.Bus.emit("login","");//广播用户上线通知
             }
@@ -112,8 +113,8 @@ export const accountInfoStore = defineStore({
                 ElMessage.error('密码过长');
             }
             else{
-                let result = await grapQL({
-                    query: `query {
+                let result = await apolloClient.query({
+                    query: gql`query {
                         login(
                             phoneNumber:"${phoneNumber}"
                             password:"${password}"
@@ -131,7 +132,7 @@ export const accountInfoStore = defineStore({
                 let data = result.data;
                 if(!data.errors){
                     ElMessage.success("登录成功");
-                    data = data.data.login;
+                    data = data.login;
                     this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                     global.Bus.emit("login");//广播用户上线通知
                 }
@@ -155,8 +156,8 @@ export const accountInfoStore = defineStore({
                 ElMessage.error('密码过长');
             }
             else{
-                let result = await grapQL({
-                    query: `mutation {
+                let result = await apolloClient.mutate({
+                    mutation: gql`mutation {
                         register(
                             phoneNumber:"${phoneNumber}"
                             password:"${password}"
@@ -174,7 +175,7 @@ export const accountInfoStore = defineStore({
                 let data = result.data;
                 if(!data.errors){
                     ElMessage.success("注册成功");
-                    data=data.data.register;
+                    data=data.register;
                     this.setAccount({ID:data.ID, token:data.token, userPhoneNumber:data.phoneNumber, userName: data.userName,userProfile: data.profile, isOnline: true});
                     global.Bus.emit("login");//广播用户上线通知
                 }
@@ -187,8 +188,8 @@ export const accountInfoStore = defineStore({
         },
 
         changeUserName: async function(userName:string):Promise<boolean>{//用户设置名字
-            let result = await grapQL({
-                query: `mutation {
+            let result = await apolloClient.mutate({
+                mutation: gql`mutation {
                     changeUserName(userName:"${userName}")
                 }`
             });
@@ -204,9 +205,9 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserPhoneNumber: async function(userPhoneNumber:string):Promise<boolean>{//用户设置名字
-            let result = await grapQL({
-                query: `mutation {
+        changeUserPhoneNumber: async function(userPhoneNumber:string):Promise<boolean>{//用户设置手机号
+            let result = await apolloClient.mutate({
+                mutation: gql`mutation {
                     changeUserPhoneNumber(userPhoneNumber:"${userPhoneNumber}")
                 }`
             });
@@ -223,8 +224,8 @@ export const accountInfoStore = defineStore({
         },
 
         changeUserPassword: async function(userPassword:string):Promise<boolean> {
-            let result = await grapQL({
-                query: `mutation {
+            let result = await apolloClient.mutate({
+                mutation: gql`mutation {
                     changeUserPassword(userPassword:"${userPassword}")
                 }`
             });
@@ -239,21 +240,8 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        accountSetProfile: async function(file:any):Promise<void>{//用户设置头像
-            const formData = new FormData();//第一次请求
-            formData.append("file", file);
-            formData.append("format", "jpg");
-            let result = await axios({
-                method: 'post',
-                url: "api/user/setProfile",
-                headers: {
-                    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVCFSAonTuDbVCoAN",
-                },
-                data: formData,
-            });
-            if(result.data.status!=0){
-                ElMessage.success("上传成功");
-            }
+        changeUserProfile: async function(params:any):Promise<void>{//用户设置头像
+            console.log(params);
         },
 
     }

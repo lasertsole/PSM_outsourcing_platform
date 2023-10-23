@@ -11,8 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.3.4",
+    "apollo-boost": "^0.4.9",
     "element-plus": "^2.3.1",
+    "graphql": "^15.8.0",
     "gsap": "^3.11.5",
     "mitt": "^3.0.0",
     "pinia": "^2.0.33",
@@ -20,6 +21,7 @@
     "sass": "^1.60.0",
     "swiper": "^8.4.7",
     "vue": "^3.2.45",
+    "vue-apollo": "^3.1.1",
     "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6",
     "xgplayer": "^3.0.9"

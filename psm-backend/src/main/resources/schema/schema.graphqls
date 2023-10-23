@@ -15,7 +15,10 @@ type Mutation{
     changeUserName(userName: String):Boolean
     changeUserPhoneNumber(userPhoneNumber: String):Boolean
     changeUserPassword(userPassword: String):Boolean
+    changeUserProfile(userProfile: Upload!): Boolean
 }
+
+scalar Upload
 
 type Account{
     ID: String!

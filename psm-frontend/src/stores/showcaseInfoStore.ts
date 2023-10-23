@@ -1,12 +1,13 @@
-import axios from "axios"
-import { grapQL } from "@/graphQL"
+import gql from 'graphql-tag'
 import { defineStore } from "pinia";
 import { ShowcaseBoxesInfo } from "@/types/stores/ShowcaseInfo"
 
 /**********showcaseInfoStore传入全局变量**********/
 let global:any=undefined;
+let apolloClient:any;
 export function initShowcaseInfo(passGlobal:any):void{
     global=passGlobal;
+    apolloClient=global?.apolloClient;
 }
 
 export const showcaseInfoStore = defineStore({
@@ -20,8 +21,8 @@ export const showcaseInfoStore = defineStore({
 
     actions:{
         getShowcaseBoxes: async function(infoArr:any): Promise<ShowcaseBoxesInfo[]|null>{
-            let result = await grapQL({
-                query: `query {
+            let result = await apolloClient.query({
+                query: gql`query {
                     getShowcaseBoxes(
                         showcaseBoxParams:{
                           primarySort:"${infoArr[0]}"
@@ -50,35 +51,35 @@ export const showcaseInfoStore = defineStore({
 
             let data = result.data;
             if(!data.errors){
-                data = data.data.getShowcaseBoxes;
+                data = data.getShowcaseBoxes;
                 return data;
             }
             return null;
         },
 
         getShowcaseBoxDetail: async function(ID:string): Promise<ShowcaseBoxesInfo[]|null>{
-            let result = await grapQL({
-                query: `query {
-                            getShowcaseBoxDetail(
-                                ID:"${ID}"
-                            ){
-                                ID
-                                authorID
-                                price
-                                imgPath
-                                videoPath
-                                    abstractInfo
-                                modifyTime
-                                mainInfo
-                                profile
-                                userName
-                                commentNum
-                                primarySort
-                                lastSort
-                                isIdle
-                                canQuicky
-                            }
-                        }`
+            let result = await apolloClient.query({
+                query: gql`query {
+                    getShowcaseBoxDetail(
+                        ID:"${ID}"
+                    ){
+                        ID
+                        authorID
+                        price
+                        imgPath
+                        videoPath
+                            abstractInfo
+                        modifyTime
+                        mainInfo
+                        profile
+                        userName
+                        commentNum
+                        primarySort
+                        lastSort
+                        isIdle
+                        canQuicky
+                    }
+                }`
             });
 
             let data = result.data;
