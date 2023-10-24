@@ -18,7 +18,7 @@
     import useGlobal from "global";
     import { ref, defineProps } from 'vue'
     import { ElMessage } from 'element-plus'
-    import type { UploadProps, UploadRawFile} from 'element-plus'
+    import type { UploadProps } from 'element-plus'
     const global = useGlobal();
     const accountInfo = global?.accountInfo;//获取用户账号信息的pinia
 
@@ -32,19 +32,18 @@
     };
 
     const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {//检查上传的文件是否为图片
-        console.log(rawFile);
-    let typeArr=['image/jpeg', 'image/webp', 'image/png', 'svg+xml'];//能接收的图片文件类型
-    if (typeArr.indexOf(rawFile.type)<0) {
-      ElMessage.error('请输入图片类型文件')
-      return false
-    } else if (rawFile.size / 1024 / 1024 > 2) {
-      ElMessage.error('图片大小不能超过2MB')
-      return false
+        let typeArr=['image/jpeg', 'image/webp', 'image/png', 'svg+xml'];//能接收的图片文件类型
+        if (typeArr.indexOf(rawFile.type)<0) {
+        ElMessage.error('请输入图片类型文件')
+        return false
+        } else if (rawFile.size / 1024 / 1024 > 2) {
+        ElMessage.error('图片大小不能超过2MB')
+        return false
+        }
+        return true
     }
-    return true
-  }
 
-    async function request(params:any){//替换掉原本的xhr请求
+    async function request(params:any):Promise<void>{//替换掉原本的xhr请求
         accountInfo.changeUserProfile(params);
     }
 </script>

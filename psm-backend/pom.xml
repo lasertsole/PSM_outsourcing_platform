@@ -42,10 +42,26 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources/static</directory>
+				<excludes>
+					<!--用户头像不需要保存在项目内-->
+					<exclude>images/userProfile/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 	<!--依赖项-->
 	<dependencies>
+		<!--IO工具类-->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
 		<!--web开发的起步依赖-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

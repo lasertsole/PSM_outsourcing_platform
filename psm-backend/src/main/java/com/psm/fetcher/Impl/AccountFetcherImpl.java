@@ -8,12 +8,16 @@ import com.psm.fetcher.Aop.annotation.IdentifyToken;
 import com.psm.mapper.AccountMapper;
 import com.psm.type.Account;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
-import java.util.Date;
-import java.util.List;
+import com.psm.utils.MD5;
+import java.io.*;
+import java.util.*;
 
 /**
  * @BelongsProject: psm-backend
@@ -46,7 +50,7 @@ public class AccountFetcherImpl implements AccountFetcher {
         password = passwordEncoder.encode(password+salt);
         String token = passwordEncoder.encode(phoneNumber+password+new Date().toString());
         String userName = "新用户"+String.valueOf(Math.abs((salt+salt+token).hashCode()));
-        String profile = "/images/Profile/defaultProfile.jpg";
+        String profile = "/images/defaultProfile/defaultProfile.jpg";
         int status = 1;
         try{
             AccountEntity accountEntity = new AccountEntity();
@@ -215,10 +219,50 @@ public class AccountFetcherImpl implements AccountFetcher {
         }
     }
 
+    @Autowired
+    private ResourceUrlProvider resourceUrlProvider;
+    private final List<String> legalFormat = Arrays.asList("jpg","png");//合法图片格式
     @DgsMutation
     @IdentifyToken
-    public Boolean changeUserProfile(@InputArgument MultipartFile userProfile, @RequestHeader("Token") String token){
-        System.out.println(userProfile);
-        return true;
+    public String changeUserProfile(@InputArgument MultipartFile userProfile, @RequestHeader("Token") String token){
+        try{
+            //file图片校验
+            if(userProfile.isEmpty()){
+                throw new GraphQLException("20032", "上传的头像为空");
+            }
+            String originalFilename = userProfile.getOriginalFilename();//原来的图片名
+            String nameBack = originalFilename.split("\\.")[1];
+
+            if(!legalFormat.contains(nameBack)){
+                throw new GraphQLException("20032", "上传的头像格式错误");
+            };
+
+            //file图片重命名
+            String ext = "." + nameBack;//得到文件后缀
+            // 从MultipartFile中获取输入流
+            InputStream in = userProfile.getInputStream();
+            // 获取流的MD5值
+            String streamMD5= MD5.getStreamMD5(in);//检查上传图片是否和已有图片重复,若重复，md5值相等
+            String fileName = streamMD5 + ext;//拼接成完整的文件名
+
+            //上传图片到指定路径
+            ApplicationHome applicationHome = new ApplicationHome(this.getClass());
+            String pre = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath() +
+                    "\\src\\main\\resources\\static\\images\\userProfile\\";
+            String path = pre + fileName;
+            userProfile.transferTo(new File(path));
+
+
+            //将头像路径写入数据库
+            String returnPath = "\\images\\userProfile\\" + fileName;
+            int result = accountMapper.updateProfile(token, returnPath);
+            if(result!=1){
+                throw new GraphQLException("20032", "修改名字未成功");
+            }
+
+            return returnPath;
+        } catch (Exception e){
+            throw new GraphQLException("20032", "修改头像时发生错误");
+        }
     }
 }

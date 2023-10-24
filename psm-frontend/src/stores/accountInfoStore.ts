@@ -47,14 +47,14 @@ export const accountInfoStore = defineStore({
         },
 
         setAccount:function( userInfo:AccountInfo ):void{//设置账号信息
-            this.ID = userInfo.ID;
-            this.token = userInfo.token;
-            this.userName = userInfo.userName;
-            if(this.userName==""){this.userName=undefined;}
-            if(this.userProfile==""){this.userProfile=undefined;}
-            this.userPhoneNumber = userInfo.userPhoneNumber;
-            this.userProfile = userInfo.userProfile;
-            this.isOnline = true;
+            if(userInfo.ID){this.ID = userInfo.ID;};
+            if(userInfo.token){this.token = userInfo.token;};
+            if(userInfo.userName){this.userName = userInfo.userName;};
+            if(this.userName==""){this.userName=undefined;};
+            if(userInfo.userProfile){this.userProfile = userInfo.userProfile;};
+            if(this.userProfile==""){this.userProfile=undefined;};
+            if(userInfo.userPhoneNumber){this.userPhoneNumber = userInfo.userPhoneNumber;};
+            if(userInfo.isOnline){this.isOnline = true;};
         },
 
         InfoChange:function( userInfo:AccountInfo ):void{//信息修改
@@ -223,7 +223,7 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserPassword: async function(userPassword:string):Promise<boolean> {
+        changeUserPassword: async function(userPassword:string):Promise<boolean> {//用户修改密码
             let result = await apolloClient.mutate({
                 mutation: gql`mutation {
                     changeUserPassword(userPassword:"${userPassword}")
@@ -240,16 +240,25 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserProfile: async function(params:any):Promise<void>{//用户设置头像
-            // let result = await apolloClient.mutate({
-            //     mutation: gql`mutation ($img:Upload!) {
-            //         changeUserProfile(userProfile:$img)
-            //     }`,
-            //     variables:{img:formData.get("file")},
-            //     context: {
-            //         hasUpload: true, // Important!
-            //     },
-            // });
+        changeUserProfile: async function(params:any):Promise<boolean>{//用户修改密码
+            let result = await apolloClient.mutate({
+                mutation: gql`mutation ($img:Upload!) {
+                    changeUserProfile(userProfile:$img)
+                }`,
+                variables:{img:params.file},
+                context: {
+                    hasUpload: true, // Important!
+                },
+            });
+            let data = result.data;
+            if(!data.errors){
+                this.setAccount({userProfile: data.changeUserProfile});
+                ElMessage.success("修改头像成功");
+                return true;
+            }
+            else{
+                return false;
+            }
         },
 
     }

@@ -22,8 +22,6 @@ import java.util.List;
  */
 @DgsComponent
 public class StaticResourceFetcherImpl implements StaticResourceFetcher {
-    @Autowired
-    private Environment env;
     private String fileRoot = "static";
     private String fileRelativePosition = "/images/Carousel/";
     private String filesPath = ClassUtils.getDefaultClassLoader().getResource(fileRoot+fileRelativePosition).getPath();
