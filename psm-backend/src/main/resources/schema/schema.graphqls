@@ -52,7 +52,7 @@ type ShowcaseBox{
     ID: String!
     userName: String!
     profile: String!
-    honor: String!
+    honor: String
     authorBrief: String!
     authorID: String!
     works: String!

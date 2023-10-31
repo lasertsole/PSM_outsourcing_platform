@@ -1,5 +1,5 @@
 <template>
-    <div class="accountModify">
+    <form class="accountModify">
         <ul class="infoBox">
             <li class="profile">
                 <div class="circle">
@@ -76,7 +76,7 @@
             </li>
 
         </ul>
-    </div>
+    </form>
 </template>
 
 <script setup lang="ts">

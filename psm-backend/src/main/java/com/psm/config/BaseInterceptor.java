@@ -24,7 +24,7 @@ public class BaseInterceptor extends WebMvcConfigurationSupport {
 
         String absoluteVideoPath = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()+
                 "\\src\\main\\resources\\static\\Video\\";
-        registry.addResourceHandler("/images/**")
+        registry.addResourceHandler("/Video/**")
                 .addResourceLocations("file:"+absoluteVideoPath);
     }
 }
