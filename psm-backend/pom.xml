@@ -46,8 +46,11 @@
 			<resource>
 				<directory>src/main/resources/static</directory>
 				<excludes>
-					<!--用户头像不需要保存在项目内-->
+					<!--用户头像不需要保存在目标文件内-->
 					<exclude>images/userProfile/**</exclude>
+
+					<!--用户视频不需要保存在目标文件内-->
+					<exclude>Video/**</exclude>
 				</excludes>
 			</resource>
 		</resources>

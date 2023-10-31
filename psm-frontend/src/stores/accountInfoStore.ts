@@ -240,7 +240,7 @@ export const accountInfoStore = defineStore({
             }
         },
 
-        changeUserProfile: async function(params:any):Promise<boolean>{//用户修改密码
+        changeUserProfile: async function(params:any):Promise<boolean>{//用户修改头像
             let result = await apolloClient.mutate({
                 mutation: gql`mutation ($img:Upload!) {
                     changeUserProfile(userProfile:$img)

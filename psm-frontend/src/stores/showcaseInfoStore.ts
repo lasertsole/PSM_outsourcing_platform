@@ -84,7 +84,7 @@ export const showcaseInfoStore = defineStore({
 
             let data = result.data;
             if(!data.errors){
-                data = data.data.getShowcaseBoxDetail;
+                data = data.getShowcaseBoxDetail;
                 return data;
             }
             return null;

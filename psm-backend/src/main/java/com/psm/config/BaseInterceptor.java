@@ -16,9 +16,15 @@ public class BaseInterceptor extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
-        String absolutePath = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()+
+
+        String absoluteImagePath = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()+
                 "\\src\\main\\resources\\static\\images\\";
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:"+absolutePath);
+                .addResourceLocations("file:"+absoluteImagePath);
+
+        String absoluteVideoPath = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()+
+                "\\src\\main\\resources\\static\\Video\\";
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:"+absoluteVideoPath);
     }
 }

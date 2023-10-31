@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 30/09/2023 03:12:43
+ Date: 01/11/2023 03:17:56
 */
 
 SET NAMES utf8mb4;
@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `accountinfo`;
 CREATE TABLE `accountinfo`  (
   `ID` int(32) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '用户唯一id',
   `phoneNumber` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户注册手机号码',
-  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户输入密码',
+  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户输入密码',
   `userName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名(初始值为随机值，用户自行更改)',
   `profile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户头像',
   `salt` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '盐值',
-  `token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '令牌',
+  `token` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '令牌',
   `createdTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '账号创建时间',
   `modifyTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后一次修改时间',
   `status` int UNSIGNED NOT NULL DEFAULT 1 COMMENT '账号状态，1为可用，2为封禁中，3为已注销',
@@ -39,13 +39,13 @@ CREATE TABLE `accountinfo`  (
   UNIQUE INDEX `unique_phone`(`phoneNumber` ASC) USING BTREE COMMENT 'phone唯一',
   UNIQUE INDEX `unique_userName`(`userName` ASC) USING BTREE COMMENT 'userName唯一',
   INDEX `ID`(`ID` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 161 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of accountinfo
 -- ----------------------------
-INSERT INTO `accountinfo` VALUES (00000000000000000000000000000105, '19820482808', '181540785', '帕斯猫', '/images/Profile/defaultProfile.jpg', '842220194', '1128925627', '2023-09-19 14:26:55', '2023-09-22 22:41:38', 1, '[\"日语N1\", \"初级教师资格证\", \"中级教师资格证\", \"高级教师资格证\"]', 1);
-INSERT INTO `accountinfo` VALUES (00000000000000000000000000000106, '19820482807', '443553273', '汐123', '/images/Profile/xiProfile.jpg', '498039096', '1223258725', '2023-09-21 00:40:11', '2023-09-22 22:41:35', 1, '[\"高级教师资格证\"]', 3);
+INSERT INTO `accountinfo` VALUES (00000000000000000000000000000157, '19820482808', '$2a$10$kg9W96e/uyUlnfJMmkEB4u96RXuwSZ2m6c6BmRN0twGFWXAlXANUy', '新用户2051305854', '\\images\\userProfile\\6ba28915f46c646780e3abecb80a78f2.jpg', '2037819313', '$2a$10$LttjjkNzZIcEtnKe89bF7eDa3VwNtD7mZHbyV/JSqW.yGOgrvRSja', '2023-10-22 19:06:41', '2023-11-01 03:01:23', 1, '[\"日语N1\"]', 0);
+INSERT INTO `accountinfo` VALUES (00000000000000000000000000000158, '19820482807', '$2a$10$2rnG2X50FqXAK9oK/eLJMeNgX31MOQGjx399hcUI.53tvPIsvlrgC', '新用户707430702', '/images/defaultProfile/defaultProfile.jpg', '1089401621', '$2a$10$L8p7ikAkCPFWXqFutZH3g.nnNJS6ZGfGW0jB04Sl5gCm1Uv20.xr2', '2023-10-23 20:15:04', '2023-11-01 02:31:45', 1, NULL, 10);
 
 -- ----------------------------
 -- Table structure for itembox
@@ -69,10 +69,10 @@ CREATE TABLE `itembox`  (
 -- ----------------------------
 -- Records of itembox
 -- ----------------------------
-INSERT INTO `itembox` VALUES (00000000000000000000000000000001, 00000000000000000000000000000105, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-28 21:37:07', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
-INSERT INTO `itembox` VALUES (00000000000000000000000000000002, 00000000000000000000000000000105, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-28 21:37:14', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
-INSERT INTO `itembox` VALUES (00000000000000000000000000000003, 00000000000000000000000000000106, '200-300', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', '直播歌切 带普轴', '2023-09-28 21:37:16', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
-INSERT INTO `itembox` VALUES (00000000000000000000000000000004, 00000000000000000000000000000106, '300-500', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', '直播歌切 带普轴', '2023-09-28 21:37:19', '{\"detail\": {\"text\": \"javascript实现json字符串与对象转换的方法：1、json转换为对象，代码为【var obj = eval(\'(\' + str + \')\')】；2、对象转成json，代码为【var str=obj.toJSONString()】。\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000001, 00000000000000000000000000000157, '100-200', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', 'cos瑶瑶', '2023-11-01 01:59:05', '{\"detail\": {\"text\": \"擅長白化人物、少女體型、冷淡 虛無性格、注重細節\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000002, 00000000000000000000000000000157, '100-200', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test2.mp4', 'cos璐璐', '2023-11-01 02:26:43', '{\"detail\": {\"text\": \"擅長白化人物、少女體型、冷淡 虛無性格、注重細節\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000003, 00000000000000000000000000000158, '100-200', 0, '/images/Carousel/bg-2.jpg', '/Video/Showcase/test1.mp4', 'cos瑶瑶', '2023-11-01 02:29:02', '{\"detail\": {\"text\": \"擅長白化人物、少女體型、冷淡 虛無性格、注重細節\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
+INSERT INTO `itembox` VALUES (00000000000000000000000000000004, 00000000000000000000000000000158, '100-200', 0, '/images/Carousel/bg-1.jpg', '/Video/Showcase/test1.mp4', 'cos璐璐', '2023-11-01 02:26:46', '{\"detail\": {\"text\": \"擅長白化人物、少女體型、冷淡 虛無性格、注重細節\"}, \"phrase\": {\"itemArr\": [{\"text\": \"起步\", \"percentage\": \"0%\"}, {\"text\": \"最终成稿\", \"percentage\": \"100%\"}]}}');
 
 -- ----------------------------
 -- Table structure for showcasebox
@@ -96,8 +96,8 @@ CREATE TABLE `showcasebox`  (
 -- ----------------------------
 -- Records of showcasebox
 -- ----------------------------
-INSERT INTO `showcasebox` VALUES (00000000000000000000000000000007, '\r\n加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000105, '2023-09-27 22:14:34', 0, 0, b'0', b'1', '安好:擅长古民值男/各种图组少女灶。\r\n    [请说明一下外或年龄偏好 同人大欢连!\r\n不接:真人J纯文宇设/大叔/正太 车队(等不起反馈是一款我的问题)\r\n张吉成增的间只有营单背看1带点水彩的厚流《西古风设定会更水影一点)笔教多且乱，请确本可以楼受例围啦!!!《走价了会比双朝编节一表表:封面上面两张对比下面两张这样)\r\n9连胜:色脑照理不大改! 不大改!不大改!有要说! !谢市谢谢谢谢谢\r\n喜欢的设定会多画一点我是升梅使)跌认复杂的设定可以赁化，或餐+30\r\n请给获清明确的无据条的立脸! !! 者能看的参!  谢谢谢谢谢谢谢谢谢谢');
-INSERT INTO `showcasebox` VALUES (00000000000000000000000000000008, '加急需要提前联系 价格需要*2 特急*2.5 要发票*3', 00000000000000000000000000000106, '2023-09-27 22:14:37', 0, 0, b'1', b'0', '安好:擅长古民值男/各种图组少女灶。\r\n    [请说明一下外或年龄偏好 同人大欢连!\r\n不接:真人J纯文宇设/大叔/正太 车队(等不起反馈是一款我的问题)\r\n张吉成增的间只有营单背看1带点水彩的厚流《西古风设定会更水影一点)笔教多且乱，请确本可以楼受例围啦!!!《走价了会比双朝编节一表表:封面上面两张对比下面两张这样)\r\n9连胜:色脑照理不大改! 不大改!不大改!有要说! !谢市谢谢谢谢谢\r\n喜欢的设定会多画一点我是升梅使)跌认复杂的设定可以赁化，或餐+30\r\n请给获清明确的无据条的立脸! !! 者能看的参!  谢谢谢谢谢谢谢谢谢谢');
+INSERT INTO `showcasebox` VALUES (00000000000000000000000000000001, '来一个会翻译日语的', 00000000000000000000000000000157, '2023-11-01 02:33:56', 0, 0, b'0', b'1', '玩了某个游戏后一时兴起想出的企划（x\r\n一共4张图 1原图+中破+大破+胖次only的以及表情的差分 最终成图效果参考图1 2的（确定后还有图3 图4）\r\n图3是设子 细节不用完全还原（特别是手套还要简化一下）反正缩小了也看不清 像素也就400*400左右的程度\r\n有武器设定 一把片手剑和一把轻弩');
+INSERT INTO `showcasebox` VALUES (00000000000000000000000000000002, '来一个会翻译英语的', 00000000000000000000000000000158, '2023-11-01 02:31:16', 0, 0, b'1', b'0', '不超时不超时');
 
 -- ----------------------------
 -- Table structure for showcasecomment
